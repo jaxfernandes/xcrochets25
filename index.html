@@ -269,7 +269,6 @@
       text-transform: uppercase;
       transition: var(--transition);
       box-shadow: 0 4px 20px rgba(46,31,19,0.25);
-      border: none; cursor: pointer;
     }
     .btn-primary:hover {
       background: var(--warm-brown);
@@ -285,7 +284,6 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       transition: var(--transition);
-      background: transparent;
     }
     .btn-secondary:hover {
       background: var(--warm-brown);
@@ -312,6 +310,12 @@
     }
     .hero-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-deep); }
     .hero-card:nth-child(1) { grid-row: span 2; }
+    .hero-card-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      background: var(--beige);
+      min-height: 140px;
+    }
     .hero-card-crochet {
       width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
@@ -386,7 +390,7 @@
     .section-title em { font-style: italic; color: var(--warm-brown); }
     .section-sub {
       color: var(--text-light);
-      max-width: 520px;
+      max-width: 480px;
       font-size: 0.95rem;
     }
     .section-header { margin-bottom: 56px; }
@@ -396,26 +400,6 @@
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ===== PRICING NOTICE ===== */
-    .pricing-notice {
-      margin-top: 24px;
-      padding: 16px 24px;
-      background: linear-gradient(90deg, rgba(201,169,110,0.1), rgba(232,221,208,0));
-      border-left: 3px solid var(--gold);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      max-width: 520px;
-    }
-    .pricing-notice p {
-      font-size: 0.9rem;
-      color: var(--text-mid);
-      margin: 0;
-      line-height: 1.6;
-    }
-    .pricing-notice strong {
-      color: var(--dark-brown);
-      font-weight: 500;
-    }
 
     /* ===== FEATURED PRODUCTS ===== */
     #products { background: var(--white); }
@@ -431,12 +415,11 @@
       border-bottom: 1px solid var(--gold-muted);
       padding-bottom: 2px;
       transition: color 0.3s;
-      white-space: nowrap;
     }
     .view-all:hover { color: var(--warm-brown); }
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 24px;
     }
     .product-card {
@@ -478,19 +461,25 @@
       transition: transform 0.3s ease 0.05s;
     }
     .product-card:hover .overlay-btn { transform: translateY(0); }
-    .product-info { padding: 20px; text-align: center; }
+    .product-info { padding: 20px; }
     .product-cat {
       font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--gold-muted);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .product-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 500;
       color: var(--dark-brown);
+      margin-bottom: 6px;
+    }
+    .product-price {
+      font-size: 0.85rem;
+      color: var(--warm-brown);
+      letter-spacing: 0.05em;
     }
 
     /* ===== GALLERY ===== */
@@ -570,7 +559,6 @@
       position: relative;
       box-shadow: var(--shadow-deep);
       animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-      text-align: center;
     }
     @keyframes modalIn {
       from { transform: scale(0.88); opacity: 0; }
@@ -590,9 +578,13 @@
     .modal-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem; color: var(--dark-brown);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
-    .modal-desc { color: var(--text-light); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.6; }
+    .modal-desc { color: var(--text-light); font-size: 0.9rem; margin-bottom: 24px; }
+    .modal-price {
+      font-size: 1rem; color: var(--warm-brown);
+      margin-bottom: 20px;
+    }
 
     /* ===== CUSTOM ORDER ===== */
     #custom { background: var(--white); }
@@ -754,7 +746,9 @@
       gap: 80px;
       align-items: center;
     }
-    .about-visual { position: relative; }
+    .about-visual {
+      position: relative;
+    }
     .about-main-card {
       border-radius: 24px;
       background: linear-gradient(135deg, var(--beige) 0%, var(--beige-mid) 100%);
@@ -788,7 +782,11 @@
       color: rgba(212,197,176,0.7);
       margin-top: 4px;
     }
-    .about-stats { display: flex; gap: 32px; margin-top: 36px; }
+    .about-stats {
+      display: flex; gap: 32px;
+      margin-top: 36px;
+    }
+    .about-stat { }
     .stat-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2rem;
@@ -854,7 +852,11 @@
       color: var(--white);
       font-family: 'Cormorant Garamond', serif;
     }
-    .author-name { font-weight: 500; font-size: 0.88rem; color: var(--dark-brown); }
+    .author-name {
+      font-weight: 500;
+      font-size: 0.88rem;
+      color: var(--dark-brown);
+    }
     .author-loc { font-size: 0.74rem; color: var(--text-light); }
 
     /* ===== CONTACT ===== */
@@ -904,7 +906,9 @@
       background: var(--deep-brown);
       padding: 60px 5% 30px;
     }
-    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
     .footer-top {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
@@ -984,9 +988,8 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
-      .hero-content { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-      .hero-text { display: flex; flex-direction: column; align-items: center; }
-      .hero-visual { order: -1; width: 100%; max-width: 400px; margin: 0 auto; }
+      .hero-content { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { order: -1; }
       .hero-card:nth-child(1) .hero-card-crochet { min-height: 220px; }
       .custom-inner { grid-template-columns: 1fr; gap: 40px; }
       .custom-left { position: static; }
@@ -1002,9 +1005,7 @@
       section { padding: 70px 5%; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .about-accent-card { display: none; }
-      .about-stats { gap: 20px; justify-content: center; }
-      .hero-btns { flex-direction: column; width: 100%; align-items: center; }
-      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+      .about-stats { gap: 20px; }
     }
 
     /* BG colors for product/gallery items */
@@ -1070,8 +1071,8 @@
         Each piece tells a story — woven stitch by stitch with care, creativity, and a whole lot of heart. Discover our handcrafted crochet world.
       </p>
       <div class="hero-btns">
-        <a href="#products" class="btn-primary">Explore Collection</a>
-        <a href="#custom" class="btn-secondary">Customize Order</a>
+        <a href="#products" class="btn-primary">Shop Now</a>
+        <a href="#custom" class="btn-secondary">Customize Your Order</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -1128,56 +1129,38 @@
 <section id="products">
   <div class="inner">
     <div class="products-header section-header">
-      <div class="reveal">
+      <div>
         <p class="section-label">Our Collection</p>
         <h2 class="section-title">Featured <em>Pieces</em></h2>
         <p class="section-sub">Explore our most loved handcrafted items — each one made with devotion and detail.</p>
-        
-        <!-- New Pricing Notice -->
-        <div class="pricing-notice">
-          <p><strong>Pricing Information:</strong> Since every piece is handcrafted and customizable, pricing varies based on design, size, and materials. We discuss pricing privately to ensure you get exactly what you envision.</p>
-        </div>
       </div>
-      <a href="#gallery" class="view-all reveal">View Full Gallery →</a>
+      <a href="#gallery" class="view-all">View Full Gallery →</a>
     </div>
-    
     <div class="products-grid">
-      <!-- Teddy Bear Plushie -->
-      <div class="product-card reveal" onclick="openModal('Teddy Bear Plushie','🧸','Plushie','A huggable, soft crochet teddy bear made with premium cotton yarn. Perfect as a gift or keepsake.')">
+      <div class="product-card reveal" onclick="openModal('Teddy Bear Plushie','🧸','Plushie','A huggable, soft crochet teddy bear made with premium cotton yarn. Perfect as a gift or keepsake.','\u20b9 650–\u20b9 900')">
         <div class="product-img bg1"><div style="font-size:5rem">🧸</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
-        <div class="product-info"><p class="product-cat">Plushies</p><p class="product-name">Teddy Bear Plushie</p></div>
+        <div class="product-info"><p class="product-cat">Plushies</p><p class="product-name">Teddy Bear Plushie</p><p class="product-price">₹650 – ₹900</p></div>
       </div>
-      
-      <!-- Rose Bouquet -->
-      <div class="product-card reveal" onclick="openModal('Rose Bouquet','🌹','Flowers','Everlasting crochet rose bouquet — never wilts, never fades. A timeless romantic gift.')">
+      <div class="product-card reveal" onclick="openModal('Rose Bouquet','🌹','Flowers','Everlasting crochet rose bouquet — never wilts, never fades. A timeless romantic gift.','\u20b9 400–\u20b9 750')">
         <div class="product-img bg5"><div style="font-size:5rem">🌹</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
-        <div class="product-info"><p class="product-cat">Flowers</p><p class="product-name">Rose Bouquet</p></div>
+        <div class="product-info"><p class="product-cat">Flowers</p><p class="product-name">Rose Bouquet</p><p class="product-price">₹400 – ₹750</p></div>
       </div>
-      
-      <!-- Tote Bag -->
-      <div class="product-card reveal" onclick="openModal('Tote Bag','👜','Accessories','Stylish handcrafted crochet tote — functional, beautiful, and completely unique.')">
+      <div class="product-card reveal" onclick="openModal('Tote Bag','👜','Accessories','Stylish handcrafted crochet tote — functional, beautiful, and completely unique.','\u20b9 800–\u20b9 1200')">
         <div class="product-img bg3"><div style="font-size:5rem">👜</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
-        <div class="product-info"><p class="product-cat">Accessories</p><p class="product-name">Crochet Tote Bag</p></div>
+        <div class="product-info"><p class="product-cat">Accessories</p><p class="product-name">Crochet Tote Bag</p><p class="product-price">₹800 – ₹1,200</p></div>
       </div>
-      
-      <!-- Cozy Headband -->
-      <div class="product-card reveal" onclick="openModal('Cozy Headband','🎀','Accessories','Soft, stretchy crochet headband in your choice of colors. Stylish and comfortable.')">
+      <div class="product-card reveal" onclick="openModal('Sunflower Bunch','🌻','Flowers','A cheerful bundle of sunshine — handcrafted sunflowers that brighten any space.','\u20b9 350–\u20b9 600')">
+        <div class="product-img bg2"><div style="font-size:5rem">🌻</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
+        <div class="product-info"><p class="product-cat">Flowers</p><p class="product-name">Sunflower Bunch</p><p class="product-price">₹350 – ₹600</p></div>
+      </div>
+      <div class="product-card reveal" onclick="openModal('Cozy Headband','🎀','Accessories','Soft, stretchy crochet headband in your choice of colors. Stylish and comfortable.','\u20b9 250–\u20b9 450')">
         <div class="product-img bg4"><div style="font-size:5rem">🎀</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
-        <div class="product-info"><p class="product-cat">Accessories</p><p class="product-name">Cozy Headband</p></div>
+        <div class="product-info"><p class="product-cat">Accessories</p><p class="product-name">Cozy Headband</p><p class="product-price">₹250 – ₹450</p></div>
       </div>
-
-      <!-- Strawberry Plushie (Replaces Bunny/Sunflower to keep grid full) -->
-      <div class="product-card reveal" onclick="openModal('Strawberry Plushie','🍓','Plushie','A cute and kawaii crochet strawberry plushie, perfect for decorating your space.')">
-        <div class="product-img bg2"><div style="font-size:5rem">🍓</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
-        <div class="product-info"><p class="product-cat">Plushies</p><p class="product-name">Strawberry Plushie</p></div>
+      <div class="product-card reveal" onclick="openModal('Amigurumi Bunny','🐰','Plushies','An adorable little bunny companion, crocheted with love. Makes the sweetest gift for any age.','\u20b9 500–\u20b9 750')">
+        <div class="product-img bg6"><div style="font-size:5rem">🐰</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
+        <div class="product-info"><p class="product-cat">Plushies</p><p class="product-name">Amigurumi Bunny</p><p class="product-price">₹500 – ₹750</p></div>
       </div>
-      
-      <!-- Mixed Bouquet (Replaces Sunflower) -->
-      <div class="product-card reveal" onclick="openModal('Mixed Flower Bouquet','💐','Flowers','A custom mix of crochet flowers arranged beautifully in a bouquet.')">
-        <div class="product-img bg6"><div style="font-size:5rem">💐</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
-        <div class="product-info"><p class="product-cat">Flowers</p><p class="product-name">Mixed Bouquet</p></div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1198,56 +1181,53 @@
       <button class="filter-btn" onclick="filterGallery('clothing', this)">Clothing</button>
     </div>
     <div class="gallery-grid" id="galleryGrid">
-      <!-- Existing -->
-      <div class="gallery-item bg1" data-cat="plushie" onclick="openModal('Teddy Bear','🧸','Plushie','A classic handmade crochet teddy bear.')">
+      <div class="gallery-item bg1" data-cat="plushie" onclick="openModal('Teddy Bear','🧸','Plushie','A classic handmade crochet teddy bear.','\u20b9 650–\u20b9 900')">
         <div class="gallery-thumb bg1"><span>🧸</span></div>
         <div class="gallery-item-overlay"><p class="gallery-item-name">Teddy Bear</p></div>
       </div>
-      <div class="gallery-item bg5" data-cat="flower" onclick="openModal('Rose','🌹','Flower','Handcrafted crochet rose, never wilts.')">
+      <div class="gallery-item bg5" data-cat="flower" onclick="openModal('Rose','🌹','Flower','Handcrafted crochet rose, never wilts.','\u20b9 120–\u20b9 200')">
         <div class="gallery-thumb bg5"><span>🌹</span></div>
         <div class="gallery-item-overlay"><p class="gallery-item-name">Crochet Rose</p></div>
       </div>
-      <div class="gallery-item bg3" data-cat="accessory" onclick="openModal('Tote Bag','👜','Accessory','Stylish handcrafted crochet tote bag.')">
+      <div class="gallery-item bg3" data-cat="accessory" onclick="openModal('Tote Bag','👜','Accessory','Stylish handcrafted crochet tote bag.','\u20b9 800–\u20b9 1200')">
         <div class="gallery-thumb bg3"><span>👜</span></div>
         <div class="gallery-item-overlay"><p class="gallery-item-name">Tote Bag</p></div>
       </div>
-      <!-- Replaced Bunny with Strawberry -->
-      <div class="gallery-item bg2" data-cat="plushie" onclick="openModal('Strawberry','🍓','Plushie','Sweet kawaii crochet strawberry plushie.')">
-        <div class="gallery-thumb bg2"><span>🍓</span></div>
-        <div class="gallery-item-overlay"><p class="gallery-item-name">Strawberry</p></div>
+      <div class="gallery-item bg2" data-cat="plushie" onclick="openModal('Bunny','🐰','Plushie','Sweet amigurumi bunny plushie.','\u20b9 500–\u20b9 750')">
+        <div class="gallery-thumb bg2"><span>🐰</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Bunny Plushie</p></div>
       </div>
-      <!-- Replaced Sunflower with Mixed Bouquet -->
-      <div class="gallery-item bg4" data-cat="flower" onclick="openModal('Mixed Bouquet','💐','Flower','Beautiful arrangement of mixed crochet flowers.')">
-        <div class="gallery-thumb bg4"><span>💐</span></div>
-        <div class="gallery-item-overlay"><p class="gallery-item-name">Mixed Bouquet</p></div>
+      <div class="gallery-item bg4" data-cat="flower" onclick="openModal('Sunflower','🌻','Flower','Cheerful crochet sunflower bunch.','\u20b9 350–\u20b9 600')">
+        <div class="gallery-thumb bg4"><span>🌻</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Sunflower</p></div>
       </div>
-      <div class="gallery-item bg6" data-cat="accessory" onclick="openModal('Headband','🎀','Accessory','Soft crochet headband in various colors.')">
+      <div class="gallery-item bg6" data-cat="accessory" onclick="openModal('Headband','🎀','Accessory','Soft crochet headband in various colors.','\u20b9 250–\u20b9 450')">
         <div class="gallery-thumb bg6"><span>🎀</span></div>
         <div class="gallery-item-overlay"><p class="gallery-item-name">Headband</p></div>
       </div>
-      <div class="gallery-item bg1" data-cat="clothing" onclick="openModal('Crop Top','👚','Clothing','Trendy handmade crochet crop top.')">
+      <div class="gallery-item bg1" data-cat="clothing" onclick="openModal('Crop Top','👚','Clothing','Trendy handmade crochet crop top.','\u20b9 900–\u20b9 1400')">
         <div class="gallery-thumb bg1"><span>👚</span></div>
         <div class="gallery-item-overlay"><p class="gallery-item-name">Crochet Top</p></div>
       </div>
-      <div class="gallery-item bg2" data-cat="flower" onclick="openModal('Lavender','💜','Flower','Delicate crochet lavender sprigs.')">
-        <div class="gallery-thumb bg2"><span>💜</span></div>
-        <div class="gallery-item-overlay"><p class="gallery-item-name">Lavender</p></div>
+      <div class="gallery-item bg2" data-cat="flower" onclick="openModal('Lavender','💜','Flower','Delicate crochet lavender sprigs.','\u20b9 180–\u20b9 350')">
+        <div class="gallery-thumb bg2"><span>💐</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Mixed Bouquet</p></div>
       </div>
-      <div class="gallery-item bg3" data-cat="accessory" onclick="openModal('Scrunchie','✨','Accessory','Crochet hair scrunchie set.')">
-        <div class="gallery-thumb bg3"><span>🪡</span></div>
+      <div class="gallery-item bg3" data-cat="plushie" onclick="openModal('Strawberry','🍓','Plushie','Kawaii crochet strawberry plushie.','\u20b9 350–\u20b9 500')">
+        <div class="gallery-thumb bg3"><span>🍓</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Strawberry Plushie</p></div>
+      </div>
+      <div class="gallery-item bg5" data-cat="accessory" onclick="openModal('Scrunchie','✨','Accessory','Crochet hair scrunchie set.','\u20b9 150–\u20b9 280')">
+        <div class="gallery-thumb bg5"><span>🪡</span></div>
         <div class="gallery-item-overlay"><p class="gallery-item-name">Scrunchies</p></div>
       </div>
-      <div class="gallery-item bg4" data-cat="clothing" onclick="openModal('Cardigan','🧥','Clothing','Cozy handmade crochet cardigan.')">
+      <div class="gallery-item bg4" data-cat="clothing" onclick="openModal('Cardigan','🧥','Clothing','Cozy handmade crochet cardigan.','\u20b9 2000–\u20b9 3000')">
         <div class="gallery-thumb bg4"><span>🧥</span></div>
         <div class="gallery-item-overlay"><p class="gallery-item-name">Crochet Cardigan</p></div>
       </div>
-      <div class="gallery-item bg5" data-cat="plushie" onclick="openModal('Elephant','🐘','Plushie','Giant crochet elephant stuffed animal.')">
-        <div class="gallery-thumb bg5"><span>🐘</span></div>
-        <div class="gallery-item-overlay"><p class="gallery-item-name">Elephant</p></div>
-      </div>
-       <div class="gallery-item bg6" data-cat="accessory" onclick="openModal('Keychain','🔑','Accessory','Custom crochet keychains.')">
-        <div class="gallery-thumb bg6"><span>🔑</span></div>
-        <div class="gallery-item-overlay"><p class="gallery-item-name">Keychains</p></div>
+      <div class="gallery-item bg6" data-cat="plushie" onclick="openModal('Elephant','🐘','Plushie','Giant crochet elephant stuffed animal.','\u20b9 800–\u20b9 1200')">
+        <div class="gallery-thumb bg6"><span>🐘</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Elephant Plushie</p></div>
       </div>
     </div>
   </div>
@@ -1622,6 +1602,7 @@
     <p style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-muted);margin-bottom:6px" id="modalCat">Plushie</p>
     <h3 class="modal-title" id="modalTitle">Teddy Bear</h3>
     <p class="modal-desc" id="modalDesc">Description here</p>
+    <p class="modal-price" id="modalPrice">₹650 – ₹900</p>
     <a id="modalOrderBtn" href="#custom" class="btn-primary" style="display:inline-block" onclick="document.getElementById('productModal').classList.remove('open')">Customize &amp; Order →</a>
   </div>
 </div>
@@ -1661,13 +1642,12 @@
   reveals.forEach(el => revealObserver.observe(el));
 
   // MODAL
-  // Removed price parameter
-  function openModal(title, emoji, cat, desc) {
+  function openModal(title, emoji, cat, desc, price) {
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalEmoji').textContent = emoji;
     document.getElementById('modalCat').textContent = cat;
     document.getElementById('modalDesc').textContent = desc;
-    // Price element removed from DOM, so no need to set it
+    document.getElementById('modalPrice').textContent = price;
     document.getElementById('productModal').classList.add('open');
   }
   function closeModal(e) {
