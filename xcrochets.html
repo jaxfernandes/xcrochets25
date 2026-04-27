@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xcrochets — Handmade with Love</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== VARIABLES ===== */
+    :root {
+      --cream: #f5efe6;
+      --beige: #e8ddd0;
+      --beige-mid: #d4c5b0;
+      --warm-brown: #8b6b4a;
+      --dark-brown: #4a3728;
+      --deep-brown: #2e1f13;
+      --gold: #c9a96e;
+      --gold-light: #e8c98a;
+      --gold-muted: #a8885a;
+      --text-dark: #2e1f13;
+      --text-mid: #6b5040;
+      --text-light: #9c8070;
+      --white: #fdfaf6;
+      --shadow-soft: 0 4px 30px rgba(46,31,19,0.08);
+      --shadow-mid: 0 8px 40px rgba(46,31,19,0.14);
+      --shadow-deep: 0 20px 60px rgba(46,31,19,0.18);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--cream);
+      color: var(--text-dark);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== LOADER ===== */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--deep-brown);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+    #loader.hide { opacity: 0; visibility: hidden; }
+    .loader-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      color: var(--gold-light);
+      letter-spacing: 0.15em;
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.3s forwards;
+    }
+    .loader-script {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--beige-mid);
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.6s forwards;
+    }
+    .loader-bar {
+      width: 120px; height: 1px;
+      background: rgba(201,169,110,0.2);
+      position: relative; overflow: hidden;
+      margin-top: 8px;
+    }
+    .loader-bar::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--gold);
+      transform: translateX(-100%);
+      animation: loaderSlide 1.2s ease 0.5s forwards;
+    }
+    @keyframes loaderSlide { to { transform: translateX(0); } }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      background: rgba(245,239,230,0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(201,169,110,0.15);
+      transition: var(--transition);
+    }
+    nav.scrolled {
+      height: 60px;
+      box-shadow: var(--shadow-soft);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--dark-brown);
+      letter-spacing: 0.08em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex; gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--dark-brown); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--dark-brown);
+      color: var(--gold-light) !important;
+      padding: 9px 22px;
+      border-radius: 50px;
+      font-size: 0.76rem !important;
+      letter-spacing: 0.14em;
+      transition: var(--transition) !important;
+    }
+    .nav-cta:hover {
+      background: var(--warm-brown) !important;
+      color: var(--white) !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      width: 24px; height: 1.5px;
+      background: var(--dark-brown);
+      transition: var(--transition);
+      display: block;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--beige);
+      padding: 24px 5% 32px;
+      z-index: 999;
+      flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--beige);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      color: var(--text-mid);
+    }
+
+    /* ===== HERO ===== */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201,169,110,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 80% at 20% 80%, rgba(139,107,74,0.08) 0%, transparent 60%),
+        var(--cream);
+    }
+    .hero-texture {
+      position: absolute; inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238b6b4a' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      width: 100%;
+    }
+    .hero-text { max-width: 560px; }
+    .hero-est {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+      opacity: 0; transform: translateY(20px);
+      animation: revealUp 0.7s ease 1.2s forwards;
+    }
+    .hero-est::before, .hero-est::after {
+      content: ''; flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-muted));
+      max-width: 40px;
+    }
+    .hero-est::after { background: linear-gradient(90deg, var(--gold-muted), transparent); }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--dark-brown);
+      margin-bottom: 6px;
+      opacity: 0; transform: translateY(30px);
+      animation: revealUp 0.8s ease 1.4s forwards;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--warm-brown);
+    }
+    .hero-script {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--gold);
+      display: block;
+      margin-bottom: 28px;
+      opacity: 0; transform: translateY(20px);
+      animation: revealUp 0.8s ease 1.6s forwards;
+    }
+    .hero-desc {
+      color: var(--text-light);
+      font-size: 1rem;
+      max-width: 420px;
+      margin-bottom: 40px;
+      opacity: 0; transform: translateY(20px);
+      animation: revealUp 0.8s ease 1.8s forwards;
+    }
+    .hero-btns {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      opacity: 0; transform: translateY(20px);
+      animation: revealUp 0.8s ease 2s forwards;
+    }
+    .btn-primary {
+      background: var(--dark-brown);
+      color: var(--gold-light);
+      padding: 14px 34px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(46,31,19,0.25);
+    }
+    .btn-primary:hover {
+      background: var(--warm-brown);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-mid);
+    }
+    .btn-secondary {
+      border: 1.5px solid var(--warm-brown);
+      color: var(--warm-brown);
+      padding: 13px 30px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .btn-secondary:hover {
+      background: var(--warm-brown);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    .hero-visual {
+      position: relative;
+      opacity: 0;
+      animation: revealUp 1s ease 1.5s forwards;
+    }
+    .hero-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 14px;
+    }
+    .hero-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-mid);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .hero-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-deep); }
+    .hero-card:nth-child(1) { grid-row: span 2; }
+    .hero-card-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      background: var(--beige);
+      min-height: 140px;
+    }
+    .hero-card-crochet {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      background: linear-gradient(135deg, var(--beige) 0%, var(--beige-mid) 100%);
+    }
+    .hero-card:nth-child(1) .hero-card-crochet { min-height: 340px; font-size: 7rem; }
+    .hero-card:nth-child(2) .hero-card-crochet { min-height: 160px; background: linear-gradient(135deg, #e2d5c3 0%, var(--beige) 100%); }
+    .hero-card:nth-child(3) .hero-card-crochet { min-height: 160px; background: linear-gradient(135deg, var(--beige-mid) 0%, #c9b49a 100%); }
+    .hero-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(46,31,19,0.85);
+      backdrop-filter: blur(8px);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    @keyframes revealUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== MARQUEE ===== */
+    .marquee-section {
+      background: var(--dark-brown);
+      padding: 18px 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marqueeScroll 25s linear infinite;
+    }
+    .marquee-item {
+      flex-shrink: 0;
+      padding: 0 32px;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.85;
+    }
+    .marquee-dot {
+      color: var(--gold);
+      opacity: 0.5;
+    }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ===== SECTIONS GENERIC ===== */
+    section { padding: 100px 5%; }
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 400;
+      color: var(--dark-brown);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .section-title em { font-style: italic; color: var(--warm-brown); }
+    .section-sub {
+      color: var(--text-light);
+      max-width: 480px;
+      font-size: 0.95rem;
+    }
+    .section-header { margin-bottom: 56px; }
+    .inner { max-width: 1200px; margin: 0 auto; }
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== FEATURED PRODUCTS ===== */
+    #products { background: var(--white); }
+    .products-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .view-all {
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      border-bottom: 1px solid var(--gold-muted);
+      padding-bottom: 2px;
+      transition: color 0.3s;
+    }
+    .view-all:hover { color: var(--warm-brown); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-deep); }
+    .product-img {
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img { transform: scale(1.04); }
+    .product-overlay {
+      position: absolute; inset: 0;
+      background: rgba(46,31,19,0.6);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .product-card:hover .product-overlay { opacity: 1; }
+    .overlay-btn {
+      background: var(--gold-light);
+      color: var(--deep-brown);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transform: translateY(10px);
+      transition: transform 0.3s ease 0.05s;
+    }
+    .product-card:hover .overlay-btn { transform: translateY(0); }
+    .product-info { padding: 20px; }
+    .product-cat {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-bottom: 4px;
+    }
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--dark-brown);
+      margin-bottom: 6px;
+    }
+    .product-price {
+      font-size: 0.85rem;
+      color: var(--warm-brown);
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== GALLERY ===== */
+    #gallery { background: var(--cream); }
+    .gallery-filter {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      padding: 8px 22px;
+      border-radius: 50px;
+      border: 1.5px solid var(--beige-mid);
+      background: transparent;
+      color: var(--text-light);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Jost', sans-serif;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--dark-brown);
+      border-color: var(--dark-brown);
+      color: var(--gold-light);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .gallery-item {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      aspect-ratio: 1;
+      position: relative;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+    }
+    .gallery-thumb {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover .gallery-thumb { transform: scale(1.1); }
+    .gallery-item-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(46,31,19,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex; align-items: flex-end;
+      padding: 16px;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-name {
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-backdrop {
+      display: none;
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(46,31,19,0.7);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 480px; width: 100%;
+      position: relative;
+      box-shadow: var(--shadow-deep);
+      animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes modalIn {
+      from { transform: scale(0.88); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 36px; height: 36px;
+      border-radius: 50%; border: none;
+      background: var(--beige); color: var(--text-mid);
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .modal-close:hover { background: var(--dark-brown); color: var(--white); }
+    .modal-emoji { font-size: 4rem; margin-bottom: 16px; }
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; color: var(--dark-brown);
+      margin-bottom: 8px;
+    }
+    .modal-desc { color: var(--text-light); font-size: 0.9rem; margin-bottom: 24px; }
+    .modal-price {
+      font-size: 1rem; color: var(--warm-brown);
+      margin-bottom: 20px;
+    }
+
+    /* ===== CUSTOM ORDER ===== */
+    #custom { background: var(--white); }
+    .custom-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .custom-left { position: sticky; top: 100px; }
+    .custom-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-light);
+      border-left: 2px solid var(--gold);
+      padding-left: 20px;
+      margin-top: 32px;
+      line-height: 1.8;
+    }
+    .custom-features { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; }
+    .custom-feat {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .feat-icon {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--beige);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .feat-text { font-size: 0.88rem; color: var(--text-mid); }
+    .feat-text strong { color: var(--dark-brown); display: block; font-weight: 500; font-size: 0.92rem; }
+
+    /* FORM */
+    .order-form { display: flex; flex-direction: column; gap: 22px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+    input, select, textarea {
+      background: var(--cream);
+      border: 1.5px solid var(--beige-mid);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.92rem;
+      color: var(--dark-brown);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      outline: none;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+    }
+    select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b6b4a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+    textarea { resize: vertical; min-height: 110px; }
+    .color-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .color-check { display: none; }
+    .color-swatch {
+      width: 34px; height: 34px; border-radius: 50%;
+      cursor: pointer;
+      border: 2.5px solid transparent;
+      transition: transform 0.2s, border-color 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .color-check:checked + .color-swatch {
+      border-color: var(--dark-brown);
+      transform: scale(1.15);
+    }
+    .upload-area {
+      border: 2px dashed var(--beige-mid);
+      border-radius: var(--radius-sm);
+      padding: 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .upload-area:hover {
+      border-color: var(--gold);
+      background: rgba(201,169,110,0.05);
+    }
+    .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+    .upload-text { font-size: 0.85rem; color: var(--text-light); }
+    .upload-text strong { color: var(--warm-brown); }
+    .submit-btn {
+      background: var(--dark-brown);
+      color: var(--gold-light);
+      border: none; cursor: pointer;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(46,31,19,0.2);
+    }
+    .submit-btn:hover {
+      background: var(--warm-brown);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-mid);
+    }
+
+    /* ===== DELIVERY ===== */
+    #delivery { background: var(--dark-brown); }
+    .delivery-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .delivery-inner .section-label { color: rgba(201,169,110,0.6); }
+    .delivery-inner .section-title { color: var(--cream); }
+    .delivery-inner .section-title em { color: var(--gold); }
+    .delivery-cards { display: flex; flex-direction: column; gap: 16px; }
+    .delivery-card {
+      background: rgba(245,239,230,0.05);
+      border: 1px solid rgba(201,169,110,0.15);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex; gap: 20px; align-items: flex-start;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .delivery-card:hover {
+      background: rgba(201,169,110,0.08);
+      border-color: rgba(201,169,110,0.3);
+    }
+    .delivery-icon { font-size: 1.8rem; margin-top: 2px; }
+    .delivery-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+    .delivery-desc { font-size: 0.85rem; color: rgba(212,197,176,0.75); line-height: 1.6; }
+    .delivery-tag {
+      display: inline-block;
+      background: rgba(201,169,110,0.15);
+      color: var(--gold-light);
+      padding: 3px 12px;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--cream); }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-main-card {
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--beige) 0%, var(--beige-mid) 100%);
+      aspect-ratio: 4/5;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8rem;
+      box-shadow: var(--shadow-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-accent-card {
+      position: absolute;
+      bottom: -24px; right: -24px;
+      width: 160px;
+      background: var(--dark-brown);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-deep);
+      text-align: center;
+    }
+    .about-accent-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .about-accent-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(212,197,176,0.7);
+      margin-top: 4px;
+    }
+    .about-stats {
+      display: flex; gap: 32px;
+      margin-top: 36px;
+    }
+    .about-stat { }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--warm-brown);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    .about-values { margin-top: 36px; display: flex; flex-direction: column; gap: 12px; }
+    .about-value {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.9rem; color: var(--text-mid);
+    }
+    .about-value::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 0.65rem;
+    }
+
+    /* ===== REVIEWS ===== */
+    #reviews { background: var(--white); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .review-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .review-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-mid); }
+    .review-quote {
+      font-size: 2.5rem;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .review-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 3px; margin-bottom: 16px; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--beige-mid), var(--warm-brown));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .author-name {
+      font-weight: 500;
+      font-size: 0.88rem;
+      color: var(--dark-brown);
+    }
+    .author-loc { font-size: 0.74rem; color: var(--text-light); }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--cream); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    .contact-channels { display: flex; flex-direction: column; gap: 16px; margin-top: 36px; }
+    .contact-channel {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 22px;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .contact-channel:hover { transform: translateX(6px); box-shadow: var(--shadow-mid); }
+    .channel-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .ch-wa { background: #dcf8c6; }
+    .ch-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .ch-em { background: var(--beige); }
+    .channel-name { font-weight: 500; color: var(--dark-brown); font-size: 0.9rem; }
+    .channel-val { font-size: 0.8rem; color: var(--text-light); }
+    .contact-form { display: flex; flex-direction: column; gap: 18px; }
+    .form-success {
+      display: none;
+      background: rgba(201,169,110,0.1);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      color: var(--warm-brown);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+    }
+    .form-success.show { display: block; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--deep-brown);
+      padding: 60px 5% 30px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 50px;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--gold-light);
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-tagline {
+      font-family: 'Dancing Script', cursive;
+      font-size: 0.95rem;
+      color: rgba(212,197,176,0.6);
+      margin-bottom: 20px;
+    }
+    .footer-about { font-size: 0.84rem; color: rgba(212,197,176,0.55); line-height: 1.8; }
+    .footer-col-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 0.84rem;
+      color: rgba(212,197,176,0.55);
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(201,169,110,0.1);
+      padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 0.78rem; color: rgba(212,197,176,0.35); }
+    .footer-heart { color: var(--gold); }
+
+    /* ===== WHATSAPP FLOAT ===== */
+    .wa-float {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 500;
+      width: 58px; height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
+    .wa-float::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(37,211,102,0.4);
+      animation: waPulse 2s ease infinite;
+    }
+    @keyframes waPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.15); opacity: 0; }
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--beige); }
+    ::-webkit-scrollbar-thumb { background: var(--warm-brown); border-radius: 3px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { order: -1; }
+      .hero-card:nth-child(1) .hero-card-crochet { min-height: 220px; }
+      .custom-inner { grid-template-columns: 1fr; gap: 40px; }
+      .custom-left { position: static; }
+      .delivery-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 70px 5%; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .about-accent-card { display: none; }
+      .about-stats { gap: 20px; }
+    }
+
+    /* BG colors for product/gallery items */
+    .bg1 { background: linear-gradient(135deg, #f0e6d6, #e8d5be); }
+    .bg2 { background: linear-gradient(135deg, #e8ddd0, #d4c5b0); }
+    .bg3 { background: linear-gradient(135deg, #ddd5c9, #c9bbab); }
+    .bg4 { background: linear-gradient(135deg, #e5dcd0, #d8c9b7); }
+    .bg5 { background: linear-gradient(135deg, #f2e8d8, #e5d5c0); }
+    .bg6 { background: linear-gradient(135deg, #d8cfc3, #c5b8a8); }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-brand">Xcrochets</div>
+  <div class="loader-script">Handmade with Love</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">X<span>crochets</span></a>
+  <ul class="nav-links">
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#custom">Custom Order</a></li>
+    <li><a href="#delivery">Delivery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#custom" class="nav-cta">Order Now</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#products" onclick="toggleMenu()">Shop</a>
+  <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+  <a href="#custom" onclick="toggleMenu()">Custom Order</a>
+  <a href="#delivery" onclick="toggleMenu()">Delivery</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-est">
+        <span></span>Est. 2025<span></span>
+      </div>
+      <h1 class="hero-h1">
+        <em>Crafted</em> with<br>intention &amp;<br>warmth
+      </h1>
+      <span class="hero-script">Handmade with Love ♡</span>
+      <p class="hero-desc">
+        Each piece tells a story — woven stitch by stitch with care, creativity, and a whole lot of heart. Discover our handcrafted crochet world.
+      </p>
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">Shop Now</a>
+        <a href="#custom" class="btn-secondary">Customize Your Order</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-grid">
+        <div class="hero-card bg1">
+          <div class="hero-card-crochet">🧸</div>
+          <div class="hero-badge">Plushies</div>
+        </div>
+        <div class="hero-card bg2">
+          <div class="hero-card-crochet">🌸</div>
+          <div class="hero-badge">Flowers</div>
+        </div>
+        <div class="hero-card bg3">
+          <div class="hero-card-crochet">👜</div>
+          <div class="hero-badge">Bags</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <span class="marquee-item">Handmade with Love</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Custom Orders Welcome</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Xcrochets Est. 2025</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Mangalore's Crochet Studio</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Every Stitch Tells a Story</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Unique. Handcrafted. Yours.</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <!-- repeat for seamless loop -->
+    <span class="marquee-item">Handmade with Love</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Custom Orders Welcome</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Xcrochets Est. 2025</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Mangalore's Crochet Studio</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Every Stitch Tells a Story</span>
+    <span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Unique. Handcrafted. Yours.</span>
+    <span class="marquee-item marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<section id="products">
+  <div class="inner">
+    <div class="products-header section-header">
+      <div>
+        <p class="section-label">Our Collection</p>
+        <h2 class="section-title">Featured <em>Pieces</em></h2>
+        <p class="section-sub">Explore our most loved handcrafted items — each one made with devotion and detail.</p>
+      </div>
+      <a href="#gallery" class="view-all">View Full Gallery →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal" onclick="openModal('Teddy Bear Plushie','🧸','Plushie','A huggable, soft crochet teddy bear made with premium cotton yarn. Perfect as a gift or keepsake.','\u20b9 650–\u20b9 900')">
+        <div class="product-img bg1"><div style="font-size:5rem">🧸</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
+        <div class="product-info"><p class="product-cat">Plushies</p><p class="product-name">Teddy Bear Plushie</p><p class="product-price">₹650 – ₹900</p></div>
+      </div>
+      <div class="product-card reveal" onclick="openModal('Rose Bouquet','🌹','Flowers','Everlasting crochet rose bouquet — never wilts, never fades. A timeless romantic gift.','\u20b9 400–\u20b9 750')">
+        <div class="product-img bg5"><div style="font-size:5rem">🌹</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
+        <div class="product-info"><p class="product-cat">Flowers</p><p class="product-name">Rose Bouquet</p><p class="product-price">₹400 – ₹750</p></div>
+      </div>
+      <div class="product-card reveal" onclick="openModal('Tote Bag','👜','Accessories','Stylish handcrafted crochet tote — functional, beautiful, and completely unique.','\u20b9 800–\u20b9 1200')">
+        <div class="product-img bg3"><div style="font-size:5rem">👜</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
+        <div class="product-info"><p class="product-cat">Accessories</p><p class="product-name">Crochet Tote Bag</p><p class="product-price">₹800 – ₹1,200</p></div>
+      </div>
+      <div class="product-card reveal" onclick="openModal('Sunflower Bunch','🌻','Flowers','A cheerful bundle of sunshine — handcrafted sunflowers that brighten any space.','\u20b9 350–\u20b9 600')">
+        <div class="product-img bg2"><div style="font-size:5rem">🌻</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
+        <div class="product-info"><p class="product-cat">Flowers</p><p class="product-name">Sunflower Bunch</p><p class="product-price">₹350 – ₹600</p></div>
+      </div>
+      <div class="product-card reveal" onclick="openModal('Cozy Headband','🎀','Accessories','Soft, stretchy crochet headband in your choice of colors. Stylish and comfortable.','\u20b9 250–\u20b9 450')">
+        <div class="product-img bg4"><div style="font-size:5rem">🎀</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
+        <div class="product-info"><p class="product-cat">Accessories</p><p class="product-name">Cozy Headband</p><p class="product-price">₹250 – ₹450</p></div>
+      </div>
+      <div class="product-card reveal" onclick="openModal('Amigurumi Bunny','🐰','Plushies','An adorable little bunny companion, crocheted with love. Makes the sweetest gift for any age.','\u20b9 500–\u20b9 750')">
+        <div class="product-img bg6"><div style="font-size:5rem">🐰</div><div class="product-overlay"><div class="overlay-btn">Quick View</div></div></div>
+        <div class="product-info"><p class="product-cat">Plushies</p><p class="product-name">Amigurumi Bunny</p><p class="product-price">₹500 – ₹750</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="inner">
+    <div class="section-header reveal">
+      <p class="section-label">Handcrafted Gallery</p>
+      <h2 class="section-title">Browse Our <em>World</em></h2>
+      <p class="section-sub">Every piece in our gallery is made by hand, with intention and artistry.</p>
+    </div>
+    <div class="gallery-filter reveal">
+      <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+      <button class="filter-btn" onclick="filterGallery('plushie', this)">Plushies</button>
+      <button class="filter-btn" onclick="filterGallery('flower', this)">Flowers</button>
+      <button class="filter-btn" onclick="filterGallery('accessory', this)">Accessories</button>
+      <button class="filter-btn" onclick="filterGallery('clothing', this)">Clothing</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item bg1" data-cat="plushie" onclick="openModal('Teddy Bear','🧸','Plushie','A classic handmade crochet teddy bear.','\u20b9 650–\u20b9 900')">
+        <div class="gallery-thumb bg1"><span>🧸</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Teddy Bear</p></div>
+      </div>
+      <div class="gallery-item bg5" data-cat="flower" onclick="openModal('Rose','🌹','Flower','Handcrafted crochet rose, never wilts.','\u20b9 120–\u20b9 200')">
+        <div class="gallery-thumb bg5"><span>🌹</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Crochet Rose</p></div>
+      </div>
+      <div class="gallery-item bg3" data-cat="accessory" onclick="openModal('Tote Bag','👜','Accessory','Stylish handcrafted crochet tote bag.','\u20b9 800–\u20b9 1200')">
+        <div class="gallery-thumb bg3"><span>👜</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Tote Bag</p></div>
+      </div>
+      <div class="gallery-item bg2" data-cat="plushie" onclick="openModal('Bunny','🐰','Plushie','Sweet amigurumi bunny plushie.','\u20b9 500–\u20b9 750')">
+        <div class="gallery-thumb bg2"><span>🐰</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Bunny Plushie</p></div>
+      </div>
+      <div class="gallery-item bg4" data-cat="flower" onclick="openModal('Sunflower','🌻','Flower','Cheerful crochet sunflower bunch.','\u20b9 350–\u20b9 600')">
+        <div class="gallery-thumb bg4"><span>🌻</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Sunflower</p></div>
+      </div>
+      <div class="gallery-item bg6" data-cat="accessory" onclick="openModal('Headband','🎀','Accessory','Soft crochet headband in various colors.','\u20b9 250–\u20b9 450')">
+        <div class="gallery-thumb bg6"><span>🎀</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Headband</p></div>
+      </div>
+      <div class="gallery-item bg1" data-cat="clothing" onclick="openModal('Crop Top','👚','Clothing','Trendy handmade crochet crop top.','\u20b9 900–\u20b9 1400')">
+        <div class="gallery-thumb bg1"><span>👚</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Crochet Top</p></div>
+      </div>
+      <div class="gallery-item bg2" data-cat="flower" onclick="openModal('Lavender','💜','Flower','Delicate crochet lavender sprigs.','\u20b9 180–\u20b9 350')">
+        <div class="gallery-thumb bg2"><span>💐</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Mixed Bouquet</p></div>
+      </div>
+      <div class="gallery-item bg3" data-cat="plushie" onclick="openModal('Strawberry','🍓','Plushie','Kawaii crochet strawberry plushie.','\u20b9 350–\u20b9 500')">
+        <div class="gallery-thumb bg3"><span>🍓</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Strawberry Plushie</p></div>
+      </div>
+      <div class="gallery-item bg5" data-cat="accessory" onclick="openModal('Scrunchie','✨','Accessory','Crochet hair scrunchie set.','\u20b9 150–\u20b9 280')">
+        <div class="gallery-thumb bg5"><span>🪡</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Scrunchies</p></div>
+      </div>
+      <div class="gallery-item bg4" data-cat="clothing" onclick="openModal('Cardigan','🧥','Clothing','Cozy handmade crochet cardigan.','\u20b9 2000–\u20b9 3000')">
+        <div class="gallery-thumb bg4"><span>🧥</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Crochet Cardigan</p></div>
+      </div>
+      <div class="gallery-item bg6" data-cat="plushie" onclick="openModal('Elephant','🐘','Plushie','Giant crochet elephant stuffed animal.','\u20b9 800–\u20b9 1200')">
+        <div class="gallery-thumb bg6"><span>🐘</span></div>
+        <div class="gallery-item-overlay"><p class="gallery-item-name">Elephant Plushie</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM ORDER -->
+<section id="custom">
+  <div class="inner">
+    <div class="custom-inner">
+      <div class="custom-left reveal">
+        <p class="section-label">Custom Orders</p>
+        <h2 class="section-title">Make It<br><em>Uniquely Yours</em></h2>
+        <p class="section-sub">Have something special in mind? We bring your crochet dreams to life — completely customized, made just for you.</p>
+        <blockquote class="custom-quote">
+          "Every custom piece we create is a collaboration between your vision and our craft."
+        </blockquote>
+        <div class="custom-features">
+          <div class="custom-feat">
+            <div class="feat-icon">🎨</div>
+            <div class="feat-text"><strong>Any Color You Imagine</strong>Choose from our wide yarn collection</div>
+          </div>
+          <div class="custom-feat">
+            <div class="feat-icon">📏</div>
+            <div class="feat-text"><strong>Any Size You Need</strong>Mini to oversized — we do it all</div>
+          </div>
+          <div class="custom-feat">
+            <div class="feat-icon">⏱️</div>
+            <div class="feat-text"><strong>Delivery in 5–10 Days</strong>Handmade timeline honored always</div>
+          </div>
+          <div class="custom-feat">
+            <div class="feat-icon">💌</div>
+            <div class="feat-text"><strong>Personal Touch</strong>Each piece crafted with love</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="order-form" id="customForm" onsubmit="submitOrder(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" placeholder="Priya Sharma" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone / WhatsApp</label>
+              <input type="tel" id="phone" placeholder="+91 98765 43210" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="itemType">Item Type</label>
+            <select id="itemType" required>
+              <option value="">Select an item type...</option>
+              <option value="Plushie / Amigurumi">Plushie / Amigurumi</option>
+              <option value="Flower Bouquet">Flower Bouquet</option>
+              <option value="Bag / Tote">Bag / Tote</option>
+              <option value="Clothing / Wearable">Clothing / Wearable</option>
+              <option value="Accessories">Accessories (Headband, Scrunchie, etc.)</option>
+              <option value="Home Decor">Home Decor</option>
+              <option value="Keychain">Keychain / Charm</option>
+              <option value="Other">Other (Describe Below)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Preferred Colors</label>
+            <div class="color-group">
+              <input type="checkbox" class="color-check" id="c1" /><label class="color-swatch" for="c1" style="background:#e8c9a0" title="Cream Beige"></label>
+              <input type="checkbox" class="color-check" id="c2" /><label class="color-swatch" for="c2" style="background:#d4836a" title="Terracotta"></label>
+              <input type="checkbox" class="color-check" id="c3" /><label class="color-swatch" for="c3" style="background:#6b9e7a" title="Sage Green"></label>
+              <input type="checkbox" class="color-check" id="c4" /><label class="color-swatch" for="c4" style="background:#6a7fa8" title="Dusty Blue"></label>
+              <input type="checkbox" class="color-check" id="c5" /><label class="color-swatch" for="c5" style="background:#c48fb0" title="Dusty Rose"></label>
+              <input type="checkbox" class="color-check" id="c6" /><label class="color-swatch" for="c6" style="background:#e8e0b5" title="Butter Yellow"></label>
+              <input type="checkbox" class="color-check" id="c7" /><label class="color-swatch" for="c7" style="background:#8b4a4a" title="Burgundy"></label>
+              <input type="checkbox" class="color-check" id="c8" /><label class="color-swatch" for="c8" style="background:#ffffff;border:1px solid #ddd" title="White"></label>
+              <input type="checkbox" class="color-check" id="c9" /><label class="color-swatch" for="c9" style="background:#2e2e2e" title="Black"></label>
+              <input type="checkbox" class="color-check" id="c10" /><label class="color-swatch" for="c10" style="background:#c9a96e" title="Gold"></label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="size">Size / Dimensions</label>
+              <select id="size">
+                <option value="">Select size...</option>
+                <option value="Mini (under 10cm)">Mini (under 10cm)</option>
+                <option value="Small (10–20cm)">Small (10–20cm)</option>
+                <option value="Medium (20–35cm)">Medium (20–35cm)</option>
+                <option value="Large (35–50cm)">Large (35–50cm)</option>
+                <option value="XL / Custom">XL / Custom</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" min="1" placeholder="1" value="1" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Describe Your Dream Piece</label>
+            <textarea id="description" placeholder="Tell us everything — the more detail, the better! Characters, themes, colors, feelings, references..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Reference Image (Optional)</label>
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+              <div class="upload-icon">📎</div>
+              <p class="upload-text"><strong>Click to upload</strong> or drag &amp; drop</p>
+              <p class="upload-text" style="font-size:0.75rem;margin-top:4px">PNG, JPG, HEIC up to 10MB</p>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="updateFileLabel(this)" />
+            <p id="fileLabel" style="font-size:0.78rem;color:var(--gold-muted);margin-top:6px;display:none"></p>
+          </div>
+          <div class="form-group">
+            <label for="delivery">Delivery Preference</label>
+            <select id="delivery">
+              <option value="Delivery in Mangalore">Delivery in Mangalore</option>
+              <option value="Pickup">Pickup (All locations)</option>
+              <option value="Outside Mangalore">Outside Mangalore (Discuss pricing)</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn">✦ Send Order via WhatsApp</button>
+          <div class="form-success" id="formSuccess">
+            ✦ Your order is being sent to WhatsApp! ✦<br>
+            <span style="font-size:0.85rem;font-family:'Jost',sans-serif;color:var(--text-light)">We'll get back to you shortly to confirm details.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="inner">
+    <div class="delivery-inner">
+      <div class="reveal">
+        <p class="section-label">Shipping &amp; Pickup</p>
+        <h2 class="section-title" style="color:var(--cream)">Delivery <em>Info</em></h2>
+        <p style="color:rgba(212,197,176,0.65);font-size:0.9rem;margin-top:12px">We want your order to reach you safely and happily.</p>
+      </div>
+      <div class="delivery-cards reveal">
+        <div class="delivery-card">
+          <div class="delivery-icon">🏍️</div>
+          <div>
+            <p class="delivery-title">Delivery within Mangalore</p>
+            <p class="delivery-desc">We offer home delivery for all customers located within Mangalore city. Fast, safe, and reliable delivery right to your door.</p>
+            <span class="delivery-tag">Available</span>
+          </div>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-icon">🤝</div>
+          <div>
+            <p class="delivery-title">Pickup Available Everywhere</p>
+            <p class="delivery-desc">Regardless of your location, you're always welcome to pick up your order directly from us. No extra charges, just warm handoffs.</p>
+            <span class="delivery-tag">All Customers</span>
+          </div>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-icon">📦</div>
+          <div>
+            <p class="delivery-title">Outside Mangalore</p>
+            <p class="delivery-desc">Shipping outside Mangalore? Let's talk! Pricing and logistics are discussed privately to find the best option for you. Reach out via WhatsApp or email.</p>
+            <span class="delivery-tag">Contact Us</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <div class="about-inner">
+      <div class="about-visual reveal">
+        <div class="about-main-card">🧶</div>
+        <div class="about-accent-card">
+          <div class="about-accent-num">Est.</div>
+          <div class="about-accent-num">2025</div>
+          <div class="about-accent-label">Mangalore</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">About <em>Xcrochets</em></h2>
+        <p style="color:var(--text-light);margin-top:16px;line-height:1.9">
+          Xcrochets was born in 2025 from a quiet passion — a hook, some yarn, and an endless love for creating things by hand. What started as a personal hobby blossomed into a small, passionate studio dedicated to bringing handcrafted crochet art to the world.
+        </p>
+        <p style="color:var(--text-light);margin-top:14px;line-height:1.9">
+          Based in Mangalore, every single piece we create is made by hand — with care, creativity, and a deep respect for the craft. We believe that handmade is always more meaningful, that no two pieces should ever be exactly alike, and that a well-crafted object carries a little bit of soul.
+        </p>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="stat-num">100+</div>
+            <div class="stat-label">Happy Orders</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Item Types</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Handmade</div>
+          </div>
+        </div>
+        <div class="about-values">
+          <div class="about-value">Every piece is entirely handcrafted — never mass-produced</div>
+          <div class="about-value">Premium, skin-safe yarn for all products</div>
+          <div class="about-value">Custom orders accepted with full creative freedom</div>
+          <div class="about-value">Thoughtful packaging for gifting</div>
+          <div class="about-value">Rooted in Mangalore with love for the craft</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style="background:var(--white)">
+  <div class="inner">
+    <div class="section-header reveal" style="text-align:center">
+      <p class="section-label">Customer Love</p>
+      <h2 class="section-title">What People <em>Say</em></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">I ordered a custom bunny plushie for my daughter's birthday and it was absolutely perfect. The detail and softness were incredible — she sleeps with it every night now!</p>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-author">
+          <div class="author-avatar">P</div>
+          <div><p class="author-name">Priya Shetty</p><p class="author-loc">Mangalore</p></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">The crochet rose bouquet I got for my anniversary was breathtaking. My partner cried happy tears. The quality is outstanding and it'll last forever unlike real flowers!</p>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-author">
+          <div class="author-avatar">A</div>
+          <div><p class="author-name">Arjun Kamath</p><p class="author-loc">Udupi</p></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">Ordered a custom keychain with my cat's face. It looks EXACTLY like him! The communication was smooth and delivery was on time. Will definitely order again!</p>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-author">
+          <div class="author-avatar">S</div>
+          <div><p class="author-name">Sneha Rao</p><p class="author-loc">Mangalore</p></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">The tote bag I ordered is stunning. So many people have asked me where I got it. Proud to say it's handmade by Xcrochets! Worth every rupee.</p>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-author">
+          <div class="author-avatar">M</div>
+          <div><p class="author-name">Meera Bhat</p><p class="author-loc">Manipal</p></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">Gifted a sunflower bouquet to my mom and she was overjoyed. She keeps saying it's the most thoughtful gift she's ever received. Thank you Xcrochets!</p>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-author">
+          <div class="author-avatar">R</div>
+          <div><p class="author-name">Rohit D'Souza</p><p class="author-loc">Mangalore</p></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">Ordered a matching headband set as bridesmaid gifts. All 6 came out perfectly uniform but still felt uniquely handmade. Such beautiful craftsmanship!</p>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-author">
+          <div class="author-avatar">N</div>
+          <div><p class="author-name">Nandini Alva</p><p class="author-loc">Mangalore</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="section-label">Get in Touch</p>
+        <h2 class="section-title">Let's <em>Connect</em></h2>
+        <p class="section-sub">Have a question? Want to discuss a custom order? We'd love to hear from you.</p>
+        <div class="contact-channels">
+          <a href="https://wa.me/919876543210?text=Hi%20Xcrochets!%20I%20have%20a%20query." target="_blank" class="contact-channel">
+            <div class="channel-icon ch-wa">💬</div>
+            <div><p class="channel-name">WhatsApp</p><p class="channel-val">+91 98765 43210</p></div>
+          </a>
+          <a href="https://instagram.com/xcrochets" target="_blank" class="contact-channel">
+            <div class="channel-icon ch-ig" style="color:white;font-size:1.2rem">📸</div>
+            <div><p class="channel-name">Instagram</p><p class="channel-val">@xcrochets</p></div>
+          </a>
+          <a href="mailto:hello@xcrochets.in" class="contact-channel">
+            <div class="channel-icon ch-em">✉️</div>
+            <div><p class="channel-name">Email</p><p class="channel-val">hello@xcrochets.in</p></div>
+          </a>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="contact-form" id="contactForm" onsubmit="submitContact(event)">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" placeholder="Custom order query, general question..." />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea style="min-height:140px" placeholder="Tell us how we can help you..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">✦ Send Message</button>
+          <div class="form-success" id="contactSuccess">
+            Message sent! ✦ We'll reply within 24 hours.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">X<span>crochets</span></p>
+        <p class="footer-tagline">Handmade with Love ♡</p>
+        <p class="footer-about">A Mangalore-based crochet studio creating handmade pieces with passion, creativity, and care. Est. 2025. Each stitch placed with intention.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Navigate</p>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Shop</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#custom">Custom Order</a></li>
+          <li><a href="#delivery">Delivery Info</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Connect</p>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/919876543210" target="_blank">WhatsApp</a></li>
+          <li><a href="https://instagram.com/xcrochets" target="_blank">Instagram</a></li>
+          <li><a href="mailto:hello@xcrochets.in">Email Us</a></li>
+          <li><a href="#about">About Xcrochets</a></li>
+          <li><a href="#reviews">Customer Reviews</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Xcrochets. All rights reserved. Made with <span class="footer-heart">♥</span> in Mangalore.</p>
+      <p class="footer-copy">xcrochets.in</p>
+    </div>
+  </div>
+</footer>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-backdrop" id="productModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('productModal').classList.remove('open')">✕</button>
+    <div class="modal-emoji" id="modalEmoji">🧸</div>
+    <p style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-muted);margin-bottom:6px" id="modalCat">Plushie</p>
+    <h3 class="modal-title" id="modalTitle">Teddy Bear</h3>
+    <p class="modal-desc" id="modalDesc">Description here</p>
+    <p class="modal-price" id="modalPrice">₹650 – ₹900</p>
+    <a id="modalOrderBtn" href="#custom" class="btn-primary" style="display:inline-block" onclick="document.getElementById('productModal').classList.remove('open')">Customize &amp; Order →</a>
+  </div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/919876543210?text=Hi%20Xcrochets!%20I'd%20like%20to%20place%20an%20order." target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+<script>
+  // LOADER
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hide');
+    }, 1800);
+  });
+
+  // NAV SCROLL
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // HAMBURGER
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // MODAL
+  function openModal(title, emoji, cat, desc, price) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalEmoji').textContent = emoji;
+    document.getElementById('modalCat').textContent = cat;
+    document.getElementById('modalDesc').textContent = desc;
+    document.getElementById('modalPrice').textContent = price;
+    document.getElementById('productModal').classList.add('open');
+  }
+  function closeModal(e) {
+    if (e.target === document.getElementById('productModal'))
+      document.getElementById('productModal').classList.remove('open');
+  }
+
+  // GALLERY FILTER
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      const match = cat === 'all' || item.dataset.cat === cat;
+      item.style.display = match ? '' : 'none';
+      item.style.opacity = '0';
+      if (match) setTimeout(() => item.style.opacity = '1', 10);
+    });
+  }
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.style.transition = 'opacity 0.4s ease, transform 0.5s ease';
+  });
+
+  // FILE UPLOAD
+  function updateFileLabel(input) {
+    const label = document.getElementById('fileLabel');
+    if (input.files.length > 0) {
+      label.textContent = '📎 ' + input.files[0].name;
+      label.style.display = 'block';
+    }
+  }
+
+  // CUSTOM ORDER → WHATSAPP
+  function submitOrder(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const item = document.getElementById('itemType').value;
+    const size = document.getElementById('size').value;
+    const qty = document.getElementById('quantity').value;
+    const desc = document.getElementById('description').value;
+    const delivery = document.getElementById('delivery').value;
+    const colors = [...document.querySelectorAll('.color-check:checked')].map(c => c.nextElementSibling.title).join(', ') || 'Not specified';
+    const msg = encodeURIComponent(
+      `✦ New Custom Order – Xcrochets ✦\n\n` +
+      `Name: ${name}\nPhone: ${phone}\n\n` +
+      `Item Type: ${item}\nSize: ${size || 'Not specified'}\nQuantity: ${qty}\n` +
+      `Colors: ${colors}\nDelivery: ${delivery}\n\n` +
+      `Description:\n${desc}\n\n` +
+      `(Sent via xcrochets.in)`
+    );
+    document.getElementById('formSuccess').classList.add('show');
+    setTimeout(() => window.open(`https://wa.me/919876543210?text=${msg}`, '_blank'), 400);
+  }
+
+  // CONTACT FORM
+  function submitContact(e) {
+    e.preventDefault();
+    document.getElementById('contactSuccess').classList.add('show');
+    e.target.reset();
+  }
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.getElementById('hamburger');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
