@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xcrochets</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Announcement -->
+<div class="announcement">
+  <div class="scroll-text">
+    ✨ Handmade with love | 📦 Custom orders open | 💬 Order on WhatsApp | 🚚 Fast shipping
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav>
+  <h2>Xcrochets</h2>
+  <div>
+    <a href="#">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#custom">Custom</a>
+    <a href="#contact">Contact</a>
+    <button onclick="toggleCart()">🛒 (<span id="cartCount">0</span>)</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Handmade with Love, Worn with Comfort 💜</h1>
+
+  <p class="important">
+    Prices are shared privately via WhatsApp 💬
+  </p>
+
+  <p class="important">
+    Order updates will be shared on WhatsApp 📦
+  </p>
+
+  <div class="buttons">
+    <a href="#shop" class="btn">Shop Now</a>
+    <a class="btn" href="https://wa.me/919606922836?text=Hi%20I%20want%20to%20order%20from%20Xcrochets">
+      Order on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <h2>Shop</h2>
+  <p class="note">💬 Prices will be discussed privately on WhatsApp</p>
+
+  <div class="products">
+
+    <div class="card">
+      <img src="images/hat.jpg">
+      <h3>Crochet Hat</h3>
+      <button onclick="addToCart('Crochet Hat')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <img src="images/plush.jpg">
+      <h3>Plush Toy</h3>
+      <button onclick="addToCart('Plush Toy')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <img src="images/bag.jpg">
+      <h3>Crochet Bag</h3>
+      <button onclick="addToCart('Crochet Bag')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <img src="images/scarf.jpg">
+      <h3>Scarf</h3>
+      <button onclick="addToCart('Scarf')">Add to Cart</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CUSTOM -->
+<section id="custom">
+  <h2>Custom Orders</h2>
+  <p>Want something unique? Get it made just for you.</p>
+  <a class="btn" href="https://wa.me/919606922836?text=Hi%20I%20want%20a%20custom%20crochet%20order">
+    Start Custom Order
+  </a>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact</h2>
+  <p>📞 +91 9606922836</p>
+  <a class="btn" href="https://wa.me/919606922836?text=Hi%20I%20have%20a%20question">
+    Chat on WhatsApp
+  </a>
+</section>
+
+<!-- CART -->
+<div id="cart" class="cart">
+  <h3>Your Order</h3>
+  <ul id="cartItems"></ul>
+  <button onclick="checkout()">Send Order on WhatsApp</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

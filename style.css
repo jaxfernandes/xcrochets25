@@ -1,0 +1,24 @@
+.important {
+  font-weight: bold;
+  margin: 10px 0;
+  color: #333;
+}
+
+.note {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  background: #6d28d9;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: 5px;
+  display: inline-block;
+  text-decoration: none;
+}
