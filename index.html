@@ -7,98 +7,65 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500&family=Italiana&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,200;0,300;0,400;0,500;1,300&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════════════════════
-       LUXURY LOADING SCREEN
-       ══════════════════════════════════════════════════════ -->
+  <!-- ══════════ LOADER ══════════ -->
   <div id="xcLoader" class="xc-loader">
-    <div class="xc-loader-bg"></div>
-
-    <!-- Corner decorative arcs -->
-    <div class="xc-loader-corner xc-corner-tl">
-      <svg viewBox="0 0 60 60" width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 60 Q0 0 60 0" stroke="currentColor" stroke-width="0.7" opacity="0.5"/>
-        <path d="M0 40 Q0 0 40 0" stroke="currentColor" stroke-width="0.4" opacity="0.3"/>
-        <circle cx="0" cy="0" r="3" fill="currentColor" opacity="0.3"/>
-      </svg>
+    <div class="xc-loader-noise"></div>
+    <div class="xc-loader-lines">
+      <div class="ll"></div><div class="ll"></div><div class="ll"></div>
     </div>
-    <div class="xc-loader-corner xc-corner-br">
-      <svg viewBox="0 0 60 60" width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 60 Q0 0 60 0" stroke="currentColor" stroke-width="0.7" opacity="0.5"/>
-        <path d="M0 40 Q0 0 40 0" stroke="currentColor" stroke-width="0.4" opacity="0.3"/>
-        <circle cx="0" cy="0" r="3" fill="currentColor" opacity="0.3"/>
-      </svg>
-    </div>
-
-    <!-- Decorative crochet hook — right side -->
-    <div class="xc-loader-deco">
-      <svg viewBox="0 0 120 340" width="60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="56" y="0" width="8" height="260" rx="4" fill="currentColor" opacity="0.25"/>
-        <path d="M64 260 Q64 310 40 320 Q20 328 18 316 Q16 304 36 300 Q50 298 58 286 Q62 278 64 268" stroke="currentColor" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.35"/>
-        <ellipse cx="30" cy="60" rx="18" ry="8" stroke="currentColor" stroke-width="1.2" opacity="0.2" transform="rotate(-15 30 60)"/>
-        <ellipse cx="88" cy="130" rx="14" ry="6" stroke="currentColor" stroke-width="1" opacity="0.15" transform="rotate(10 88 130)"/>
-        <ellipse cx="25" cy="200" rx="20" ry="9" stroke="currentColor" stroke-width="1.2" opacity="0.2" transform="rotate(-8 25 200)"/>
-      </svg>
-    </div>
-
-    <!-- Central content -->
     <div class="xc-loader-content">
-      <div class="xc-loader-wordmark">
-        <span class="xc-lw-x">X</span><span class="xc-lw-rest">CROCHETS</span>
+      <div class="xc-lc-top">Mangalore · Est. 2025</div>
+      <div class="xc-lc-mark">
+        <span class="xc-lc-x">X</span><span class="xc-lc-rest">CROCHETS</span>
       </div>
-      <div class="xc-loader-tagline">Handmade with Love</div>
-      <div class="xc-loader-bar-wrap">
-        <div class="xc-loader-bar"></div>
-      </div>
-      <div class="xc-loader-location">Mangalore &nbsp;·&nbsp; Est. 2025</div>
+      <div class="xc-lc-sub">Handmade with Love</div>
+      <div class="xc-bar-track"><div class="xc-bar-fill"></div></div>
+    </div>
+    <div class="xc-loader-corner tl">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M1 47 L1 1 L47 1" stroke="currentColor" stroke-width=".8" opacity=".5"/></svg>
+    </div>
+    <div class="xc-loader-corner br">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M1 47 L1 1 L47 1" stroke="currentColor" stroke-width=".8" opacity=".5"/></svg>
     </div>
   </div>
-  <!-- END LOADING SCREEN -->
 
-  <!-- Loader dismiss script — runs immediately, before page content renders -->
   <script>
     (function() {
       document.body.classList.add('xc-loading');
-
       function dismissLoader() {
-        var loader = document.getElementById('xcLoader');
-        if (!loader || loader.classList.contains('xc-loader--hidden')) return;
-        loader.classList.add('xc-loader--hidden');
+        var l = document.getElementById('xcLoader');
+        if (!l || l.classList.contains('xc-loader--out')) return;
+        l.classList.add('xc-loader--out');
         document.body.classList.remove('xc-loading');
-        setTimeout(function() {
-          if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-        }, 1000);
+        setTimeout(function() { if (l && l.parentNode) l.parentNode.removeChild(l); }, 1100);
       }
-
-      // Minimum display: 3.2s so the bar animation fully plays
-      var minTimer = setTimeout(dismissLoader, 3200);
-
+      var t = setTimeout(dismissLoader, 3400);
       window.addEventListener('load', function() {
-        clearTimeout(minTimer);
-        var elapsed = performance.now();
-        var remaining = Math.max(0, 2800 - elapsed);
-        setTimeout(dismissLoader, remaining);
+        clearTimeout(t);
+        var rem = Math.max(0, 2900 - performance.now());
+        setTimeout(dismissLoader, rem);
       });
     })();
   </script>
 
-  <!-- ANNOUNCEMENT -->
-  <div class="announcement-bar">
-    <div class="marquee-track">
-      <span>Custom Orders Open &nbsp;—&nbsp; Handcrafted in Mangalore &nbsp;—&nbsp; Order via WhatsApp &nbsp;—&nbsp; Crochet Classes · First Few Free &nbsp;—&nbsp; Every Piece is Singular &nbsp;—&nbsp; Est. 2025 &nbsp;—&nbsp;</span>
-      <span>Custom Orders Open &nbsp;—&nbsp; Handcrafted in Mangalore &nbsp;—&nbsp; Order via WhatsApp &nbsp;—&nbsp; Crochet Classes · First Few Free &nbsp;—&nbsp; Every Piece is Singular &nbsp;—&nbsp; Est. 2025 &nbsp;—&nbsp;</span>
+  <!-- ══════════ ANNOUNCEMENT ══════════ -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>Custom Orders Open &ensp;⟡&ensp; Handcrafted in Mangalore &ensp;⟡&ensp; Order via WhatsApp &ensp;⟡&ensp; Crochet Classes · First Few Free &ensp;⟡&ensp; Every Piece is Singular &ensp;⟡&ensp; Est. 2025 &ensp;⟡&ensp;</span>
+      <span aria-hidden="true">Custom Orders Open &ensp;⟡&ensp; Handcrafted in Mangalore &ensp;⟡&ensp; Order via WhatsApp &ensp;⟡&ensp; Crochet Classes · First Few Free &ensp;⟡&ensp; Every Piece is Singular &ensp;⟡&ensp; Est. 2025 &ensp;⟡&ensp;</span>
     </div>
   </div>
 
-  <!-- NAVBAR -->
+  <!-- ══════════ NAVBAR ══════════ -->
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <img src="images/xcrochetslogo.jpg" alt="" class="nav-logo-img" onerror="this.style.display='none'" />
-        <span class="logo-text"><span class="logo-x">X</span>CROCHETS</span>
+        <div class="nav-logo-mark"><span>X</span></div>
+        <span class="nav-logo-text">CROCHETS</span>
       </a>
       <div class="nav-links">
         <a href="#">Home</a>
@@ -111,11 +78,11 @@
       </div>
       <div class="nav-actions">
         <button class="cart-trigger" onclick="toggleCart()" aria-label="Cart">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           <span class="cart-badge" id="cartCount">0</span>
         </button>
-        <button class="btn-nav-signup" onclick="showSignup()">Sign In</button>
-        <button class="hamburger" id="hamburger" onclick="toggleNav()">
+        <button class="btn-nav-cta" onclick="showSignup()">Sign In</button>
+        <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
           <span></span><span></span>
         </button>
       </div>
@@ -123,89 +90,122 @@
   </nav>
 
   <div class="mobile-nav" id="mobileNav">
-    <a href="#" onclick="toggleNav()">Home</a>
-    <a href="#shop" onclick="toggleNav()">Shop</a>
-    <a href="#custom-order" onclick="toggleNav()">Bespoke</a>
-    <a href="#learn" onclick="toggleNav()">Atelier</a>
-    <a href="#about" onclick="toggleNav()">Maison</a>
-    <a href="#track" onclick="toggleNav()">Track Order</a>
-    <a href="#contact" onclick="toggleNav()">Contact</a>
-    <button class="btn-primary" style="margin-top:20px;width:100%;text-align:center;display:block" onclick="toggleNav();showSignup()">Sign In / Create Account</button>
+    <div class="mn-inner">
+      <a href="#" onclick="toggleNav()">Home</a>
+      <a href="#shop" onclick="toggleNav()">Shop</a>
+      <a href="#custom-order" onclick="toggleNav()">Bespoke</a>
+      <a href="#learn" onclick="toggleNav()">Atelier</a>
+      <a href="#about" onclick="toggleNav()">Maison</a>
+      <a href="#track" onclick="toggleNav()">Track Order</a>
+      <a href="#contact" onclick="toggleNav()">Contact</a>
+      <button class="btn-primary mn-cta" onclick="toggleNav();showSignup()">Sign In / Create Account</button>
+    </div>
   </div>
 
-  <!-- HERO -->
+  <!-- ══════════ HERO ══════════ -->
   <section class="hero">
-    <div class="hero-bg-text" aria-hidden="true">XCROCHETS</div>
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="eyebrow-line"></span>
+    <div class="hero-bg">
+      <div class="hero-bg-circle c1"></div>
+      <div class="hero-bg-circle c2"></div>
+      <div class="hero-grain"></div>
+    </div>
+    <div class="hero-watermark" aria-hidden="true">XCROCHETS</div>
+    <div class="hero-left">
+      <div class="hero-meta">
+        <div class="hero-meta-line"></div>
         <span>Mangalore · Est. 2025</span>
-        <span class="eyebrow-line"></span>
       </div>
       <h1 class="hero-h1">
-        <em>Crafted</em><br>with intention
+        <span class="h1-line l1"><em>Crafted</em></span>
+        <span class="h1-line l2">with</span>
+        <span class="h1-line l3">intention.</span>
       </h1>
       <p class="hero-tagline">Handmade with Love</p>
-      <p class="hero-sub">Every stitch, a deliberate act. Every piece, singular.</p>
+      <p class="hero-body">Every stitch, a deliberate act.<br>Every piece, entirely singular.</p>
       <div class="hero-pills">
         <div class="pill">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-          Prices shared privately via WhatsApp
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Prices shared via WhatsApp
         </div>
         <div class="pill">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          Real-time updates on WhatsApp
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          Live updates on WhatsApp
         </div>
       </div>
       <div class="hero-ctas">
         <a href="#shop" class="btn-primary">Explore Collection</a>
         <a href="https://wa.me/919606922836?text=Hi%20I%20want%20to%20order%20from%20Xcrochets" target="_blank" class="btn-ghost">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
           Order via WhatsApp
         </a>
-        <a href="#custom-order" class="btn-text-link">Design Bespoke →</a>
+        <a href="#custom-order" class="btn-text">Design Bespoke →</a>
       </div>
     </div>
-    <div class="hero-scroll-indicator">
-      <div class="scroll-line"></div>
+    <div class="hero-right">
+      <div class="hero-card hc-main">
+        <div class="hc-img-wrap">
+          <img src="images/bag.jpg" alt="Crochet Bag" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="hc-fallback">
+            <svg viewBox="0 0 200 200" width="80" opacity=".2"><rect x="30" y="70" width="140" height="110" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M65 70 Q65 35 100 35 Q135 35 135 70" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+          </div>
+        </div>
+        <div class="hc-label">Bestseller</div>
+        <div class="hc-info">
+          <span class="hc-name">Crochet Bag</span>
+          <span class="hc-cat">Bags</span>
+        </div>
+      </div>
+      <div class="hero-card hc-sm top">
+        <div class="hc-img-wrap">
+          <img src="images/hat.jpg" alt="Hat" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="hc-fallback"><svg viewBox="0 0 200 200" width="60" opacity=".2"><ellipse cx="100" cy="145" rx="95" ry="28" fill="none" stroke="currentColor" stroke-width="2.5"/><ellipse cx="100" cy="105" rx="58" ry="55" fill="none" stroke="currentColor" stroke-width="2.5"/></svg></div>
+        </div>
+        <div class="hc-info"><span class="hc-name">Crochet Hat</span><span class="hc-cat">Accessories</span></div>
+      </div>
+      <div class="hero-card hc-sm bot">
+        <div class="hc-img-wrap">
+          <img src="images/plush.jpg" alt="Plush" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="hc-fallback"><svg viewBox="0 0 200 200" width="60" opacity=".2"><circle cx="100" cy="90" r="58" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="82" cy="78" r="8" fill="currentColor" opacity=".3"/><circle cx="118" cy="78" r="8" fill="currentColor" opacity=".3"/><path d="M82 115 Q100 128 118 115" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="hc-info"><span class="hc-name">Plush Toy</span><span class="hc-cat">Plushies</span></div>
+      </div>
+      <div class="hero-stat-blob">
+        <div class="hsb-num">6+</div>
+        <div class="hsb-label">Collections</div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hs-line"></div>
       <span>Scroll</span>
     </div>
   </section>
 
-  <!-- MANIFESTO STRIP -->
-  <div class="manifesto-strip">
+  <!-- ══════════ MANIFESTO ══════════ -->
+  <div class="manifesto">
     <div class="manifesto-inner">
-      <div class="m-item">
-        <div class="m-num">100%</div>
-        <div class="m-label">Handmade</div>
-      </div>
-      <div class="m-divider"></div>
-      <div class="m-item">
-        <div class="m-num">6+</div>
-        <div class="m-label">Collections</div>
-      </div>
-      <div class="m-divider"></div>
-      <div class="m-item">
-        <div class="m-num">∞</div>
-        <div class="m-label">Custom Options</div>
-      </div>
-      <div class="m-divider"></div>
-      <div class="m-item">
-        <div class="m-num">01</div>
-        <div class="m-label">Of A Kind</div>
-      </div>
+      <div class="m-item"><div class="m-num">100%</div><div class="m-label">Handmade</div></div>
+      <div class="m-sep"></div>
+      <div class="m-item"><div class="m-num">6+</div><div class="m-label">Collections</div></div>
+      <div class="m-sep"></div>
+      <div class="m-item"><div class="m-num">∞</div><div class="m-label">Custom Options</div></div>
+      <div class="m-sep"></div>
+      <div class="m-item"><div class="m-num">01</div><div class="m-label">Of A Kind</div></div>
     </div>
   </div>
 
-  <!-- SHOP -->
+  <!-- ══════════ SHOP ══════════ -->
   <section id="shop" class="shop-section">
-    <div class="section-header">
-      <p class="section-eyebrow">The Collection</p>
-      <h2 class="section-title">Shop</h2>
-      <p class="section-sub">Each piece is made to order — no two are exactly alike.</p>
-      <div class="price-badge">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        Pricing shared privately on WhatsApp
+    <div class="shop-header">
+      <div class="sh-left">
+        <p class="eyebrow">The Collection</p>
+        <h2 class="section-title">Shop</h2>
+      </div>
+      <div class="sh-right">
+        <p class="section-sub">Each piece is made to order —<br>no two are exactly alike.</p>
+        <div class="wa-price-note">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Pricing shared privately on WhatsApp
+        </div>
       </div>
     </div>
 
@@ -214,191 +214,120 @@
       <div class="product-card reveal" data-item="Crochet Hat">
         <div class="product-img">
           <img src="images/hat.jpg" alt="Crochet Hat" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="img-fallback" style="display:none">
-            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" width="120" opacity=".18"><ellipse cx="150" cy="200" rx="140" ry="40" fill="none" stroke="currentColor" stroke-width="3"/><ellipse cx="150" cy="160" rx="90" ry="70" fill="none" stroke="currentColor" stroke-width="3"/><path d="M60 180 Q150 110 240 180" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="img-fallback">
+            <svg viewBox="0 0 300 300" width="100" opacity=".15"><ellipse cx="150" cy="200" rx="130" ry="36" fill="none" stroke="currentColor" stroke-width="3"/><ellipse cx="150" cy="150" rx="80" ry="70" fill="none" stroke="currentColor" stroke-width="3"/></svg>
           </div>
-          <div class="product-overlay">
-            <button class="overlay-cta" onclick="addToCart('Crochet Hat')">Add to Order</button>
-          </div>
-          <div class="product-tag">Accessories</div>
+          <div class="product-overlay"><button class="overlay-btn" onclick="addToCart('Crochet Hat')">Add to Order</button></div>
+          <div class="p-tag">Accessories</div>
         </div>
         <div class="product-info">
-          <h3 class="product-name">Crochet Hat</h3>
-          <p class="product-price">Price on WhatsApp</p>
+          <div class="pi-top">
+            <h3 class="product-name">Crochet Hat</h3>
+            <span class="pi-wa">WhatsApp price</span>
+          </div>
           <button class="btn-add" onclick="addToCart('Crochet Hat')">+ Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card reveal" style="--d:.06s" data-item="Plush Toy">
+      <div class="product-card reveal" style="--d:.07s" data-item="Plush Toy">
         <div class="product-img">
           <img src="images/plush.jpg" alt="Plush Toy" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="img-fallback" style="display:none">
-            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" width="100" opacity=".18"><circle cx="150" cy="130" r="80" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="120" cy="110" r="12" fill="currentColor" opacity=".4"/><circle cx="180" cy="110" r="12" fill="currentColor" opacity=".4"/><path d="M120 165 Q150 185 180 165" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          <div class="img-fallback">
+            <svg viewBox="0 0 300 300" width="90" opacity=".15"><circle cx="150" cy="130" r="80" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="122" cy="112" r="12" fill="currentColor" opacity=".35"/><circle cx="178" cy="112" r="12" fill="currentColor" opacity=".35"/><path d="M118 168 Q150 188 182 168" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
           </div>
-          <div class="product-overlay">
-            <button class="overlay-cta" onclick="addToCart('Plush Toy')">Add to Order</button>
-          </div>
-          <div class="product-tag">Plushies</div>
+          <div class="product-overlay"><button class="overlay-btn" onclick="addToCart('Plush Toy')">Add to Order</button></div>
+          <div class="p-tag">Plushies</div>
         </div>
         <div class="product-info">
-          <h3 class="product-name">Plush Toy</h3>
-          <p class="product-price">Price on WhatsApp</p>
+          <div class="pi-top">
+            <h3 class="product-name">Plush Toy</h3>
+            <span class="pi-wa">WhatsApp price</span>
+          </div>
           <button class="btn-add" onclick="addToCart('Plush Toy')">+ Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card reveal featured" style="--d:.12s" data-item="Crochet Bag">
+      <div class="product-card reveal featured" style="--d:.14s" data-item="Crochet Bag">
         <div class="product-img">
           <img src="images/bag.jpg" alt="Crochet Bag" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="img-fallback" style="display:none">
-            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" width="110" opacity=".18"><rect x="60" y="110" width="180" height="150" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M105 110 Q105 70 150 70 Q195 70 195 110" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+          <div class="img-fallback">
+            <svg viewBox="0 0 300 300" width="100" opacity=".15"><rect x="55" y="105" width="190" height="155" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M100 105 Q100 65 150 65 Q200 65 200 105" fill="none" stroke="currentColor" stroke-width="3"/></svg>
           </div>
-          <div class="product-overlay">
-            <button class="overlay-cta" onclick="addToCart('Crochet Bag')">Add to Order</button>
-          </div>
-          <div class="product-tag">Bags</div>
-          <div class="featured-label">Bestseller</div>
+          <div class="product-overlay"><button class="overlay-btn" onclick="addToCart('Crochet Bag')">Add to Order</button></div>
+          <div class="p-tag">Bags</div>
+          <div class="p-badge">Bestseller</div>
         </div>
         <div class="product-info">
-          <h3 class="product-name">Crochet Bag</h3>
-          <p class="product-price">Price on WhatsApp</p>
+          <div class="pi-top">
+            <h3 class="product-name">Crochet Bag</h3>
+            <span class="pi-wa">WhatsApp price</span>
+          </div>
           <button class="btn-add" onclick="addToCart('Crochet Bag')">+ Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card reveal" style="--d:.18s" data-item="Scarf">
+      <div class="product-card reveal" style="--d:.21s" data-item="Scarf">
         <div class="product-img">
           <img src="images/scarf.jpg" alt="Scarf" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="img-fallback" style="display:none">
-            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" width="110" opacity=".18"><path d="M80 60 Q100 150 80 240" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round"/><path d="M120 60 Q140 150 120 240" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" opacity=".5"/></svg>
+          <div class="img-fallback">
+            <svg viewBox="0 0 300 300" width="100" opacity=".15"><path d="M80 50 Q100 150 80 250" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/><path d="M120 50 Q140 150 120 250" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" opacity=".5"/></svg>
           </div>
-          <div class="product-overlay">
-            <button class="overlay-cta" onclick="addToCart('Scarf')">Add to Order</button>
-          </div>
-          <div class="product-tag">Wearables</div>
+          <div class="product-overlay"><button class="overlay-btn" onclick="addToCart('Scarf')">Add to Order</button></div>
+          <div class="p-tag">Wearables</div>
         </div>
         <div class="product-info">
-          <h3 class="product-name">Scarf</h3>
-          <p class="product-price">Price on WhatsApp</p>
+          <div class="pi-top">
+            <h3 class="product-name">Scarf</h3>
+            <span class="pi-wa">WhatsApp price</span>
+          </div>
           <button class="btn-add" onclick="addToCart('Scarf')">+ Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card reveal" style="--d:.24s" data-item="Coasters">
+      <div class="product-card reveal" style="--d:.28s" data-item="Coasters">
         <div class="product-img coaster-img">
           <svg class="coaster-svg" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <radialGradient id="bg" cx="50%" cy="50%" r="70%">
-                <stop offset="0%" stop-color="#ede5d8"/>
-                <stop offset="100%" stop-color="#d5cfc5"/>
-              </radialGradient>
-              <radialGradient id="c1" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#c8b49a"/>
-                <stop offset="100%" stop-color="#a89070"/>
-              </radialGradient>
-              <radialGradient id="c2" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#8fa887"/>
-                <stop offset="100%" stop-color="#6a8464"/>
-              </radialGradient>
-              <radialGradient id="c3" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#c9a96e"/>
-                <stop offset="100%" stop-color="#a88848"/>
-              </radialGradient>
-              <radialGradient id="c4" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#b8a8c8"/>
-                <stop offset="100%" stop-color="#8878a8"/>
-              </radialGradient>
+              <radialGradient id="bg" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#ede5d8"/><stop offset="100%" stop-color="#d5cfc5"/></radialGradient>
+              <radialGradient id="c1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c8b49a"/><stop offset="100%" stop-color="#a89070"/></radialGradient>
+              <radialGradient id="c2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#8fa887"/><stop offset="100%" stop-color="#6a8464"/></radialGradient>
+              <radialGradient id="c3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c9a96e"/><stop offset="100%" stop-color="#a88848"/></radialGradient>
+              <radialGradient id="c4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#b8a8c8"/><stop offset="100%" stop-color="#8878a8"/></radialGradient>
             </defs>
             <rect width="400" height="380" fill="url(#bg)"/>
-            <ellipse cx="130" cy="175" rx="75" ry="12" fill="rgba(0,0,0,.12)"/>
-            <ellipse cx="270" cy="175" rx="75" ry="12" fill="rgba(0,0,0,.12)"/>
-            <ellipse cx="130" cy="315" rx="75" ry="12" fill="rgba(0,0,0,.12)"/>
-            <ellipse cx="270" cy="315" rx="75" ry="12" fill="rgba(0,0,0,.12)"/>
-            <g transform="translate(130,130)">
-              <circle r="68" fill="url(#c1)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/>
-              <circle r="62" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
-              <circle r="54" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
-              <circle r="46" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
-              <circle r="38" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/>
-              <circle r="28" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
-              <circle r="14" fill="rgba(255,255,255,.15)"/>
-              <g opacity=".25">
-                <circle cx="-40" cy="0" r="2.5" fill="white"/>
-                <circle cx="40" cy="0" r="2.5" fill="white"/>
-                <circle cx="0" cy="-40" r="2.5" fill="white"/>
-                <circle cx="0" cy="40" r="2.5" fill="white"/>
-                <circle cx="-28" cy="-28" r="2" fill="white"/>
-                <circle cx="28" cy="-28" r="2" fill="white"/>
-                <circle cx="-28" cy="28" r="2" fill="white"/>
-                <circle cx="28" cy="28" r="2" fill="white"/>
-              </g>
-            </g>
-            <g transform="translate(270,130)">
-              <circle r="68" fill="url(#c2)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/>
-              <polygon points="0,-55 8,-22 40,-22 16,0 26,35 0,16 -26,35 -16,0 -40,-22 -8,-22" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5" stroke-linejoin="round"/>
-              <polygon points="0,-38 5,-15 28,-15 11,0 18,24 0,11 -18,24 -11,0 -28,-15 -5,-15" fill="rgba(255,255,255,.08)"/>
-              <circle r="20" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
-              <circle r="62" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
-              <circle r="8" fill="rgba(255,255,255,.18)"/>
-            </g>
-            <g transform="translate(130,270)">
-              <circle r="68" fill="url(#c3)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/>
-              <g fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.2">
-                <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"/>
-                <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"/>
-              </g>
-              <circle r="62" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-              <circle r="10" fill="rgba(255,255,255,.2)"/>
-              <g opacity=".3">
-                <circle cx="26" cy="-46" r="2" fill="white"/>
-                <circle cx="-26" cy="-46" r="2" fill="white"/>
-                <circle cx="52" cy="0" r="2" fill="white"/>
-                <circle cx="-52" cy="0" r="2" fill="white"/>
-                <circle cx="26" cy="46" r="2" fill="white"/>
-                <circle cx="-26" cy="46" r="2" fill="white"/>
-              </g>
-            </g>
-            <g transform="translate(270,270)">
-              <circle r="68" fill="url(#c4)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/>
-              <g fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.25)" stroke-width="1.2">
-                <ellipse rx="18" ry="35" transform="rotate(0)"/>
-                <ellipse rx="18" ry="35" transform="rotate(45)"/>
-                <ellipse rx="18" ry="35" transform="rotate(90)"/>
-                <ellipse rx="18" ry="35" transform="rotate(135)"/>
-              </g>
-              <circle r="16" fill="rgba(255,255,255,.2)"/>
-              <circle r="62" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
-              <circle r="48" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-            </g>
-            <text x="200" y="358" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" fill="#8a7a68" letter-spacing="0.2em" font-style="italic">Set of Four</text>
+            <g transform="translate(130,130)"><circle r="68" fill="url(#c1)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/><circle r="54" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle r="38" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/><circle r="14" fill="rgba(255,255,255,.15)"/></g>
+            <g transform="translate(270,130)"><circle r="68" fill="url(#c2)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/><polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle r="8" fill="rgba(255,255,255,.18)"/></g>
+            <g transform="translate(130,270)"><circle r="68" fill="url(#c3)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/><polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/><circle r="10" fill="rgba(255,255,255,.2)"/></g>
+            <g transform="translate(270,270)"><circle r="68" fill="url(#c4)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/><ellipse rx="18" ry="35" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/><ellipse rx="18" ry="35" transform="rotate(90)" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/><circle r="16" fill="rgba(255,255,255,.2)"/></g>
+            <text x="200" y="360" text-anchor="middle" font-family="Playfair Display, serif" font-size="11" fill="#8a7a68" letter-spacing="0.2em" font-style="italic">Set of Four</text>
           </svg>
-          <div class="product-overlay">
-            <button class="overlay-cta" onclick="addToCart('Coasters')">Add to Order</button>
-          </div>
-          <div class="product-tag">Home &amp; Décor</div>
-          <div class="featured-label">New</div>
+          <div class="product-overlay"><button class="overlay-btn" onclick="addToCart('Coasters')">Add to Order</button></div>
+          <div class="p-tag">Home &amp; Décor</div>
+          <div class="p-badge new">New</div>
         </div>
         <div class="product-info">
-          <h3 class="product-name">Coasters</h3>
-          <p class="product-price">Price on WhatsApp</p>
+          <div class="pi-top">
+            <h3 class="product-name">Coasters</h3>
+            <span class="pi-wa">WhatsApp price</span>
+          </div>
           <button class="btn-add" onclick="addToCart('Coasters')">+ Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card reveal" style="--d:.30s" data-item="Scrunchies">
+      <div class="product-card reveal" style="--d:.35s" data-item="Scrunchies">
         <div class="product-img">
           <img src="images/scrunchies.jpg" alt="Scrunchies" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="img-fallback" style="display:none">
-            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" width="110" opacity=".18"><path d="M150 150 m-60 0 a60 25 0 1 0 120 0 a60 25 0 0 0 -120 0" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/></svg>
+          <div class="img-fallback">
+            <svg viewBox="0 0 300 300" width="100" opacity=".15"><path d="M150 150 m-60 0 a60 25 0 1 0 120 0 a60 25 0 0 0 -120 0" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round"/></svg>
           </div>
-          <div class="product-overlay">
-            <button class="overlay-cta" onclick="addToCart('Scrunchies')">Add to Order</button>
-          </div>
-          <div class="product-tag">Accessories</div>
+          <div class="product-overlay"><button class="overlay-btn" onclick="addToCart('Scrunchies')">Add to Order</button></div>
+          <div class="p-tag">Accessories</div>
         </div>
         <div class="product-info">
-          <h3 class="product-name">Scrunchies</h3>
-          <p class="product-price">Price on WhatsApp</p>
+          <div class="pi-top">
+            <h3 class="product-name">Scrunchies</h3>
+            <span class="pi-wa">WhatsApp price</span>
+          </div>
           <button class="btn-add" onclick="addToCart('Scrunchies')">+ Add to Order</button>
         </div>
       </div>
@@ -406,197 +335,175 @@
     </div>
   </section>
 
-  <!-- EDITORIAL BREAK -->
-  <div class="editorial-break">
-    <div class="editorial-inner">
-      <p class="editorial-quote">"Every stitch tells a story."</p>
-      <p class="editorial-sub">— Slow craft. Intentional luxury. Mangalore.</p>
+  <!-- ══════════ EDITORIAL ══════════ -->
+  <div class="editorial">
+    <div class="ed-left">
+      <div class="ed-rule"></div>
+      <p class="ed-num">—</p>
+    </div>
+    <div class="ed-center">
+      <p class="ed-quote">"Every stitch tells a story."</p>
+      <p class="ed-attr">Slow craft · Intentional luxury · Mangalore</p>
+    </div>
+    <div class="ed-right">
+      <div class="ed-rule"></div>
     </div>
   </div>
 
-  <!-- CUSTOM ORDER -->
-  <section id="custom-order" class="custom-section">
-    <div class="section-header">
-      <p class="section-eyebrow">Bespoke Creation</p>
+  <!-- ══════════ BESPOKE ══════════ -->
+  <section id="custom-order" class="bespoke-section">
+    <div class="bespoke-intro">
+      <p class="eyebrow">Bespoke Creation</p>
       <h2 class="section-title">Design Your <em>Own</em></h2>
       <p class="section-sub">Tell us exactly what you envision — we'll make it happen, stitch by stitch.</p>
     </div>
 
     <div class="custom-form-wrap reveal">
+      <div class="cfm-decoration" aria-hidden="true">
+        <svg viewBox="0 0 200 400" width="100" fill="none" xmlns="http://www.w3.org/2000/svg" opacity=".07">
+          <rect x="96" y="0" width="8" height="300" rx="4" fill="currentColor"/>
+          <path d="M104 300 Q104 360 75 368 Q52 375 50 362 Q48 349 70 345 Q85 343 97 330 Q101 320 104 310" stroke="currentColor" stroke-width="7" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
       <form id="customOrderForm" onsubmit="submitCustomOrder(event)">
         <div class="cf-grid">
           <div class="cf-col">
-            <div class="cf-group">
-              <label class="cf-label">Your Name</label>
-              <input class="cf-input" type="text" id="cf-name" placeholder="Priya Sharma" required />
-            </div>
-            <div class="cf-group">
-              <label class="cf-label">WhatsApp Number</label>
-              <input class="cf-input" type="tel" id="cf-phone" placeholder="+91 96069 22836" required />
-            </div>
-            <div class="cf-group">
-              <label class="cf-label">Product Type</label>
+            <div class="cf-group"><label class="cf-label">Your Name</label><input class="cf-input" type="text" id="cf-name" placeholder="Priya Sharma" required /></div>
+            <div class="cf-group"><label class="cf-label">WhatsApp Number</label><input class="cf-input" type="tel" id="cf-phone" placeholder="+91 96069 22836" required /></div>
+            <div class="cf-group"><label class="cf-label">Product Type</label>
               <select class="cf-input" id="cf-product" required>
                 <option value="">Choose a product...</option>
-                <option>Crochet Hat</option>
-                <option>Plush Toy / Amigurumi</option>
-                <option>Crochet Bag / Tote</option>
-                <option>Scarf</option>
-                <option>Coasters (Set)</option>
-                <option>Scrunchies</option>
-                <option>Flowers / Bouquet</option>
-                <option>Clothing / Wearable</option>
-                <option>Keychain / Charm</option>
-                <option>Other (describe below)</option>
+                <option>Crochet Hat</option><option>Plush Toy / Amigurumi</option><option>Crochet Bag / Tote</option>
+                <option>Scarf</option><option>Coasters (Set)</option><option>Scrunchies</option>
+                <option>Flowers / Bouquet</option><option>Clothing / Wearable</option>
+                <option>Keychain / Charm</option><option>Other (describe below)</option>
               </select>
             </div>
-            <div class="cf-group">
-              <label class="cf-label">Size</label>
+            <div class="cf-group"><label class="cf-label">Size</label>
               <select class="cf-input" id="cf-size">
                 <option value="">Select size...</option>
-                <option>Mini (under 10 cm)</option>
-                <option>Small (10–20 cm)</option>
-                <option>Medium (20–35 cm)</option>
-                <option>Large (35–50 cm)</option>
-                <option>XL / Extra Large</option>
-                <option>Custom (describe below)</option>
+                <option>Mini (under 10 cm)</option><option>Small (10–20 cm)</option>
+                <option>Medium (20–35 cm)</option><option>Large (35–50 cm)</option>
+                <option>XL / Extra Large</option><option>Custom (describe below)</option>
               </select>
             </div>
-            <div class="cf-group">
-              <label class="cf-label">Quantity</label>
-              <input class="cf-input" type="number" id="cf-qty" min="1" value="1" />
-            </div>
-            <div class="cf-group">
-              <label class="cf-label">Delivery Preference</label>
-              <select class="cf-input" id="cf-delivery">
-                <option>Delivery within Mangalore</option>
-                <option>Pickup</option>
-                <option>Outside Mangalore (discuss privately)</option>
-              </select>
+            <div class="cf-row">
+              <div class="cf-group"><label class="cf-label">Quantity</label><input class="cf-input" type="number" id="cf-qty" min="1" value="1" /></div>
+              <div class="cf-group"><label class="cf-label">Delivery</label>
+                <select class="cf-input" id="cf-delivery">
+                  <option>Within Mangalore</option><option>Pickup</option><option>Outside Mangalore</option>
+                </select>
+              </div>
             </div>
           </div>
           <div class="cf-col">
             <div class="cf-group">
-              <label class="cf-label">Color Palette <span class="cf-label-note">(select all that apply)</span></label>
+              <label class="cf-label">Color Palette <span class="cf-label-sm">select all that apply</span></label>
               <div class="swatch-grid">
-                <label class="swatch-wrap" title="Cream"><input type="checkbox" class="swatch-cb" value="Cream Beige"/><span class="swatch" style="background:#e8c9a0"></span><span class="swatch-name">Cream</span></label>
-                <label class="swatch-wrap" title="Terracotta"><input type="checkbox" class="swatch-cb" value="Terracotta"/><span class="swatch" style="background:#c47a5a"></span><span class="swatch-name">Terra</span></label>
-                <label class="swatch-wrap" title="Sage"><input type="checkbox" class="swatch-cb" value="Sage Green"/><span class="swatch" style="background:#7a9175"></span><span class="swatch-name">Sage</span></label>
-                <label class="swatch-wrap" title="Dusty Blue"><input type="checkbox" class="swatch-cb" value="Dusty Blue"/><span class="swatch" style="background:#7090b8"></span><span class="swatch-name">Blue</span></label>
-                <label class="swatch-wrap" title="Rose"><input type="checkbox" class="swatch-cb" value="Dusty Rose"/><span class="swatch" style="background:#c8879a"></span><span class="swatch-name">Rose</span></label>
-                <label class="swatch-wrap" title="Yellow"><input type="checkbox" class="swatch-cb" value="Butter Yellow"/><span class="swatch" style="background:#e5dda0"></span><span class="swatch-name">Yellow</span></label>
-                <label class="swatch-wrap" title="Burgundy"><input type="checkbox" class="swatch-cb" value="Burgundy"/><span class="swatch" style="background:#7a3a3a"></span><span class="swatch-name">Burgundy</span></label>
-                <label class="swatch-wrap" title="White"><input type="checkbox" class="swatch-cb" value="White"/><span class="swatch" style="background:#f8f4ee;border:1px solid #ccc"></span><span class="swatch-name">White</span></label>
-                <label class="swatch-wrap" title="Black"><input type="checkbox" class="swatch-cb" value="Black"/><span class="swatch" style="background:#2a2a2a"></span><span class="swatch-name">Black</span></label>
-                <label class="swatch-wrap" title="Gold"><input type="checkbox" class="swatch-cb" value="Gold"/><span class="swatch" style="background:#c9a96e"></span><span class="swatch-name">Gold</span></label>
-                <label class="swatch-wrap" title="Lavender"><input type="checkbox" class="swatch-cb" value="Lavender"/><span class="swatch" style="background:#b8a8d0"></span><span class="swatch-name">Lavender</span></label>
-                <label class="swatch-wrap" title="Mint"><input type="checkbox" class="swatch-cb" value="Mint"/><span class="swatch" style="background:#a8d8c8"></span><span class="swatch-name">Mint</span></label>
+                <label class="sw" title="Cream"><input type="checkbox" class="swatch-cb" value="Cream Beige"/><span class="swatch" style="background:#e8c9a0"></span><span class="sw-name">Cream</span></label>
+                <label class="sw" title="Terracotta"><input type="checkbox" class="swatch-cb" value="Terracotta"/><span class="swatch" style="background:#c47a5a"></span><span class="sw-name">Terra</span></label>
+                <label class="sw" title="Sage"><input type="checkbox" class="swatch-cb" value="Sage Green"/><span class="swatch" style="background:#7a9175"></span><span class="sw-name">Sage</span></label>
+                <label class="sw" title="Blue"><input type="checkbox" class="swatch-cb" value="Dusty Blue"/><span class="swatch" style="background:#7090b8"></span><span class="sw-name">Blue</span></label>
+                <label class="sw" title="Rose"><input type="checkbox" class="swatch-cb" value="Dusty Rose"/><span class="swatch" style="background:#c8879a"></span><span class="sw-name">Rose</span></label>
+                <label class="sw" title="Yellow"><input type="checkbox" class="swatch-cb" value="Butter Yellow"/><span class="swatch" style="background:#e5dda0"></span><span class="sw-name">Yellow</span></label>
+                <label class="sw" title="Burgundy"><input type="checkbox" class="swatch-cb" value="Burgundy"/><span class="swatch" style="background:#7a3a3a"></span><span class="sw-name">Burgundy</span></label>
+                <label class="sw" title="White"><input type="checkbox" class="swatch-cb" value="White"/><span class="swatch" style="background:#f8f4ee;border:1px solid #ddd"></span><span class="sw-name">White</span></label>
+                <label class="sw" title="Black"><input type="checkbox" class="swatch-cb" value="Black"/><span class="swatch" style="background:#2a2a2a"></span><span class="sw-name">Black</span></label>
+                <label class="sw" title="Gold"><input type="checkbox" class="swatch-cb" value="Gold"/><span class="swatch" style="background:#c9a96e"></span><span class="sw-name">Gold</span></label>
+                <label class="sw" title="Lavender"><input type="checkbox" class="swatch-cb" value="Lavender"/><span class="swatch" style="background:#b8a8d0"></span><span class="sw-name">Lavender</span></label>
+                <label class="sw" title="Mint"><input type="checkbox" class="swatch-cb" value="Mint"/><span class="swatch" style="background:#a8d8c8"></span><span class="sw-name">Mint</span></label>
               </div>
-              <input class="cf-input" type="text" id="cf-color-other" placeholder="Or describe any specific color..." style="margin-top:12px" />
+              <input class="cf-input" type="text" id="cf-color-other" placeholder="Or describe any specific color..." style="margin-top:14px" />
             </div>
-            <div class="cf-group">
-              <label class="cf-label">Describe Your Vision</label>
-              <textarea class="cf-input cf-textarea" id="cf-desc" placeholder="Tell us everything — theme, character, feeling, references, inspirations. The more detail, the better." required></textarea>
-            </div>
-            <div class="cf-group">
-              <label class="cf-label">Reference Image <span class="cf-label-note">(optional)</span></label>
-              <input class="cf-input" type="url" id="cf-ref" placeholder="Google Drive, Pinterest, or any link..." />
-            </div>
+            <div class="cf-group"><label class="cf-label">Describe Your Vision</label><textarea class="cf-input cf-textarea" id="cf-desc" placeholder="Tell us everything — theme, character, feeling, references, inspirations. The more detail, the better." required></textarea></div>
+            <div class="cf-group"><label class="cf-label">Reference Image <span class="cf-label-sm">optional</span></label><input class="cf-input" type="url" id="cf-ref" placeholder="Google Drive, Pinterest, or any link..." /></div>
           </div>
         </div>
-        <div class="cf-submit-row">
-          <button type="submit" class="btn-primary cf-submit-btn">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        <div class="cf-footer">
+          <button type="submit" class="btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
             Send Bespoke Order via WhatsApp
           </button>
-          <p class="cf-footnote">You'll be taken to WhatsApp to confirm everything directly with us.</p>
+          <p class="cf-note">You'll be taken to WhatsApp to confirm everything directly with us.</p>
         </div>
       </form>
     </div>
   </section>
 
-  <!-- CLASSES -->
-  <section id="learn" class="learn-section">
-    <div class="learn-inner">
-      <div class="learn-text reveal">
-        <p class="section-eyebrow">The Atelier</p>
-        <h2 class="section-title learn-h2">Learn to<br><em>Crochet</em></h2>
-        <div class="free-badge">First Few Classes — Free</div>
-        <p class="learn-desc">Discover the meditative joy of crochet. From your very first chain stitch to crafting plushies, bags, and wearables. Small, personal sessions with genuine attention and real progress.</p>
-        <ul class="learn-list">
+  <!-- ══════════ ATELIER ══════════ -->
+  <section id="learn" class="atelier-section">
+    <div class="atelier-inner">
+      <div class="atelier-text reveal">
+        <p class="eyebrow light">The Atelier</p>
+        <h2 class="section-title light">Learn to<br><em>Crochet</em></h2>
+        <div class="free-pill">First Few Classes — Free</div>
+        <p class="atelier-body">Discover the meditative joy of crochet. From your very first chain stitch to crafting plushies, bags, and wearables. Small, personal sessions with genuine attention and real progress.</p>
+        <ul class="atelier-list">
           <li>Beginner-friendly — zero experience needed</li>
           <li>First few classes completely <strong>free</strong></li>
           <li>Affordable &amp; negotiable ongoing pricing</li>
           <li>Small batches, flexible timing</li>
           <li>Master plushies, flowers, bags, wearables &amp; more</li>
         </ul>
-        <a href="https://wa.me/919606922836?text=Hi!%20I'm%20interested%20in%20crochet%20classes%20at%20Xcrochets" target="_blank" class="btn-primary" style="margin-top:36px;display:inline-flex">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        <a href="https://wa.me/919606922836?text=Hi!%20I'm%20interested%20in%20crochet%20classes%20at%20Xcrochets" target="_blank" class="btn-primary light-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
           Enquire About Classes
         </a>
       </div>
-      <div class="learn-visual reveal" style="--d:.12s">
-        <div class="lv-card">
-          <div class="lv-num">01</div>
-          <div class="lv-title">The Chain Stitch</div>
-          <div class="lv-bar"><div class="lv-fill" style="width:90%"></div></div>
-          <div class="lv-status">Foundation</div>
+      <div class="atelier-cards reveal" style="--d:.14s">
+        <div class="ac-card">
+          <div class="ac-num">01</div>
+          <div class="ac-title">The Chain Stitch</div>
+          <div class="ac-track"><div class="ac-fill" style="width:90%"></div></div>
+          <div class="ac-status">Foundation</div>
         </div>
-        <div class="lv-card">
-          <div class="lv-num">02</div>
-          <div class="lv-title">Single Crochet</div>
-          <div class="lv-bar"><div class="lv-fill" style="width:68%"></div></div>
-          <div class="lv-status">Building</div>
+        <div class="ac-card">
+          <div class="ac-num">02</div>
+          <div class="ac-title">Single Crochet</div>
+          <div class="ac-track"><div class="ac-fill" style="width:65%"></div></div>
+          <div class="ac-status">Building</div>
         </div>
-        <div class="lv-card">
-          <div class="lv-num">03</div>
-          <div class="lv-title">Your First Project</div>
-          <div class="lv-bar"><div class="lv-fill" style="width:45%"></div></div>
-          <div class="lv-status">Creating</div>
+        <div class="ac-card">
+          <div class="ac-num">03</div>
+          <div class="ac-title">Your First Project</div>
+          <div class="ac-track"><div class="ac-fill" style="width:42%"></div></div>
+          <div class="ac-status">Creating</div>
         </div>
-        <div class="lv-free">FREE to Start →</div>
+        <div class="ac-free">FREE to Start →</div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- ══════════ ABOUT ══════════ -->
   <section id="about" class="about-section">
     <div class="about-inner">
-      <div class="about-image reveal">
-        <div class="about-img-wrap">
-          <img src="images/xcrochetslogo.jpg" alt="Xcrochets" onerror="this.parentElement.innerHTML='<div class=\'about-logo-fallback\'><span>X</span></div>'" />
+      <div class="about-visual reveal">
+        <div class="av-img-wrap">
+          <img src="images/xcrochetslogo.jpg" alt="Xcrochets" onerror="this.parentElement.innerHTML='<div class=\'av-fallback\'><span>X</span></div>'" />
         </div>
-        <div class="about-quote">"Every stitch<br>tells a story."</div>
+        <div class="av-quote-card">"Every stitch<br>tells a story."</div>
+        <div class="av-tag">Est. 2025</div>
       </div>
-      <div class="about-text reveal" style="--d:.12s">
-        <p class="section-eyebrow">Our Maison</p>
+      <div class="about-text reveal" style="--d:.14s">
+        <p class="eyebrow">Our Maison</p>
         <h2 class="section-title">About<br><em>Xcrochets</em></h2>
         <p class="about-body">Est. 2025 — Xcrochets is a refined crochet atelier dedicated to timeless craftsmanship and understated luxury. Each piece is meticulously handmade using carefully selected materials, ensuring exceptional quality, softness, and durability.</p>
         <p class="about-body">Rooted in minimal elegance, every creation is designed to feel exclusive — where slow, intentional artistry replaces mass production. Every stitch reflects precision, patience, and a commitment to creating pieces not just worn, but experienced.</p>
         <div class="about-stats">
-          <div class="stat">
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Handmade</div>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <div class="stat-num">6+</div>
-            <div class="stat-label">Product Types</div>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <div class="stat-num">2025</div>
-            <div class="stat-label">Est. Mangalore</div>
-          </div>
+          <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Handmade</div></div>
+          <div class="stat-div"></div>
+          <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Product Types</div></div>
+          <div class="stat-div"></div>
+          <div class="stat"><div class="stat-num">2025</div><div class="stat-label">Est. Mangalore</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ORDER TRACKER -->
+  <!-- ══════════ TRACK ══════════ -->
   <section id="track" class="track-section">
-    <div class="section-header">
-      <p class="section-eyebrow">Live Status</p>
+    <div class="track-header">
+      <p class="eyebrow">Live Status</p>
       <h2 class="section-title">Track Your <em>Order</em></h2>
       <p class="section-sub">Sign in to see where your handcrafted piece is right now.</p>
     </div>
@@ -608,7 +515,7 @@
       <div class="auth-panel" id="panel-login">
         <div class="cf-group"><label class="cf-label">Email</label><input class="cf-input" type="email" id="login-email" placeholder="you@email.com" /></div>
         <div class="cf-group"><label class="cf-label">Password</label><input class="cf-input" type="password" id="login-pass" placeholder="Your password" /></div>
-        <button class="btn-primary" style="width:100%;text-align:center;justify-content:center;margin-top:12px" onclick="doLogin()">Log In &amp; Track My Order</button>
+        <button class="btn-primary" style="width:100%;justify-content:center;margin-top:14px" onclick="doLogin()">Log In &amp; Track My Order</button>
         <p class="auth-switch">No account? <a href="#" onclick="switchTab('signup');return false">Sign up here</a></p>
       </div>
       <div class="auth-panel hidden" id="panel-signup">
@@ -616,64 +523,48 @@
         <div class="cf-group"><label class="cf-label">Email</label><input class="cf-input" type="email" id="su-email" placeholder="you@email.com" /></div>
         <div class="cf-group"><label class="cf-label">WhatsApp Number</label><input class="cf-input" type="tel" id="su-phone" placeholder="+91 96069 22836" /></div>
         <div class="cf-group"><label class="cf-label">Password</label><input class="cf-input" type="password" id="su-pass" placeholder="Create a password" /></div>
-        <button class="btn-primary" style="width:100%;text-align:center;justify-content:center;margin-top:12px" onclick="doSignup()">Create Account</button>
+        <button class="btn-primary" style="width:100%;justify-content:center;margin-top:14px" onclick="doSignup()">Create Account</button>
         <p class="auth-switch">Already have an account? <a href="#" onclick="switchTab('login');return false">Log in</a></p>
       </div>
       <div class="order-status-panel hidden" id="orderStatusPanel">
         <div class="os-welcome">Welcome back, <strong id="os-username">Priya</strong></div>
         <div class="os-tracker">
-          <div class="os-step" id="step-placed">
-            <div class="os-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <div class="os-content"><div class="os-step-name">Order Placed</div><div class="os-step-sub">We received your order</div></div>
-            <div class="os-line"></div>
-          </div>
-          <div class="os-step" id="step-crocheting">
-            <div class="os-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <div class="os-content"><div class="os-step-name">Being Made</div><div class="os-step-sub">Crafted with love</div></div>
-            <div class="os-line"></div>
-          </div>
-          <div class="os-step" id="step-delivering">
-            <div class="os-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-            <div class="os-content"><div class="os-step-name">On Its Way</div><div class="os-step-sub">Dispatched to you</div></div>
-            <div class="os-line"></div>
-          </div>
-          <div class="os-step" id="step-delivered">
-            <div class="os-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
-            <div class="os-content"><div class="os-step-name">Delivered</div><div class="os-step-sub">Enjoy your piece!</div></div>
-            <div class="os-line last"></div>
-          </div>
+          <div class="os-step" id="step-placed"><div class="os-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div class="os-content"><div class="os-step-name">Order Placed</div><div class="os-step-sub">We received your order</div></div></div>
+          <div class="os-step" id="step-crocheting"><div class="os-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="os-content"><div class="os-step-name">Being Made</div><div class="os-step-sub">Crafted with love</div></div></div>
+          <div class="os-step" id="step-delivering"><div class="os-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="os-content"><div class="os-step-name">On Its Way</div><div class="os-step-sub">Dispatched to you</div></div></div>
+          <div class="os-step" id="step-delivered"><div class="os-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div><div class="os-content"><div class="os-step-name">Delivered</div><div class="os-step-sub">Enjoy your piece!</div></div></div>
         </div>
         <p class="os-note">Real-time updates also sent directly on WhatsApp.</p>
-        <button class="btn-ghost" style="margin-top:20px" onclick="doLogout()">Sign Out</button>
+        <button class="btn-ghost" style="margin-top:20px;width:100%;justify-content:center" onclick="doLogout()">Sign Out</button>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ══════════ CONTACT ══════════ -->
   <section id="contact" class="contact-section">
-    <div class="section-header">
-      <p class="section-eyebrow">Reach Out</p>
+    <div class="contact-header">
+      <p class="eyebrow">Reach Out</p>
       <h2 class="section-title">Contact</h2>
       <p class="section-sub">Questions, custom ideas, or just a hello.</p>
     </div>
     <div class="contact-grid">
       <div class="contact-card reveal">
         <div class="cc-num">01</div>
-        <div class="cc-icon-wrap wa-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg></div>
+        <div class="cc-icon wa"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg></div>
         <h3 class="cc-title">WhatsApp</h3>
         <p class="cc-val">+91 96069 22836</p>
         <a href="https://wa.me/919606922836?text=Hi%20I%20have%20a%20question" target="_blank" class="cc-link">Chat Now →</a>
       </div>
       <div class="contact-card reveal" style="--d:.1s">
         <div class="cc-num">02</div>
-        <div class="cc-icon-wrap ig-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+        <div class="cc-icon ig"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
         <h3 class="cc-title">Instagram</h3>
         <p class="cc-val">@xcrochets_25</p>
         <a href="https://instagram.com/xcrochets_25" target="_blank" class="cc-link">Follow →</a>
       </div>
       <div class="contact-card reveal" style="--d:.2s">
         <div class="cc-num">03</div>
-        <div class="cc-icon-wrap cl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+        <div class="cc-icon cl"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
         <h3 class="cc-title">Atelier Classes</h3>
         <p class="cc-val">First few classes free!</p>
         <a href="https://wa.me/919606922836?text=Hi!%20I%20want%20to%20join%20crochet%20classes" target="_blank" class="cc-link">Enquire →</a>
@@ -681,54 +572,53 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ══════════ FOOTER ══════════ -->
   <footer>
-    <div class="footer-grid">
+    <div class="footer-inner">
       <div class="footer-brand">
-        <img src="images/xcrochetslogo.jpg" alt="Xcrochets" class="footer-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
-        <div class="footer-logo-text" style="display:none">XCROCHETS</div>
-        <p class="footer-script">Handmade with Love</p>
+        <div class="footer-mark"><span>X</span>CROCHETS</div>
+        <p class="footer-tagline">Handmade with Love</p>
         <p class="footer-desc">Est. 2025 · Mangalore.<br>Refined crochet for those who appreciate slow, intentional craft.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/919606922836" target="_blank" class="fs-link">WA</a>
+          <a href="https://instagram.com/xcrochets_25" target="_blank" class="fs-link">IG</a>
+        </div>
       </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Navigate</p>
-        <a href="#">Home</a>
-        <a href="#shop">Shop</a>
-        <a href="#custom-order">Bespoke Order</a>
-        <a href="#learn">Atelier Classes</a>
-        <a href="#about">Our Maison</a>
-        <a href="#track">Track Order</a>
+      <div class="footer-nav">
+        <p class="fn-title">Navigate</p>
+        <a href="#">Home</a><a href="#shop">Shop</a><a href="#custom-order">Bespoke Order</a>
+        <a href="#learn">Atelier Classes</a><a href="#about">Our Maison</a><a href="#track">Track Order</a>
       </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Connect</p>
+      <div class="footer-connect">
+        <p class="fn-title">Connect</p>
         <a href="https://wa.me/919606922836" target="_blank">WhatsApp</a>
-        <a href="https://instagram.com/xcrochets_25" target="_blank">Instagram @xcrochets_25</a>
+        <a href="https://instagram.com/xcrochets_25" target="_blank">@xcrochets_25</a>
         <a href="#contact">Contact Us</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2025 Xcrochets</span>
-      <span class="footer-dot">·</span>
+      <span class="fd">·</span>
       <span>Est. 2025, Mangalore</span>
-      <span class="footer-dot">·</span>
-      <span>Every stitch with intention.</span>
+      <span class="fd">·</span>
+      <em>Every stitch with intention.</em>
     </div>
   </footer>
 
-  <!-- CART DRAWER -->
+  <!-- ══════════ CART DRAWER ══════════ -->
   <div id="cart" class="cart-drawer">
     <div class="cart-head">
       <h3>Your Order</h3>
-      <button class="cart-close-btn" onclick="toggleCart()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <button class="cart-close" onclick="toggleCart()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-    <div class="cart-info">Pricing is shared personally on WhatsApp when you send your order.</div>
+    <div class="cart-note">Pricing is shared personally on WhatsApp when you send your order.</div>
     <ul id="cartItems" class="cart-items"></ul>
-    <div class="cart-empty-msg" id="cartEmpty">Your cart is empty</div>
+    <div class="cart-empty" id="cartEmpty">Your cart is empty</div>
     <div class="cart-foot">
-      <button class="btn-primary cart-checkout-btn" onclick="checkout()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+      <button class="btn-primary cart-cta" onclick="checkout()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
         Send Order on WhatsApp
       </button>
     </div>
@@ -747,9 +637,7 @@
     // CART
     let cart = [];
     function addToCart(name) {
-      cart.push(name);
-      updateCart();
-      openCart();
+      cart.push(name); updateCart(); openCart();
       showToast(name + ' added to your order');
     }
     function removeFromCart(i) { cart.splice(i,1); updateCart(); }
@@ -761,8 +649,8 @@
       empty.style.display = cart.length ? 'none' : 'block';
       cart.forEach((item,i) => {
         const li = document.createElement('li');
-        li.className = 'cart-item-row';
-        li.innerHTML = `<span>${item}</span><button onclick="removeFromCart(${i})"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
+        li.className = 'cart-row';
+        li.innerHTML = `<span>${item}</span><button onclick="removeFromCart(${i})"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
         list.appendChild(li);
       });
     }
@@ -786,107 +674,100 @@
     function showToast(msg) {
       const c = document.getElementById('toastContainer');
       const t = document.createElement('div');
-      t.className = 'toast';
-      t.textContent = msg;
-      c.appendChild(t);
-      setTimeout(()=>t.classList.add('show'), 10);
-      setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(), 400); }, 2800);
+      t.className = 'toast'; t.textContent = msg; c.appendChild(t);
+      setTimeout(()=>t.classList.add('show'),10);
+      setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),400); },2800);
     }
 
     // CUSTOM ORDER
     function submitCustomOrder(e) {
       e.preventDefault();
-      const name = document.getElementById('cf-name').value;
-      const phone = document.getElementById('cf-phone').value;
-      const product = document.getElementById('cf-product').value;
-      const size = document.getElementById('cf-size').value;
-      const qty = document.getElementById('cf-qty').value;
-      const del = document.getElementById('cf-delivery').value;
-      const desc = document.getElementById('cf-desc').value;
-      const ref = document.getElementById('cf-ref').value;
-      const cOther = document.getElementById('cf-color-other').value;
-      const checked = [...document.querySelectorAll('.swatch-cb:checked')].map(c=>c.value);
-      const colors = [...checked, cOther].filter(Boolean).join(', ') || 'Not specified';
-      const msg = `Bespoke Order — Xcrochets\n\nName: ${name}\nPhone: ${phone}\nProduct: ${product}\nSize: ${size||'Not specified'}\nQty: ${qty}\nColors: ${colors}\nDelivery: ${del}\n\nVision:\n${desc}${ref?'\n\nReference: '+ref:''}\n\n(via website)`;
+      const name=document.getElementById('cf-name').value,phone=document.getElementById('cf-phone').value,
+        product=document.getElementById('cf-product').value,size=document.getElementById('cf-size').value,
+        qty=document.getElementById('cf-qty').value,del=document.getElementById('cf-delivery').value,
+        desc=document.getElementById('cf-desc').value,ref=document.getElementById('cf-ref').value,
+        cOther=document.getElementById('cf-color-other').value,
+        checked=[...document.querySelectorAll('.swatch-cb:checked')].map(c=>c.value),
+        colors=[...checked,cOther].filter(Boolean).join(', ')||'Not specified';
+      const msg=`Bespoke Order — Xcrochets\n\nName: ${name}\nPhone: ${phone}\nProduct: ${product}\nSize: ${size||'Not specified'}\nQty: ${qty}\nColors: ${colors}\nDelivery: ${del}\n\nVision:\n${desc}${ref?'\n\nReference: '+ref:''}\n\n(via website)`;
       window.open(`https://wa.me/919606922836?text=${encodeURIComponent(msg)}`,'_blank');
     }
 
     // NAV
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
+    window.addEventListener('scroll',()=>{
+      document.getElementById('navbar').classList.toggle('scrolled',scrollY>60);
     });
-    function toggleNav() { document.getElementById('mobileNav').classList.toggle('open'); }
-    document.addEventListener('click', e => {
-      const mn = document.getElementById('mobileNav');
-      const hb = document.getElementById('hamburger');
-      if (mn.classList.contains('open') && !mn.contains(e.target) && !hb.contains(e.target)) mn.classList.remove('open');
+    function toggleNav(){
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    document.addEventListener('click',e=>{
+      const mn=document.getElementById('mobileNav'),hb=document.getElementById('hamburger');
+      if(mn.classList.contains('open')&&!mn.contains(e.target)&&!hb.contains(e.target)) {
+        mn.classList.remove('open'); hb.classList.remove('open');
+      }
     });
 
     // AUTH
-    let currentUser = null;
-    const users = JSON.parse(localStorage.getItem('xc_users')||'{}');
-    function switchTab(tab) {
-      ['login','signup'].forEach(t => {
-        document.getElementById('tab-'+t).classList.toggle('active', t===tab);
-        document.getElementById('panel-'+t).classList.toggle('hidden', t!==tab);
+    let currentUser=null;
+    const users=JSON.parse(localStorage.getItem('xc_users')||'{}');
+    function switchTab(tab){
+      ['login','signup'].forEach(t=>{
+        document.getElementById('tab-'+t).classList.toggle('active',t===tab);
+        document.getElementById('panel-'+t).classList.toggle('hidden',t!==tab);
       });
     }
-    function doSignup() {
-      const name = document.getElementById('su-name').value.trim();
-      const email = document.getElementById('su-email').value.trim();
-      const phone = document.getElementById('su-phone').value.trim();
-      const pass = document.getElementById('su-pass').value;
-      if (!name||!email||!pass) { showToast('Please fill all fields.'); return; }
-      if (users[email]) { showToast('Account exists. Please log in.'); return; }
-      users[email] = {name,email,phone,pass,status:'placed'};
-      localStorage.setItem('xc_users', JSON.stringify(users));
-      currentUser = users[email]; localStorage.setItem('xc_current', email);
+    function doSignup(){
+      const name=document.getElementById('su-name').value.trim(),email=document.getElementById('su-email').value.trim(),
+        phone=document.getElementById('su-phone').value.trim(),pass=document.getElementById('su-pass').value;
+      if(!name||!email||!pass){showToast('Please fill all fields.');return;}
+      if(users[email]){showToast('Account exists. Please log in.');return;}
+      users[email]={name,email,phone,pass,status:'placed'};
+      localStorage.setItem('xc_users',JSON.stringify(users));
+      currentUser=users[email]; localStorage.setItem('xc_current',email);
       showOrderStatus(); showToast('Welcome, '+name+'!');
     }
-    function doLogin() {
-      const email = document.getElementById('login-email').value.trim();
-      const pass = document.getElementById('login-pass').value;
-      const user = users[email];
-      if (!user||user.pass!==pass) { showToast('Incorrect email or password.'); return; }
-      currentUser = user; localStorage.setItem('xc_current', email);
+    function doLogin(){
+      const email=document.getElementById('login-email').value.trim(),pass=document.getElementById('login-pass').value;
+      const user=users[email];
+      if(!user||user.pass!==pass){showToast('Incorrect email or password.');return;}
+      currentUser=user; localStorage.setItem('xc_current',email);
       showOrderStatus(); showToast('Welcome back, '+user.name+'!');
     }
-    function doLogout() {
-      currentUser = null; localStorage.removeItem('xc_current');
+    function doLogout(){
+      currentUser=null; localStorage.removeItem('xc_current');
       document.getElementById('orderStatusPanel').classList.add('hidden');
       switchTab('login');
     }
-    function showOrderStatus() {
+    function showOrderStatus(){
       document.getElementById('panel-login').classList.add('hidden');
       document.getElementById('panel-signup').classList.add('hidden');
       document.getElementById('orderStatusPanel').classList.remove('hidden');
-      document.getElementById('os-username').textContent = currentUser.name;
-      const map = {placed:0, crocheting:1, delivering:2, delivered:3};
-      const cur = map[currentUser.status||'placed']||0;
-      ['step-placed','step-crocheting','step-delivering','step-delivered'].forEach((id,i) => {
-        const el = document.getElementById(id);
-        el.classList.toggle('active', i<=cur);
-        el.classList.toggle('current', i===cur);
+      document.getElementById('os-username').textContent=currentUser.name;
+      const map={placed:0,crocheting:1,delivering:2,delivered:3};
+      const cur=map[currentUser.status||'placed']||0;
+      ['step-placed','step-crocheting','step-delivering','step-delivered'].forEach((id,i)=>{
+        const el=document.getElementById(id);
+        el.classList.toggle('active',i<=cur); el.classList.toggle('current',i===cur);
       });
     }
-    const saved = localStorage.getItem('xc_current');
-    if (saved&&users[saved]) { currentUser = users[saved]; }
-    function showSignup() {
+    const saved=localStorage.getItem('xc_current');
+    if(saved&&users[saved]) currentUser=users[saved];
+    function showSignup(){
       document.getElementById('track').scrollIntoView({behavior:'smooth'});
       switchTab('signup');
     }
 
-    // SCROLL REVEAL
-    const ro = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.transitionDelay = e.target.style.getPropertyValue('--d') || '0s';
-          e.target.classList.add('visible');
-          ro.unobserve(e.target);
+    // REVEAL
+    const ro=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.style.transitionDelay=e.target.style.getPropertyValue('--d')||'0s';
+          e.target.classList.add('visible'); ro.unobserve(e.target);
         }
       });
-    }, {threshold: 0.06});
-    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+    },{threshold:.07});
+    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
   </script>
 </body>
 </html>
