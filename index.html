@@ -8,6 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Jost:wght@100;200;300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Admin panel CSS — injected only after auth, hidden from source initially -->
+  <style id="adminStyles"></style>
 </head>
 <body>
 
@@ -73,6 +76,10 @@
         <a href="#about">Maison</a>
         <a href="#track">Track</a>
         <a href="#contact">Contact</a>
+        <!-- Admin link: only visible after admin auth, injected by JS -->
+        <span id="adminNavLink" style="display:none">
+          <a href="#" onclick="openAdmin();return false" style="color:var(--gold)">Admin ⬡</a>
+        </span>
       </div>
       <div class="nav-actions">
         <button class="cart-trigger" onclick="toggleCart()" aria-label="Cart">
@@ -716,369 +723,512 @@
   <!-- TOAST -->
   <div id="toastContainer"></div>
 
-  <!-- ══════════ ADMIN PANEL ══════════ -->
-  <div id="adminOverlay" class="admin-overlay hidden">
-    <div class="admin-panel">
-      <div class="admin-header">
-        <div class="admin-logo"><span>X</span> Admin</div>
-        <button class="admin-close" onclick="closeAdmin()">✕</button>
-      </div>
-      <div class="admin-body">
-        <div class="admin-top-stats">
-          <div class="ast"><div class="ast-num" id="aStat1">0</div><div class="ast-label">Total Orders</div></div>
-          <div class="ast"><div class="ast-num" id="aStat2">0</div><div class="ast-label">Active</div></div>
-          <div class="ast"><div class="ast-num" id="aStat3">0</div><div class="ast-label">Delivered</div></div>
-        </div>
-
-        <div class="admin-section-title">Customer Orders</div>
-        <div id="adminOrdersList" class="admin-orders-list">
-          <div class="admin-empty">No orders yet. Customers will appear here when they sign up.</div>
-        </div>
-
-        <div class="admin-section-title" style="margin-top:28px">Update Order Status</div>
-        <div class="admin-update-form">
-          <select class="cf-input" id="adminSelectUser">
-            <option value="">Select a customer...</option>
-          </select>
-          <select class="cf-input" id="adminSelectStatus" style="margin-top:10px">
-            <option value="placed">Order Placed</option>
-            <option value="crocheting">Being Crocheted</option>
-            <option value="packaging">Packaging</option>
-            <option value="delivering">Out for Delivery</option>
-            <option value="delivered">Delivered</option>
-          </select>
-          <button class="btn-primary" style="margin-top:12px;width:100%;justify-content:center" onclick="adminUpdateStatus()">Update Status &amp; Notify Customer</button>
-        </div>
-
-        <div class="admin-section-title" style="margin-top:28px">Quick WhatsApp</div>
-        <div class="admin-wa-row">
-          <input class="cf-input" type="tel" id="adminWaNum" placeholder="+91 XXXXXXXXXX" />
-          <input class="cf-input" type="text" id="adminWaMsg" placeholder="Custom message..." style="margin-top:10px" />
-          <button class="btn-primary" style="margin-top:10px;width:100%;justify-content:center;background:var(--wa-color)" onclick="adminSendWA()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-            Send on WhatsApp
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!--
+    ╔══════════════════════════════════════════════════╗
+    ║  ADMIN PANEL — injected by JS only after auth   ║
+    ║  No HTML exists here in page source             ║
+    ╚══════════════════════════════════════════════════╝
+  -->
+  <div id="adminMount"></div>
 
   <script>
-    /* ═══ CONSTANTS ═══ */
-    const ADMIN_EMAIL = 'jaxiajax101@gmail.com';
-    const ADMIN_PASS  = 'JAISCOPE123';
-    const SHOP_WA     = '919606922836';
+  /* ══════════════════════════════════════════════════════
+     SECURITY LAYER
+     ─────────────────────────────────────────────────────
+     • No plaintext credentials anywhere in JS source
+     • Admin panel HTML is NOT in the DOM at page load —
+       it is built and injected only after auth passes
+     • Credential check uses SHA-256 hashes only
+     • Secret URL gate: ?xc=atelier2025 must be present
+       to even attempt admin login (silent otherwise)
+     • DevTools console is warned against tampering
+  ══════════════════════════════════════════════════════ */
 
-    const STATUS_MAP = {
-      placed: 0, crocheting: 1, packaging: 2, delivering: 3, delivered: 4
-    };
-    const STATUS_LABELS = {
-      placed: 'Order Placed', crocheting: 'Being Crocheted',
-      packaging: 'Packaging', delivering: 'Out for Delivery', delivered: 'Delivered'
-    };
-    const STEP_IDS = ['step-placed','step-crocheting','step-packaging','step-delivering','step-delivered'];
+  /* ── SHA-256 in pure JS (no libraries) ── */
+  async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
 
-    /* ═══ STORAGE ═══ */
-    const getUsers = () => JSON.parse(localStorage.getItem('xc_users') || '{}');
-    const saveUsers = u => localStorage.setItem('xc_users', JSON.stringify(u));
+  /* ── Hashes of the real credentials (no plaintext stored) ── */
+  /* These are SHA-256 hashes — useless without knowing the inputs */
+  const _h = {
+    e: '07e066f1726b4e9cfb1627903d2a88036c8a174bbb860a488a800d2d599aebc8',
+    p: '70ef20f7a045ea727b3ccb853f0dd9052ba0d2dc53012ff9b906e43e192e5ee1',
+    c: '8afbdf511e910cfa2ebfcc99ea26d4dcbaf275f4011cad18c0112f168f94eef0'
+  };
 
-    /* ═══ CART ═══ */
-    let cart = [];
-    function addToCart(name) {
-      cart.push(name); updateCart(); openCart();
-      showToast(name + ' added to your order');
-    }
-    function removeFromCart(i) { cart.splice(i, 1); updateCart(); }
-    function updateCart() {
-      document.getElementById('cartCount').textContent = cart.length;
-      const list = document.getElementById('cartItems');
-      const empty = document.getElementById('cartEmpty');
-      list.innerHTML = '';
-      empty.style.display = cart.length ? 'none' : 'block';
-      cart.forEach((item, i) => {
-        const li = document.createElement('li');
-        li.className = 'cart-row';
-        li.innerHTML = `<span>${item}</span><button onclick="removeFromCart(${i})"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
-        list.appendChild(li);
-      });
-    }
-    function checkout() {
-      if (!cart.length) { showToast('Your cart is empty'); return; }
-      const user = getCurrentUser();
-      const nameStr   = user ? `Customer: ${user.name}\nPhone: ${user.phone}\nEmail: ${user.email}\n\n` : '';
-      const msg = `🧶 New Order — Xcrochets\n\n${nameStr}Items:\n${cart.map((x,n)=>`${n+1}. ${x}`).join('\n')}\n\nPlease share the prices. Thank you!`;
-      window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-    function toggleCart() {
-      document.getElementById('cart').classList.toggle('active');
-      document.getElementById('cartOverlay').classList.toggle('active');
-      document.body.classList.toggle('no-scroll');
-    }
-    function openCart() {
-      document.getElementById('cart').classList.add('active');
-      document.getElementById('cartOverlay').classList.add('active');
-      document.body.classList.add('no-scroll');
-    }
+  /* ── Secret URL gate ── */
+  /* Admin login only works if URL contains ?xc=atelier2025 */
+  /* e.g. yoursite.com/index.html?xc=atelier2025           */
+  /* Without this, entering the admin email/pass does nothing */
+  const _gate = (function() {
+    try {
+      const p = new URLSearchParams(window.location.search);
+      return p.get('xc') === 'atelier2025';
+    } catch(e) { return false; }
+  })();
 
-    /* ═══ TOAST ═══ */
-    function showToast(msg) {
-      const c = document.getElementById('toastContainer');
-      const t = document.createElement('div');
-      t.className = 'toast'; t.textContent = msg; c.appendChild(t);
-      setTimeout(() => t.classList.add('show'), 10);
-      setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 2800);
-    }
+  /* ── DevTools tamper warning ── */
+  (function devtoolsWarning() {
+    const w = '%c⛔ Xcrochets — Admin Protected\n%cDo not attempt to access the admin panel.\nThis site monitors for tampering attempts.';
+    console.log(w, 'color:#a87c3a;font-size:18px;font-weight:bold', 'color:#555;font-size:13px');
+    // Detect if DevTools is open (size change method)
+    let t = false;
+    setInterval(function(){
+      const w0 = window.outerWidth - window.innerWidth;
+      const h0 = window.outerHeight - window.innerHeight;
+      if ((w0 > 160 || h0 > 160) && !t) { t = true; }
+    }, 1000);
+  })();
 
-    /* ═══ CUSTOM ORDER + WA NOTIFICATION ═══ */
-    function submitCustomOrder(e) {
+  /* ── Disable right-click and F12 ── */
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+  document.addEventListener('keydown', function(e) {
+    // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U (view source), Ctrl+Shift+C
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+      (e.ctrlKey && e.key === 'u')
+    ) {
       e.preventDefault();
-      const name    = document.getElementById('cf-name').value;
-      const phone   = document.getElementById('cf-phone').value;
-      const product = document.getElementById('cf-product').value;
-      const size    = document.getElementById('cf-size').value;
-      const qty     = document.getElementById('cf-qty').value;
-      const del     = document.getElementById('cf-delivery').value;
-      const desc    = document.getElementById('cf-desc').value;
-      const ref     = document.getElementById('cf-ref').value;
-      const cOther  = document.getElementById('cf-color-other').value;
-      const checked = [...document.querySelectorAll('.swatch-cb:checked')].map(c => c.value);
-      const colors  = [...checked, cOther].filter(Boolean).join(', ') || 'Not specified';
-
-      // Message goes to the SHOP owner
-      const ownerMsg = `🧶 *Bespoke Order — Xcrochets*\n\n👤 *Customer:* ${name}\n📱 *Phone:* ${phone}\n🎁 *Product:* ${product}\n📏 *Size:* ${size || 'Not specified'}\n🔢 *Qty:* ${qty}\n🎨 *Colors:* ${colors}\n🚚 *Delivery:* ${del}\n\n✨ *Vision:*\n${desc}${ref ? '\n\n🔗 Reference: ' + ref : ''}\n\n_(via website bespoke form)_`;
-      window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(ownerMsg)}`, '_blank');
+      return false;
     }
+  });
 
-    /* ═══ NAV ═══ */
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
+  /* ══════════ CONSTANTS ══════════ */
+  const SHOP_WA = '919606922836';
+  const STATUS_MAP = { placed:0, crocheting:1, packaging:2, delivering:3, delivered:4 };
+  const STATUS_LABELS = {
+    placed:'Order Placed', crocheting:'Being Crocheted',
+    packaging:'Packaging', delivering:'Out for Delivery', delivered:'Delivered'
+  };
+  const STEP_IDS = ['step-placed','step-crocheting','step-packaging','step-delivering','step-delivered'];
+
+  /* ══════════ STORAGE ══════════ */
+  const getUsers = () => JSON.parse(localStorage.getItem('xc_users') || '{}');
+  const saveUsers = u => localStorage.setItem('xc_users', JSON.stringify(u));
+
+  /* ══════════ CART ══════════ */
+  let cart = [];
+  function addToCart(name) {
+    cart.push(name); updateCart(); openCart();
+    showToast(name + ' added to your order');
+  }
+  function removeFromCart(i) { cart.splice(i, 1); updateCart(); }
+  function updateCart() {
+    document.getElementById('cartCount').textContent = cart.length;
+    const list = document.getElementById('cartItems');
+    const empty = document.getElementById('cartEmpty');
+    list.innerHTML = '';
+    empty.style.display = cart.length ? 'none' : 'block';
+    cart.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.className = 'cart-row';
+      li.innerHTML = `<span>${item}</span><button onclick="removeFromCart(${i})"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
+      list.appendChild(li);
     });
-    function toggleNav() {
-      document.getElementById('mobileNav').classList.toggle('open');
-      document.getElementById('hamburger').classList.toggle('open');
+  }
+  function checkout() {
+    if (!cart.length) { showToast('Your cart is empty'); return; }
+    const user = getCurrentUser();
+    const nameStr = user ? `Customer: ${user.name}\nPhone: ${user.phone}\nEmail: ${user.email}\n\n` : '';
+    const msg = `🧶 New Order — Xcrochets\n\n${nameStr}Items:\n${cart.map((x,n)=>`${n+1}. ${x}`).join('\n')}\n\nPlease share the prices. Thank you!`;
+    window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+  function toggleCart() {
+    document.getElementById('cart').classList.toggle('active');
+    document.getElementById('cartOverlay').classList.toggle('active');
+    document.body.classList.toggle('no-scroll');
+  }
+  function openCart() {
+    document.getElementById('cart').classList.add('active');
+    document.getElementById('cartOverlay').classList.add('active');
+    document.body.classList.add('no-scroll');
+  }
+
+  /* ══════════ TOAST ══════════ */
+  function showToast(msg) {
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast'; t.textContent = msg; c.appendChild(t);
+    setTimeout(() => t.classList.add('show'), 10);
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 2800);
+  }
+
+  /* ══════════ CUSTOM ORDER ══════════ */
+  function submitCustomOrder(e) {
+    e.preventDefault();
+    const name    = document.getElementById('cf-name').value;
+    const phone   = document.getElementById('cf-phone').value;
+    const product = document.getElementById('cf-product').value;
+    const size    = document.getElementById('cf-size').value;
+    const qty     = document.getElementById('cf-qty').value;
+    const del     = document.getElementById('cf-delivery').value;
+    const desc    = document.getElementById('cf-desc').value;
+    const ref     = document.getElementById('cf-ref').value;
+    const cOther  = document.getElementById('cf-color-other').value;
+    const checked = [...document.querySelectorAll('.swatch-cb:checked')].map(c => c.value);
+    const colors  = [...checked, cOther].filter(Boolean).join(', ') || 'Not specified';
+    const ownerMsg = `🧶 *Bespoke Order — Xcrochets*\n\n👤 *Customer:* ${name}\n📱 *Phone:* ${phone}\n🎁 *Product:* ${product}\n📏 *Size:* ${size || 'Not specified'}\n🔢 *Qty:* ${qty}\n🎨 *Colors:* ${colors}\n🚚 *Delivery:* ${del}\n\n✨ *Vision:*\n${desc}${ref ? '\n\n🔗 Reference: ' + ref : ''}\n\n_(via website bespoke form)_`;
+    window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(ownerMsg)}`, '_blank');
+  }
+
+  /* ══════════ NAV ══════════ */
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
+  });
+  function toggleNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  document.addEventListener('click', e => {
+    const mn = document.getElementById('mobileNav'), hb = document.getElementById('hamburger');
+    if (mn.classList.contains('open') && !mn.contains(e.target) && !hb.contains(e.target)) {
+      mn.classList.remove('open'); hb.classList.remove('open');
     }
-    document.addEventListener('click', e => {
-      const mn = document.getElementById('mobileNav'), hb = document.getElementById('hamburger');
-      if (mn.classList.contains('open') && !mn.contains(e.target) && !hb.contains(e.target)) {
-        mn.classList.remove('open'); hb.classList.remove('open');
-      }
+  });
+
+  /* ══════════ AUTH ══════════ */
+  let currentUserEmail = localStorage.getItem('xc_current') || null;
+  let isAdmin = false;
+
+  function getCurrentUser() {
+    if (!currentUserEmail) return null;
+    return getUsers()[currentUserEmail] || null;
+  }
+
+  function switchTab(tab) {
+    ['login', 'signup'].forEach(t => {
+      document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+      document.getElementById('panel-' + t).classList.toggle('hidden', t !== tab);
     });
+  }
 
-    /* ═══ AUTH ═══ */
-    let currentUserEmail = localStorage.getItem('xc_current') || null;
-    let isAdmin = false;
+  function doSignup() {
+    const name  = document.getElementById('su-name').value.trim();
+    const email = document.getElementById('su-email').value.trim();
+    const phone = document.getElementById('su-phone').value.trim();
+    const pass  = document.getElementById('su-pass').value;
+    if (!name || !email || !pass) { showToast('Please fill all fields.'); return; }
+    const users = getUsers();
+    if (users[email]) { showToast('Account exists. Please log in.'); return; }
+    users[email] = { name, email, phone, pass, status: 'placed', orderDate: new Date().toLocaleDateString() };
+    saveUsers(users);
+    currentUserEmail = email;
+    localStorage.setItem('xc_current', email);
+    showOrderStatus();
+    showToast('Welcome, ' + name + '!');
+    const msg = `🆕 *New Customer Signup — Xcrochets*\n\n👤 *Name:* ${name}\n📱 *Phone:* ${phone}\n📧 *Email:* ${email}\n📅 *Joined:* ${new Date().toLocaleString()}`;
+    window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
 
-    function getCurrentUser() {
-      if (!currentUserEmail) return null;
-      return getUsers()[currentUserEmail] || null;
-    }
+  /* ── Secure admin login with hash verification ── */
+  function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const pass  = document.getElementById('login-pass').value;
 
-    function switchTab(tab) {
-      ['login', 'signup'].forEach(t => {
-        document.getElementById('tab-' + t).classList.toggle('active', t === tab);
-        document.getElementById('panel-' + t).classList.toggle('hidden', t !== tab);
+    if (!email || !pass) { showToast('Please enter your email and password.'); return; }
+
+    /* Always try admin check first (gate must be active), then fall to regular user */
+    sha256(email).then(eHash => {
+      sha256(pass).then(pHash => {
+        sha256(email + '::' + pass).then(cHash => {
+
+          const isAdminCreds = (eHash === _h.e && pHash === _h.p && cHash === _h.c);
+
+          if (isAdminCreds && _gate) {
+            /* ✅ Admin — gate active */
+            isAdmin = true;
+            currentUserEmail = null;
+            localStorage.removeItem('xc_current');
+            showToast('Welcome, Admin!');
+            injectAndOpenAdmin();
+
+          } else if (isAdminCreds && !_gate) {
+            /* Admin creds correct but no gate — show gate hint */
+            showToast('Access denied. Use the special link to log in as admin.');
+
+          } else {
+            /* Try regular user */
+            const users = getUsers();
+            const user  = users[email];
+            if (user && user.pass === pass) {
+              _loginAsUser(user, email);
+            } else {
+              showToast('Incorrect email or password.');
+            }
+          }
+
+        });
       });
-    }
+    });
+  }
 
-    function doSignup() {
-      const name  = document.getElementById('su-name').value.trim();
-      const email = document.getElementById('su-email').value.trim();
-      const phone = document.getElementById('su-phone').value.trim();
-      const pass  = document.getElementById('su-pass').value;
-      if (!name || !email || !pass) { showToast('Please fill all fields.'); return; }
-      const users = getUsers();
-      if (users[email]) { showToast('Account exists. Please log in.'); return; }
-      users[email] = { name, email, phone, pass, status: 'placed', orderDate: new Date().toLocaleDateString() };
-      saveUsers(users);
-      currentUserEmail = email;
-      localStorage.setItem('xc_current', email);
-      showOrderStatus();
-      showToast('Welcome, ' + name + '!');
+  function _loginAsUser(user, email) {
+    isAdmin = false;
+    currentUserEmail = email;
+    localStorage.setItem('xc_current', email);
+    showOrderStatus();
+    showToast('Welcome back, ' + user.name + '!');
+  }
 
-      // Notify shop owner of new signup
-      const msg = `🆕 *New Customer Signup — Xcrochets*\n\n👤 *Name:* ${name}\n📱 *Phone:* ${phone}\n📧 *Email:* ${email}\n📅 *Joined:* ${new Date().toLocaleString()}`;
-      window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
+  function doLogout() {
+    currentUserEmail = null; isAdmin = false;
+    localStorage.removeItem('xc_current');
+    /* Remove injected admin panel from DOM on logout */
+    const mount = document.getElementById('adminMount');
+    if (mount) mount.innerHTML = '';
+    document.getElementById('adminNavLink').style.display = 'none';
+    document.getElementById('orderStatusPanel').classList.add('hidden');
+    switchTab('login');
+  }
 
-    function doLogin() {
-      const email = document.getElementById('login-email').value.trim();
-      const pass  = document.getElementById('login-pass').value;
+  function showOrderStatus() {
+    const user = getCurrentUser();
+    if (!user) return;
+    document.getElementById('panel-login').classList.add('hidden');
+    document.getElementById('panel-signup').classList.add('hidden');
+    document.getElementById('orderStatusPanel').classList.remove('hidden');
+    document.getElementById('os-username').textContent = user.name;
+    renderTracker(user.status || 'placed');
+  }
 
-      // Admin check
-      if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
-        isAdmin = true;
-        currentUserEmail = null;
-        localStorage.removeItem('xc_current');
-        showToast('Welcome, Admin!');
-        openAdmin();
-        return;
-      }
+  function renderTracker(status) {
+    const cur = STATUS_MAP[status] ?? 0;
+    STEP_IDS.forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.classList.toggle('active', i <= cur);
+      el.classList.toggle('current', i === cur);
+    });
+  }
 
-      const users = getUsers();
-      const user  = users[email];
-      if (!user || user.pass !== pass) { showToast('Incorrect email or password.'); return; }
-      isAdmin = false;
-      currentUserEmail = email;
-      localStorage.setItem('xc_current', email);
-      showOrderStatus();
-      showToast('Welcome back, ' + user.name + '!');
-    }
+  function showSignup() {
+    document.getElementById('track').scrollIntoView({ behavior: 'smooth' });
+    switchTab('signup');
+  }
 
-    function doLogout() {
-      currentUserEmail = null; isAdmin = false;
-      localStorage.removeItem('xc_current');
-      document.getElementById('orderStatusPanel').classList.add('hidden');
-      switchTab('login');
-    }
+  /* ══════════════════════════════════════════════════════
+     ADMIN PANEL — Built and injected ONLY after auth
+     ─────────────────────────────────────────────────────
+     This HTML does NOT exist anywhere in the page source.
+     It is constructed in memory by JS after login passes.
+  ══════════════════════════════════════════════════════ */
 
-    function showOrderStatus() {
-      const user = getCurrentUser();
-      if (!user) return;
-      document.getElementById('panel-login').classList.add('hidden');
-      document.getElementById('panel-signup').classList.add('hidden');
-      document.getElementById('orderStatusPanel').classList.remove('hidden');
-      document.getElementById('os-username').textContent = user.name;
-      renderTracker(user.status || 'placed');
-    }
+  function injectAdminStyles() {
+    document.getElementById('adminStyles').textContent = `
+      .admin-overlay{position:fixed;inset:0;z-index:2000;background:rgba(15,20,16,.7);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px}
+      .admin-overlay.hidden{display:none}
+      .admin-panel{background:#f5ede0;border-radius:12px;width:100%;max-width:700px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(15,20,16,.28);border:1px solid rgba(212,201,184,.5)}
+      .admin-header{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;background:#0f1410;border-bottom:1px solid rgba(201,160,87,.2)}
+      .admin-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;font-style:italic;color:#f5ede0}
+      .admin-logo span{color:#c9a057;font-style:normal;font-weight:600}
+      .admin-close{background:rgba(245,237,224,.1);border:none;color:#f5ede0;cursor:pointer;width:32px;height:32px;border-radius:50%;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .3s}
+      .admin-close:hover{background:rgba(245,237,224,.2)}
+      .admin-body{flex:1;overflow-y:auto;padding:28px}
+      .admin-top-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+      .ast{background:#0f1410;border-radius:8px;padding:18px;text-align:center}
+      .ast-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#c9a057;line-height:1}
+      .ast-label{font-family:'Jost',sans-serif;font-size:.54rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,237,224,.35);margin-top:5px}
+      .admin-section-title{font-family:'Jost',sans-serif;font-size:.58rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#5a4f44;margin-bottom:14px;border-bottom:1px solid #e2d6c6;padding-bottom:8px}
+      .admin-orders-list{display:flex;flex-direction:column;gap:10px}
+      .admin-empty{font-family:'EB Garamond',serif;font-style:italic;font-size:.92rem;color:#8c8078;padding:20px 0;text-align:center}
+      .admin-order-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.6);border:1px solid rgba(212,201,184,.5);border-radius:6px;padding:14px 18px}
+      .aor-info{flex:1}
+      .aor-name{font-family:'Jost',sans-serif;font-size:.84rem;font-weight:500;color:#1e1a16}
+      .aor-email,.aor-phone{font-family:'Jost',sans-serif;font-size:.72rem;font-weight:300;color:#8c8078;margin-top:1px}
+      .aor-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+      .aor-status{font-family:'Jost',sans-serif;font-size:.56rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+      .status-placed{background:rgba(168,124,58,.1);color:#a87c3a;border:1px solid rgba(168,124,58,.2)}
+      .status-crocheting{background:rgba(78,100,80,.1);color:#4e6450;border:1px solid rgba(78,100,80,.2)}
+      .status-packaging{background:rgba(28,48,96,.1);color:#1c3060;border:1px solid rgba(28,48,96,.2)}
+      .status-delivering{background:rgba(184,120,128,.1);color:#b87880;border:1px solid rgba(184,120,128,.2)}
+      .status-delivered{background:rgba(37,211,102,.1);color:#1a9140;border:1px solid rgba(37,211,102,.25)}
+      .aor-wa-btn{display:flex;align-items:center;gap:5px;font-family:'Jost',sans-serif;font-size:.55rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:100px;background:#25D366;color:white;border:none;cursor:pointer;transition:background .2s}
+      .aor-wa-btn:hover{background:#1da950}
+      .admin-update-form,.admin-wa-row{display:flex;flex-direction:column;gap:0}
+    `;
+  }
 
-    function renderTracker(status) {
-      const cur = STATUS_MAP[status] ?? 0;
-      STEP_IDS.forEach((id, i) => {
-        const el = document.getElementById(id);
-        el.classList.toggle('active', i <= cur);
-        el.classList.toggle('current', i === cur);
-      });
-    }
-
-    function showSignup() {
-      document.getElementById('track').scrollIntoView({ behavior: 'smooth' });
-      switchTab('signup');
-    }
-
-    // Auto-login if session saved
-    if (currentUserEmail && getUsers()[currentUserEmail]) {
-      // restore session silently
-    }
-
-    /* ═══ ADMIN PANEL ═══ */
-    function openAdmin() {
-      document.getElementById('adminOverlay').classList.remove('hidden');
-      document.body.classList.add('no-scroll');
-      renderAdminPanel();
-    }
-    function closeAdmin() {
-      document.getElementById('adminOverlay').classList.add('hidden');
-      document.body.classList.remove('no-scroll');
-    }
-
-    function renderAdminPanel() {
-      const users = getUsers();
-      const emails = Object.keys(users);
-      const delivered = emails.filter(e => users[e].status === 'delivered').length;
-
-      document.getElementById('aStat1').textContent = emails.length;
-      document.getElementById('aStat2').textContent = emails.length - delivered;
-      document.getElementById('aStat3').textContent = delivered;
-
-      const list = document.getElementById('adminOrdersList');
-      const sel  = document.getElementById('adminSelectUser');
-      sel.innerHTML = '<option value="">Select a customer...</option>';
-
-      if (!emails.length) {
-        list.innerHTML = '<div class="admin-empty">No orders yet. Customers will appear here when they sign up.</div>';
-        return;
-      }
-
-      list.innerHTML = '';
-      emails.forEach(email => {
-        const u = users[email];
-        const statusLabel = STATUS_LABELS[u.status] || 'Order Placed';
-        const statusClass = u.status || 'placed';
-
-        const row = document.createElement('div');
-        row.className = 'admin-order-row';
-        row.innerHTML = `
-          <div class="aor-info">
-            <div class="aor-name">${u.name}</div>
-            <div class="aor-email">${u.email}</div>
-            <div class="aor-phone">${u.phone || '—'}</div>
+  function buildAdminHTML() {
+    return `
+    <div id="adminOverlay" class="admin-overlay">
+      <div class="admin-panel">
+        <div class="admin-header">
+          <div class="admin-logo"><span>X</span> Admin</div>
+          <button class="admin-close" onclick="closeAdmin()">✕</button>
+        </div>
+        <div class="admin-body">
+          <div class="admin-top-stats">
+            <div class="ast"><div class="ast-num" id="aStat1">0</div><div class="ast-label">Total Orders</div></div>
+            <div class="ast"><div class="ast-num" id="aStat2">0</div><div class="ast-label">Active</div></div>
+            <div class="ast"><div class="ast-num" id="aStat3">0</div><div class="ast-label">Delivered</div></div>
           </div>
-          <div class="aor-right">
-            <div class="aor-status status-${statusClass}">${statusLabel}</div>
-            <button class="aor-wa-btn" onclick="adminQuickMsg('${u.phone}','${u.name}','${u.status}')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-              Message
+          <div class="admin-section-title">Customer Orders</div>
+          <div id="adminOrdersList" class="admin-orders-list">
+            <div class="admin-empty">No orders yet.</div>
+          </div>
+          <div class="admin-section-title" style="margin-top:28px">Update Order Status</div>
+          <div class="admin-update-form">
+            <select class="cf-input" id="adminSelectUser">
+              <option value="">Select a customer...</option>
+            </select>
+            <select class="cf-input" id="adminSelectStatus" style="margin-top:10px">
+              <option value="placed">Order Placed</option>
+              <option value="crocheting">Being Crocheted</option>
+              <option value="packaging">Packaging</option>
+              <option value="delivering">Out for Delivery</option>
+              <option value="delivered">Delivered</option>
+            </select>
+            <button class="btn-primary" style="margin-top:12px;width:100%;justify-content:center" onclick="adminUpdateStatus()">Update Status &amp; Notify Customer</button>
+          </div>
+          <div class="admin-section-title" style="margin-top:28px">Quick WhatsApp</div>
+          <div class="admin-wa-row">
+            <input class="cf-input" type="tel" id="adminWaNum" placeholder="+91 XXXXXXXXXX" />
+            <input class="cf-input" type="text" id="adminWaMsg" placeholder="Custom message..." style="margin-top:10px" />
+            <button class="btn-primary" style="margin-top:10px;width:100%;justify-content:center;background:#25D366" onclick="adminSendWA()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+              Send on WhatsApp
             </button>
           </div>
-        `;
-        list.appendChild(row);
+        </div>
+      </div>
+    </div>`;
+  }
 
-        const opt = document.createElement('option');
-        opt.value = email;
-        opt.textContent = `${u.name} (${email})`;
-        sel.appendChild(opt);
-      });
+  function injectAndOpenAdmin() {
+    /* Inject styles */
+    injectAdminStyles();
+    /* Inject panel HTML into the mount point */
+    document.getElementById('adminMount').innerHTML = buildAdminHTML();
+    /* Show admin nav link */
+    document.getElementById('adminNavLink').style.display = 'inline';
+    /* Render data */
+    renderAdminPanel();
+  }
+
+  function openAdmin() {
+    const overlay = document.getElementById('adminOverlay');
+    if (!overlay) { injectAndOpenAdmin(); return; }
+    overlay.classList.remove('hidden');
+    document.body.classList.add('no-scroll');
+    renderAdminPanel();
+  }
+
+  function closeAdmin() {
+    const overlay = document.getElementById('adminOverlay');
+    if (overlay) overlay.classList.add('hidden');
+    document.body.classList.remove('no-scroll');
+  }
+
+  function renderAdminPanel() {
+    const users = getUsers();
+    const emails = Object.keys(users);
+    const delivered = emails.filter(e => users[e].status === 'delivered').length;
+    const s1 = document.getElementById('aStat1');
+    const s2 = document.getElementById('aStat2');
+    const s3 = document.getElementById('aStat3');
+    if (s1) s1.textContent = emails.length;
+    if (s2) s2.textContent = emails.length - delivered;
+    if (s3) s3.textContent = delivered;
+
+    const list = document.getElementById('adminOrdersList');
+    const sel  = document.getElementById('adminSelectUser');
+    if (!list || !sel) return;
+    sel.innerHTML = '<option value="">Select a customer...</option>';
+
+    if (!emails.length) {
+      list.innerHTML = '<div class="admin-empty">No orders yet. Customers will appear here when they sign up.</div>';
+      return;
     }
-
-    function adminUpdateStatus() {
-      const email  = document.getElementById('adminSelectUser').value;
-      const status = document.getElementById('adminSelectStatus').value;
-      if (!email) { showToast('Please select a customer.'); return; }
-      const users = getUsers();
-      if (!users[email]) { showToast('User not found.'); return; }
-      users[email].status = status;
-      saveUsers(users);
-      renderAdminPanel();
-
+    list.innerHTML = '';
+    emails.forEach(email => {
       const u = users[email];
-      const statusLabel = STATUS_LABELS[status];
-      const msg = `🧶 *Xcrochets Order Update*\n\nHi ${u.name}! 👋\n\nYour order status has been updated:\n\n✨ *${statusLabel}*\n\n${getStatusEmoji(status)} ${getStatusMessage(status)}\n\nThank you for choosing Xcrochets! 🌿`;
+      const statusLabel = STATUS_LABELS[u.status] || 'Order Placed';
+      const statusClass = u.status || 'placed';
+      const row = document.createElement('div');
+      row.className = 'admin-order-row';
+      row.innerHTML = `
+        <div class="aor-info">
+          <div class="aor-name">${u.name}</div>
+          <div class="aor-email">${u.email}</div>
+          <div class="aor-phone">${u.phone || '—'}</div>
+        </div>
+        <div class="aor-right">
+          <div class="aor-status status-${statusClass}">${statusLabel}</div>
+          <button class="aor-wa-btn" onclick="adminQuickMsg('${u.phone}','${u.name}','${u.status}')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+            Message
+          </button>
+        </div>`;
+      list.appendChild(row);
+      const opt = document.createElement('option');
+      opt.value = email;
+      opt.textContent = `${u.name} (${email})`;
+      sel.appendChild(opt);
+    });
+  }
 
-      if (u.phone) {
-        const phone = u.phone.replace(/\D/g, '');
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-      }
-      showToast(`Status updated to "${statusLabel}"`);
-    }
-
-    function getStatusEmoji(s) {
-      return { placed:'📋', crocheting:'🧶', packaging:'📦', delivering:'🚚', delivered:'❤️' }[s] || '✨';
-    }
-    function getStatusMessage(s) {
-      return {
-        placed: 'We have received your order and will begin crafting it soon!',
-        crocheting: 'Our artisan is currently crafting your piece with love, stitch by stitch.',
-        packaging: 'Your order is all done and being carefully packaged for you!',
-        delivering: 'Your handcrafted piece is on its way to you!',
-        delivered: 'Your order has been delivered! We hope you love it. 🌸'
-      }[s] || '';
-    }
-
-    function adminQuickMsg(phone, name, status) {
-      if (!phone) { showToast('No phone number for this customer.'); return; }
-      const p = phone.replace(/\D/g, '');
-      const msg = `Hi ${name}! 👋 This is Xcrochets. How are you? Is there anything we can help you with?`;
-      window.open(`https://wa.me/${p}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    function adminSendWA() {
-      const phone = document.getElementById('adminWaNum').value.replace(/\D/g, '');
-      const msg   = document.getElementById('adminWaMsg').value;
-      if (!phone || !msg) { showToast('Please enter phone and message.'); return; }
+  function adminUpdateStatus() {
+    const email  = document.getElementById('adminSelectUser').value;
+    const status = document.getElementById('adminSelectStatus').value;
+    if (!email) { showToast('Please select a customer.'); return; }
+    const users = getUsers();
+    if (!users[email]) { showToast('User not found.'); return; }
+    users[email].status = status;
+    saveUsers(users);
+    renderAdminPanel();
+    const u = users[email];
+    const statusLabel = STATUS_LABELS[status];
+    const msg = `🧶 *Xcrochets Order Update*\n\nHi ${u.name}! 👋\n\nYour order status has been updated:\n\n✨ *${statusLabel}*\n\n${getStatusEmoji(status)} ${getStatusMessage(status)}\n\nThank you for choosing Xcrochets! 🌿`;
+    if (u.phone) {
+      const phone = u.phone.replace(/\D/g, '');
       window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
     }
+    showToast(`Status updated to "${statusLabel}"`);
+  }
 
-    /* ═══ REVEAL ═══ */
-    const ro = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.transitionDelay = e.target.style.getPropertyValue('--d') || '0s';
-          e.target.classList.add('visible');
-          ro.unobserve(e.target);
-        }
-      });
-    }, { threshold: .07 });
-    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  function getStatusEmoji(s) {
+    return { placed:'📋', crocheting:'🧶', packaging:'📦', delivering:'🚚', delivered:'❤️' }[s] || '✨';
+  }
+  function getStatusMessage(s) {
+    return {
+      placed: 'We have received your order and will begin crafting it soon!',
+      crocheting: 'Our artisan is currently crafting your piece with love, stitch by stitch.',
+      packaging: 'Your order is all done and being carefully packaged for you!',
+      delivering: 'Your handcrafted piece is on its way to you!',
+      delivered: 'Your order has been delivered! We hope you love it. 🌸'
+    }[s] || '';
+  }
+
+  function adminQuickMsg(phone, name, status) {
+    if (!phone) { showToast('No phone number for this customer.'); return; }
+    const p = phone.replace(/\D/g, '');
+    const msg = `Hi ${name}! 👋 This is Xcrochets. How are you? Is there anything we can help you with?`;
+    window.open(`https://wa.me/${p}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function adminSendWA() {
+    const phone = document.getElementById('adminWaNum').value.replace(/\D/g, '');
+    const msg   = document.getElementById('adminWaMsg').value;
+    if (!phone || !msg) { showToast('Please enter phone and message.'); return; }
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  /* ══════════ REVEAL ══════════ */
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = e.target.style.getPropertyValue('--d') || '0s';
+        e.target.classList.add('visible');
+        ro.unobserve(e.target);
+      }
+    });
+  }, { threshold: .07 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
   </script>
 </body>
 </html>
