@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xcrochets — Atelier</title>
+  <title>Xcrochets — Handmade Crochet · Mangalore · Est. 2025</title>
+  <meta name="description" content="Xcrochets — Premium handmade crochet bags, plush toys, hats, scarves & more. Custom orders open. Based in Mangalore. Rated 4.8★ by customers. Order via WhatsApp." />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Jost:wght@100;200;300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
-
-  <!-- Admin panel CSS — injected only after auth, hidden from source initially -->
   <style id="adminStyles"></style>
 </head>
 <body>
@@ -19,9 +18,7 @@
     <div class="xc-loader-noise"></div>
     <div class="xc-loader-content">
       <div class="xc-lc-top">Mangalore · Est. 2025</div>
-      <div class="xc-lc-mark">
-        <span class="xc-lc-x">X</span><span class="xc-lc-rest">CROCHETS</span>
-      </div>
+      <div class="xc-lc-mark"><span class="xc-lc-x">X</span><span class="xc-lc-rest">CROCHETS</span></div>
       <div class="xc-lc-sub">Handmade with Love</div>
       <div class="xc-bar-track"><div class="xc-bar-fill"></div></div>
     </div>
@@ -55,8 +52,8 @@
   <!-- ══════════ ANNOUNCEMENT ══════════ -->
   <div class="ann-bar">
     <div class="ann-track">
-      <span>Custom Orders Open &ensp;⟡&ensp; Handcrafted in Mangalore &ensp;⟡&ensp; Order via WhatsApp &ensp;⟡&ensp; Crochet Classes · First Few Free &ensp;⟡&ensp; Every Piece is Singular &ensp;⟡&ensp; Est. 2025 &ensp;⟡&ensp; Rated 4.8★ by our customers &ensp;⟡&ensp;</span>
-      <span aria-hidden="true">Custom Orders Open &ensp;⟡&ensp; Handcrafted in Mangalore &ensp;⟡&ensp; Order via WhatsApp &ensp;⟡&ensp; Crochet Classes · First Few Free &ensp;⟡&ensp; Every Piece is Singular &ensp;⟡&ensp; Est. 2025 &ensp;⟡&ensp; Rated 4.8★ by our customers &ensp;⟡&ensp;</span>
+      <span>Custom Orders Open &ensp;⟡&ensp; Handcrafted in Mangalore &ensp;⟡&ensp; Order via WhatsApp &ensp;⟡&ensp; Crochet Classes · First Few Free &ensp;⟡&ensp; Every Piece is Singular &ensp;⟡&ensp; Est. 2025 &ensp;⟡&ensp; Rated 4.8★ by customers &ensp;⟡&ensp; 100% Handmade with Love &ensp;⟡&ensp;</span>
+      <span aria-hidden="true">Custom Orders Open &ensp;⟡&ensp; Handcrafted in Mangalore &ensp;⟡&ensp; Order via WhatsApp &ensp;⟡&ensp; Crochet Classes · First Few Free &ensp;⟡&ensp; Every Piece is Singular &ensp;⟡&ensp; Est. 2025 &ensp;⟡&ensp; Rated 4.8★ by customers &ensp;⟡&ensp; 100% Handmade with Love &ensp;⟡&ensp;</span>
     </div>
   </div>
 
@@ -76,14 +73,13 @@
         <a href="#about">Maison</a>
         <a href="#track">Track</a>
         <a href="#contact">Contact</a>
-        <!-- Admin link: only visible after admin auth, injected by JS -->
         <span id="adminNavLink" style="display:none">
-          <a href="#" onclick="openAdmin();return false" style="color:var(--gold)">Admin ⬡</a>
+          <a href="#" onclick="openAdmin();return false" style="color:var(--steel-blue-dk)">Admin ⬡</a>
         </span>
       </div>
       <div class="nav-actions">
         <button class="cart-trigger" onclick="toggleCart()" aria-label="Cart">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           <span class="cart-badge" id="cartCount">0</span>
         </button>
         <button class="btn-nav-cta" onclick="showSignup()">Sign In</button>
@@ -113,6 +109,7 @@
     <div class="hero-bg">
       <div class="hero-bg-circle c1"></div>
       <div class="hero-bg-circle c2"></div>
+      <div class="hero-bg-circle c3"></div>
       <div class="hero-grain"></div>
     </div>
     <div class="hero-watermark" aria-hidden="true">XCROCHETS</div>
@@ -144,6 +141,7 @@
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           Live order tracking
         </div>
+        <div class="pill">🎁 Custom gifts welcome</div>
       </div>
       <div class="hero-ctas">
         <a href="#shop" class="btn-primary">Explore Collection</a>
@@ -152,6 +150,25 @@
           Order via WhatsApp
         </a>
         <a href="#custom-order" class="btn-text">Design Bespoke →</a>
+      </div>
+      <!-- Trust badges -->
+      <div class="hero-trust">
+        <div class="trust-item">
+          <div class="trust-icon blue-bg">🧶</div>
+          <span>100% Handmade</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon moss-bg">✨</div>
+          <span>Made to Order</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon sandy-bg">🎁</div>
+          <span>Gift Packaging</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon blue-bg">📍</div>
+          <span>Mangalore Based</span>
+        </div>
       </div>
     </div>
     <div class="hero-right">
@@ -178,7 +195,7 @@
       <div class="hero-card hc-sm bot">
         <div class="hc-img-wrap">
           <img src="images/plush.jpg" alt="Plush" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="hc-fallback"><svg viewBox="0 0 200 200" width="60" opacity=".2"><circle cx="100" cy="90" r="58" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="82" cy="78" r="8" fill="currentColor" opacity=".3"/><circle cx="118" cy="78" r="8" fill="currentColor" opacity=".3"/><path d="M82 115 Q100 128 118 115" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+          <div class="hc-fallback"><svg viewBox="0 0 200 200" width="60" opacity=".2"><circle cx="100" cy="90" r="58" fill="none" stroke="currentColor" stroke-width="2.5"/></svg></div>
         </div>
         <div class="hc-info"><span class="hc-name">Plush Toy</span><span class="hc-cat">Plushies</span></div>
       </div>
@@ -203,6 +220,42 @@
       <div class="m-item"><div class="m-num">4.8★</div><div class="m-label">Rating</div></div>
       <div class="m-sep"></div>
       <div class="m-item"><div class="m-num">01</div><div class="m-label">Of A Kind</div></div>
+      <div class="m-sep"></div>
+      <div class="m-item"><div class="m-num">24+</div><div class="m-label">Happy Customers</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════ SOCIAL PROOF BAR ══════════ -->
+  <div class="proof-bar">
+    <div class="proof-inner">
+      <div class="proof-item">
+        <div class="proof-icon">🧶</div>
+        <div>
+          <span class="proof-label">Each piece is unique</span>
+          No two are exactly alike
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">💬</div>
+        <div>
+          <span class="proof-label">WhatsApp ordering</span>
+          Fast, personal & easy
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">📦</div>
+        <div>
+          <span class="proof-label">Live order tracking</span>
+          Know exactly where yours is
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">🎀</div>
+        <div>
+          <span class="proof-label">Beautiful gifting</span>
+          Perfect for every occasion
+        </div>
+      </div>
     </div>
   </div>
 
@@ -217,7 +270,7 @@
         <p class="section-sub">Each piece is made to order —<br>no two are exactly alike.</p>
         <div class="wa-price-note">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-          Pricing shared privately on WhatsApp
+          Pricing shared personally on WhatsApp
         </div>
       </div>
     </div>
@@ -284,18 +337,18 @@
         <div class="product-img coaster-img">
           <svg class="coaster-svg" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <radialGradient id="bg" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#ede5d8"/><stop offset="100%" stop-color="#d5cfc5"/></radialGradient>
-              <radialGradient id="c1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c8b49a"/><stop offset="100%" stop-color="#a89070"/></radialGradient>
-              <radialGradient id="c2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#8fa887"/><stop offset="100%" stop-color="#6a8464"/></radialGradient>
-              <radialGradient id="c3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c9a96e"/><stop offset="100%" stop-color="#a88848"/></radialGradient>
-              <radialGradient id="c4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#b8a8c8"/><stop offset="100%" stop-color="#8878a8"/></radialGradient>
+              <radialGradient id="bg" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#e8dfd4"/><stop offset="100%" stop-color="#d0c5b8"/></radialGradient>
+              <radialGradient id="c1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C2956A"/><stop offset="100%" stop-color="#9E7145"/></radialGradient>
+              <radialGradient id="c2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#7A9170"/><stop offset="100%" stop-color="#5B7052"/></radialGradient>
+              <radialGradient id="c3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#8DAFC8"/><stop offset="100%" stop-color="#6C8FA8"/></radialGradient>
+              <radialGradient id="c4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#B8D4E8"/><stop offset="100%" stop-color="#8AB6D2"/></radialGradient>
             </defs>
             <rect width="400" height="380" fill="url(#bg)"/>
-            <g transform="translate(130,130)"><circle r="68" fill="url(#c1)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/><circle r="54" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle r="14" fill="rgba(255,255,255,.15)"/></g>
-            <g transform="translate(270,130)"><circle r="68" fill="url(#c2)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/><circle r="8" fill="rgba(255,255,255,.18)"/></g>
-            <g transform="translate(130,270)"><circle r="68" fill="url(#c3)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/><circle r="10" fill="rgba(255,255,255,.2)"/></g>
-            <g transform="translate(270,270)"><circle r="68" fill="url(#c4)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.18))"/><circle r="16" fill="rgba(255,255,255,.2)"/></g>
-            <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" fill="#8a7a68" letter-spacing="0.2em" font-style="italic">Set of Four</text>
+            <g transform="translate(130,130)"><circle r="68" fill="url(#c1)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.15))"/><circle r="14" fill="rgba(255,255,255,.2)"/></g>
+            <g transform="translate(270,130)"><circle r="68" fill="url(#c2)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.15))"/><circle r="8" fill="rgba(255,255,255,.2)"/></g>
+            <g transform="translate(130,270)"><circle r="68" fill="url(#c3)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.15))"/><circle r="10" fill="rgba(255,255,255,.2)"/></g>
+            <g transform="translate(270,270)"><circle r="68" fill="url(#c4)" filter="drop-shadow(0 4px 12px rgba(0,0,0,.15))"/><circle r="16" fill="rgba(255,255,255,.2)"/></g>
+            <text x="200" y="360" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" fill="#8C6E52" letter-spacing="0.2em" font-style="italic">Set of Four</text>
           </svg>
           <div class="product-overlay"><button class="overlay-btn" onclick="addToCart('Coasters')">Add to Order</button></div>
           <div class="p-tag">Home &amp; Décor</div>
@@ -320,6 +373,118 @@
           <div class="pi-stars"><span>★★★★★</span><span class="pi-rating">4.9</span></div>
           <button class="btn-add" onclick="addToCart('Scrunchies')">+ Add to Order</button>
         </div>
+      </div>
+    </div>
+
+    <!-- Quick CTA under shop -->
+    <div style="text-align:center;margin-top:52px">
+      <p style="font-family:var(--f-serif);font-style:italic;font-size:1rem;color:var(--ink-3);margin-bottom:18px">Don't see what you're looking for? Every piece can be fully customised.</p>
+      <a href="#custom-order" class="btn-primary sandy-btn">Design a Custom Piece →</a>
+    </div>
+  </section>
+
+  <!-- ══════════ WHY US ══════════ -->
+  <section class="why-section">
+    <div class="why-inner">
+      <div class="why-header reveal">
+        <p class="eyebrow">Why Xcrochets</p>
+        <h2 class="section-title moss-em">What makes us <em>different</em></h2>
+        <p class="section-sub" style="max-width:480px;margin:0 auto">We're not a factory. We're a small atelier in Mangalore that pours love into every single piece.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal" style="--d:.05s">
+          <div class="why-icon">🧶</div>
+          <div class="why-title">Truly Handmade</div>
+          <div class="why-body">Every piece is made stitch-by-stitch by hand — no machines, no shortcuts. This means each creation has character and warmth that mass production simply can't replicate.</div>
+        </div>
+        <div class="why-card moss reveal" style="--d:.1s">
+          <div class="why-icon" style="background:rgba(122,145,112,.2)">🎨</div>
+          <div class="why-title">Fully Customisable</div>
+          <div class="why-body">You dream it, we make it. Choose your colours, size, character, and style. We work with you personally on WhatsApp to get every detail just right.</div>
+        </div>
+        <div class="why-card sandy reveal" style="--d:.15s">
+          <div class="why-icon" style="background:rgba(194,149,106,.15)">⚡</div>
+          <div class="why-title">Personal & Fast</div>
+          <div class="why-body">Direct WhatsApp communication means no waiting on hold or email chains. We give you personal attention, live updates, and honest timelines.</div>
+        </div>
+        <div class="why-card reveal" style="--d:.2s">
+          <div class="why-icon">🎁</div>
+          <div class="why-title">Perfect Gifting</div>
+          <div class="why-body">Searching for a meaningful, one-of-a-kind gift? A custom crochet plush, bag, or accessory is something people treasure forever. We do beautiful gift packaging too.</div>
+        </div>
+        <div class="why-card moss reveal" style="--d:.25s">
+          <div class="why-icon" style="background:rgba(122,145,112,.2)">📍</div>
+          <div class="why-title">Locally Rooted</div>
+          <div class="why-body">Proudly Mangalorean. We support local craft culture and use quality materials. Quick delivery within Mangalore, and we ship across India too.</div>
+        </div>
+        <div class="why-card sandy reveal" style="--d:.3s">
+          <div class="why-icon" style="background:rgba(194,149,106,.15)">📚</div>
+          <div class="why-title">Learn to Crochet</div>
+          <div class="why-body">We don't just sell — we teach. Join our small-batch crochet classes. The first few sessions are completely free. Discover a lifelong skill.</div>
+        </div>
+      </div>
+
+      <!-- How It Works process -->
+      <div class="why-process reveal" style="--d:.1s;margin-top:44px">
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-title">Browse & Pick</div>
+          <div class="proc-sub">Choose from our collection or describe your custom vision</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-title">WhatsApp Us</div>
+          <div class="proc-sub">We discuss details, colours & confirm your order personally</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-title">We Create</div>
+          <div class="proc-sub">Your piece is handcrafted stitch by stitch with live updates</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-title">You Receive</div>
+          <div class="proc-sub">Beautifully packaged and delivered with love to your door</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ GIFT IDEAS ══════════ -->
+  <section class="gift-section">
+    <div class="gift-inner">
+      <div class="gift-header reveal">
+        <p class="eyebrow">Perfect Occasions</p>
+        <h2 class="section-title">Gift Ideas <em>for Everyone</em></h2>
+        <p class="section-sub" style="max-width:440px;margin:0 auto">Crochet gifts are personal, lasting, and truly special. We create pieces for every occasion.</p>
+      </div>
+      <div class="gift-grid">
+        <div class="gift-card g1 reveal" style="--d:.05s">
+          <span class="gift-emoji">👶</span>
+          <div class="gift-for">New Baby</div>
+          <div class="gift-desc">Soft plush toys, mini hats & adorable amigurumi for the newest arrivals</div>
+        </div>
+        <div class="gift-card g2 reveal" style="--d:.1s">
+          <span class="gift-emoji">🎂</span>
+          <div class="gift-for">Birthdays</div>
+          <div class="gift-desc">Custom character plushies, personalised bags or a set of beautiful scrunchies</div>
+        </div>
+        <div class="gift-card g3 reveal" style="--d:.15s">
+          <span class="gift-emoji">💍</span>
+          <div class="gift-for">Weddings & Anniversaries</div>
+          <div class="gift-desc">Elegant décor pieces, coaster sets, or keepsake items in your chosen colours</div>
+        </div>
+        <div class="gift-card g4 reveal" style="--d:.2s">
+          <span class="gift-emoji">🏠</span>
+          <div class="gift-for">Housewarming</div>
+          <div class="gift-desc">Handmade coasters, plant pot holders, and home décor that adds warmth</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:36px" class="reveal" style="--d:.25s">
+        <a href="https://wa.me/919606922836?text=Hi%2C%20I%20need%20a%20crochet%20gift%20for%20a%20special%20occasion!" target="_blank" class="btn-primary moss-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          Plan a Custom Gift on WhatsApp
+        </a>
       </div>
     </div>
   </section>
@@ -350,10 +515,7 @@
       <div class="review-card reveal">
         <div class="rc-header">
           <div class="rc-avatar">P</div>
-          <div class="rc-meta">
-            <div class="rc-name">Priya M.</div>
-            <div class="rc-date">April 2025</div>
-          </div>
+          <div class="rc-meta"><div class="rc-name">Priya M.</div><div class="rc-date">April 2025</div></div>
           <div class="rc-stars">★★★★★</div>
         </div>
         <div class="rc-rating-bar"><div style="width:100%"></div></div>
@@ -363,11 +525,8 @@
 
       <div class="review-card reveal" style="--d:.1s">
         <div class="rc-header">
-          <div class="rc-avatar" style="background:var(--accent-2)">S</div>
-          <div class="rc-meta">
-            <div class="rc-name">Shreya K.</div>
-            <div class="rc-date">March 2025</div>
-          </div>
+          <div class="rc-avatar" style="background:linear-gradient(135deg,var(--moss-green-dk),var(--moss-green))">S</div>
+          <div class="rc-meta"><div class="rc-name">Shreya K.</div><div class="rc-date">March 2025</div></div>
           <div class="rc-stars">★★★★★</div>
         </div>
         <div class="rc-rating-bar"><div style="width:100%"></div></div>
@@ -377,57 +536,45 @@
 
       <div class="review-card reveal" style="--d:.2s">
         <div class="rc-header">
-          <div class="rc-avatar" style="background:var(--rose)">A</div>
-          <div class="rc-meta">
-            <div class="rc-name">Ananya R.</div>
-            <div class="rc-date">February 2025</div>
-          </div>
+          <div class="rc-avatar" style="background:linear-gradient(135deg,#c47a5a,var(--sandy-tan))">A</div>
+          <div class="rc-meta"><div class="rc-name">Ananya R.</div><div class="rc-date">February 2025</div></div>
           <div class="rc-stars">★★★★★</div>
         </div>
         <div class="rc-rating-bar"><div style="width:100%"></div></div>
-        <p class="rc-text">"Gifted these gorgeous scrunchies to my whole friend group. Each set was slightly different which made them feel so personal. The packaging was also beautiful. Xcrochets is something truly special."</p>
+        <p class="rc-text">"Gifted these gorgeous scrunchies to my whole friend group. Each set was slightly different which made them feel so personal. The packaging was beautiful. Xcrochets is something truly special."</p>
         <div class="rc-item">Scrunchies · Set of 5</div>
       </div>
 
       <div class="review-card reveal" style="--d:.05s">
         <div class="rc-header">
-          <div class="rc-avatar" style="background:var(--deep)">N</div>
-          <div class="rc-meta">
-            <div class="rc-name">Nandita V.</div>
-            <div class="rc-date">January 2025</div>
-          </div>
+          <div class="rc-avatar" style="background:linear-gradient(135deg,var(--steel-blue-dk),var(--steel-blue-lt))">N</div>
+          <div class="rc-meta"><div class="rc-name">Nandita V.</div><div class="rc-date">January 2025</div></div>
           <div class="rc-stars">★★★★<span style="opacity:.3">★</span></div>
         </div>
         <div class="rc-rating-bar"><div style="width:85%"></div></div>
-        <p class="rc-text">"Ordered a custom hat and the communication throughout the process was excellent. Loved the live updates on WhatsApp. The hat fits perfectly and the color is exactly as I described. Very impressed!"</p>
+        <p class="rc-text">"Ordered a custom hat and the communication was excellent. Loved the live updates on WhatsApp. The hat fits perfectly and the color is exactly as I described. Very impressed!"</p>
         <div class="rc-item">Crochet Hat · Custom Color</div>
       </div>
 
       <div class="review-card reveal" style="--d:.15s">
         <div class="rc-header">
-          <div class="rc-avatar" style="background:var(--forest-light)">R</div>
-          <div class="rc-meta">
-            <div class="rc-name">Riya D.</div>
-            <div class="rc-date">December 2024</div>
-          </div>
+          <div class="rc-avatar" style="background:linear-gradient(135deg,var(--moss-green-dk),#8fa887)">R</div>
+          <div class="rc-meta"><div class="rc-name">Riya D.</div><div class="rc-date">December 2024</div></div>
           <div class="rc-stars">★★★★★</div>
         </div>
         <div class="rc-rating-bar"><div style="width:100%"></div></div>
-        <p class="rc-text">"The coasters are absolutely beautiful. My coffee table looks like it belongs in a magazine now. Each one is slightly unique which I love. Also the delivery tracking was so reassuring — I always knew where my order was."</p>
+        <p class="rc-text">"The coasters are beautiful. My coffee table looks like it belongs in a magazine. Each one is slightly unique which I love. The delivery tracking was so reassuring — I always knew where my order was."</p>
         <div class="rc-item">Coasters · Set of Four</div>
       </div>
 
       <div class="review-card reveal" style="--d:.25s">
         <div class="rc-header">
-          <div class="rc-avatar" style="background:var(--gold)">M</div>
-          <div class="rc-meta">
-            <div class="rc-name">Meera L.</div>
-            <div class="rc-date">November 2024</div>
-          </div>
+          <div class="rc-avatar" style="background:linear-gradient(135deg,var(--sandy-tan-dk),var(--sandy-tan-lt))">M</div>
+          <div class="rc-meta"><div class="rc-name">Meera L.</div><div class="rc-date">November 2024</div></div>
           <div class="rc-stars">★★★★★</div>
         </div>
         <div class="rc-rating-bar"><div style="width:100%"></div></div>
-        <p class="rc-text">"Joined the crochet classes and the first few were completely free, just like promised! The teaching is patient, personal and so encouraging. I made my first plushie after just 3 sessions. Highly recommend to anyone curious about crochet."</p>
+        <p class="rc-text">"Joined the crochet classes and the first few were completely free, just like promised! The teaching is patient, personal and so encouraging. I made my first plushie after just 3 sessions. Highly recommend!"</p>
         <div class="rc-item">Crochet Classes · Beginner</div>
       </div>
     </div>
@@ -450,7 +597,6 @@
       <h2 class="section-title">Design Your <em>Own</em></h2>
       <p class="section-sub">Tell us exactly what you envision — we'll make it happen, stitch by stitch.</p>
     </div>
-
     <div class="custom-form-wrap reveal">
       <form id="customOrderForm" onsubmit="submitCustomOrder(event)">
         <div class="cf-grid">
@@ -482,23 +628,31 @@
                 </select>
               </div>
             </div>
+            <div class="cf-group"><label class="cf-label">Occasion <span class="cf-label-sm">optional</span></label>
+              <select class="cf-input" id="cf-occasion">
+                <option value="">Select occasion...</option>
+                <option>Birthday Gift</option><option>Baby Shower Gift</option>
+                <option>Wedding / Anniversary</option><option>Housewarming</option>
+                <option>Just for Me</option><option>Other</option>
+              </select>
+            </div>
           </div>
           <div class="cf-col">
             <div class="cf-group">
               <label class="cf-label">Color Palette <span class="cf-label-sm">select all that apply</span></label>
               <div class="swatch-grid">
-                <label class="sw" title="Cream"><input type="checkbox" class="swatch-cb" value="Cream Beige"/><span class="swatch" style="background:#e8c9a0"></span><span class="sw-name">Cream</span></label>
-                <label class="sw" title="Terracotta"><input type="checkbox" class="swatch-cb" value="Terracotta"/><span class="swatch" style="background:#c47a5a"></span><span class="sw-name">Terra</span></label>
-                <label class="sw" title="Sage"><input type="checkbox" class="swatch-cb" value="Sage Green"/><span class="swatch" style="background:#7a9175"></span><span class="sw-name">Sage</span></label>
-                <label class="sw" title="Blue"><input type="checkbox" class="swatch-cb" value="Dusty Blue"/><span class="swatch" style="background:#7090b8"></span><span class="sw-name">Blue</span></label>
-                <label class="sw" title="Rose"><input type="checkbox" class="swatch-cb" value="Dusty Rose"/><span class="swatch" style="background:#c8879a"></span><span class="sw-name">Rose</span></label>
-                <label class="sw" title="Yellow"><input type="checkbox" class="swatch-cb" value="Butter Yellow"/><span class="swatch" style="background:#e5dda0"></span><span class="sw-name">Yellow</span></label>
-                <label class="sw" title="Burgundy"><input type="checkbox" class="swatch-cb" value="Burgundy"/><span class="swatch" style="background:#7a3a3a"></span><span class="sw-name">Burgundy</span></label>
-                <label class="sw" title="White"><input type="checkbox" class="swatch-cb" value="White"/><span class="swatch" style="background:#f8f4ee;border:1px solid #ddd"></span><span class="sw-name">White</span></label>
-                <label class="sw" title="Black"><input type="checkbox" class="swatch-cb" value="Black"/><span class="swatch" style="background:#2a2a2a"></span><span class="sw-name">Black</span></label>
-                <label class="sw" title="Gold"><input type="checkbox" class="swatch-cb" value="Gold"/><span class="swatch" style="background:#c9a96e"></span><span class="sw-name">Gold</span></label>
-                <label class="sw" title="Lavender"><input type="checkbox" class="swatch-cb" value="Lavender"/><span class="swatch" style="background:#b8a8d0"></span><span class="sw-name">Lavender</span></label>
-                <label class="sw" title="Mint"><input type="checkbox" class="swatch-cb" value="Mint"/><span class="swatch" style="background:#a8d8c8"></span><span class="sw-name">Mint</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Cream Beige"/><span class="swatch" style="background:#e8c9a0"></span><span class="sw-name">Cream</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Sandy Tan"/><span class="swatch" style="background:#C2956A"></span><span class="sw-name">Sandy</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Moss Green"/><span class="swatch" style="background:#7A9170"></span><span class="sw-name">Moss</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Steel Blue"/><span class="swatch" style="background:#6C8FA8"></span><span class="sw-name">Steel Blue</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Baby Blue"/><span class="swatch" style="background:#B8D4E8"></span><span class="sw-name">Baby Blue</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Dusty Rose"/><span class="swatch" style="background:#c8879a"></span><span class="sw-name">Rose</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Butter Yellow"/><span class="swatch" style="background:#e5dda0"></span><span class="sw-name">Yellow</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Burgundy"/><span class="swatch" style="background:#7a3a3a"></span><span class="sw-name">Burgundy</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="White"/><span class="swatch" style="background:#f8f4ee;border:1px solid #ddd"></span><span class="sw-name">White</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Black"/><span class="swatch" style="background:#2a2a2a"></span><span class="sw-name">Black</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Lavender"/><span class="swatch" style="background:#b8a8d0"></span><span class="sw-name">Lavender</span></label>
+                <label class="sw"><input type="checkbox" class="swatch-cb" value="Mint"/><span class="swatch" style="background:#a8d8c8"></span><span class="sw-name">Mint</span></label>
               </div>
               <input class="cf-input" type="text" id="cf-color-other" placeholder="Or describe any specific color..." style="margin-top:14px" />
             </div>
@@ -523,7 +677,7 @@
       <div class="atelier-text reveal">
         <p class="eyebrow light">The Atelier</p>
         <h2 class="section-title light">Learn to<br><em>Crochet</em></h2>
-        <div class="free-pill">First Few Classes — Free</div>
+        <div class="free-pill">✨ First Few Classes — Completely Free</div>
         <p class="atelier-body">Discover the meditative joy of crochet. From your very first chain stitch to crafting plushies, bags, and wearables. Small, personal sessions with genuine attention and real progress.</p>
         <ul class="atelier-list">
           <li>Beginner-friendly — zero experience needed</li>
@@ -531,8 +685,9 @@
           <li>Affordable &amp; negotiable ongoing pricing</li>
           <li>Small batches, flexible timing</li>
           <li>Master plushies, flowers, bags, wearables &amp; more</li>
+          <li>Learn a lifelong skill with personal guidance</li>
         </ul>
-        <a href="https://wa.me/919606922836?text=Hi!%20I'm%20interested%20in%20crochet%20classes%20at%20Xcrochets" target="_blank" class="btn-primary light-btn">
+        <a href="https://wa.me/919606922836?text=Hi!%20I'm%20interested%20in%20crochet%20classes%20at%20Xcrochets" target="_blank" class="btn-primary moss-btn">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
           Enquire About Classes
         </a>
@@ -540,7 +695,8 @@
       <div class="atelier-cards reveal" style="--d:.14s">
         <div class="ac-card"><div class="ac-num">01</div><div class="ac-title">The Chain Stitch</div><div class="ac-track"><div class="ac-fill" style="width:90%"></div></div><div class="ac-status">Foundation</div></div>
         <div class="ac-card"><div class="ac-num">02</div><div class="ac-title">Single Crochet</div><div class="ac-track"><div class="ac-fill" style="width:65%"></div></div><div class="ac-status">Building</div></div>
-        <div class="ac-card"><div class="ac-num">03</div><div class="ac-title">Your First Project</div><div class="ac-track"><div class="ac-fill" style="width:42%"></div></div><div class="ac-status">Creating</div></div>
+        <div class="ac-card"><div class="ac-num">03</div><div class="ac-title">Your First Plushie</div><div class="ac-track"><div class="ac-fill" style="width:42%"></div></div><div class="ac-status">Creating</div></div>
+        <div class="ac-card"><div class="ac-num">04</div><div class="ac-title">Bags & Wearables</div><div class="ac-track"><div class="ac-fill" style="width:20%"></div></div><div class="ac-status">Advanced</div></div>
         <div class="ac-free">FREE to Start →</div>
       </div>
     </div>
@@ -559,8 +715,9 @@
       <div class="about-text reveal" style="--d:.14s">
         <p class="eyebrow">Our Maison</p>
         <h2 class="section-title">About<br><em>Xcrochets</em></h2>
-        <p class="about-body">Est. 2025 — Xcrochets is a refined crochet atelier dedicated to timeless craftsmanship and understated luxury. Each piece is meticulously handmade using carefully selected materials, ensuring exceptional quality, softness, and durability.</p>
-        <p class="about-body">Rooted in minimal elegance, every creation is designed to feel exclusive — where slow, intentional artistry replaces mass production. Every stitch reflects precision, patience, and a commitment to creating pieces not just worn, but experienced.</p>
+        <p class="about-body">Est. 2025 — Xcrochets is a crochet atelier dedicated to timeless craftsmanship and understated beauty. Each piece is meticulously handmade using carefully selected materials, ensuring exceptional quality, softness, and durability.</p>
+        <p class="about-body">Rooted in Mangalore and driven by a love of slow craft, every creation is designed to feel truly exclusive — where intentional artistry replaces mass production. Every stitch reflects precision, patience, and care for the person receiving it.</p>
+        <p class="about-body">We believe handmade objects carry energy. When you hold something made stitch-by-stitch by hand, you feel it.</p>
         <div class="about-stats">
           <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Handmade</div></div>
           <div class="stat-div"></div>
@@ -568,6 +725,75 @@
           <div class="stat-div"></div>
           <div class="stat"><div class="stat-num">4.8★</div><div class="stat-label">Avg Rating</div></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="faq-section">
+    <div class="faq-inner">
+      <div class="faq-header reveal">
+        <p class="eyebrow">Common Questions</p>
+        <h2 class="section-title">FAQ</h2>
+        <p class="section-sub" style="max-width:400px;margin:0 auto">Everything you need to know before ordering.</p>
+      </div>
+      <div class="faq-list reveal" style="--d:.1s">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How do I place an order?
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">Simply add items to your cart and click "Send Order on WhatsApp", or use the Bespoke form above. We'll confirm everything directly via WhatsApp, discuss details, and get started on your piece!</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How long does it take to make my order?
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">Most pieces take 3–7 days depending on complexity. Custom orders may take a little longer. We'll give you a clear timeline when you order, and keep you updated throughout via WhatsApp.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Do you deliver outside Mangalore?
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">Yes! We deliver across India. Shipping costs and timelines vary by location. Let us know where you're based and we'll give you full details on WhatsApp.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Can I fully customise a piece?
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">Absolutely. That's one of our specialities! Choose your colours, size, character, theme, and more. Use the Bespoke form to describe your vision and we'll bring it to life.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How much do the items cost?
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">Pricing varies based on the item, size, and customisation. We share prices personally on WhatsApp to ensure fairness and transparency. Just message us and we'll send you all the details!</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Are the crochet classes really free?
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">Yes! The first few sessions are completely free of charge. After that, ongoing classes are very affordable and negotiable. Message us on WhatsApp to check availability and schedule your first class.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What makes a crochet gift special?
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">A handmade crochet gift carries time, effort and love in every stitch. It's unique — no two pieces are identical. Recipients treasure them for years. For custom character plushies, personalised colours or special occasions, a crochet gift is something truly memorable.</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:44px" class="reveal">
+        <p style="font-family:var(--f-serif);font-style:italic;color:var(--ink-3);margin-bottom:16px">Still have questions?</p>
+        <a href="https://wa.me/919606922836?text=Hi%2C%20I%20have%20a%20question%20about%20Xcrochets!" target="_blank" class="btn-primary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          Ask Us on WhatsApp
+        </a>
       </div>
     </div>
   </section>
@@ -601,28 +827,13 @@
       <div class="order-status-panel hidden" id="orderStatusPanel">
         <div class="os-welcome">Welcome back, <strong id="os-username">Priya</strong></div>
         <div class="os-tracker">
-          <div class="os-step" id="step-placed">
-            <div class="os-dot-wrap"><div class="os-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div></div>
-            <div class="os-content"><div class="os-step-name">Order Placed</div><div class="os-step-sub">We received your order</div></div>
-          </div>
-          <div class="os-step" id="step-crocheting">
-            <div class="os-dot-wrap"><div class="os-dot">🧶</div></div>
-            <div class="os-content"><div class="os-step-name">Being Crocheted</div><div class="os-step-sub">Crafted with love, stitch by stitch</div></div>
-          </div>
-          <div class="os-step" id="step-packaging">
-            <div class="os-dot-wrap"><div class="os-dot">📦</div></div>
-            <div class="os-content"><div class="os-step-name">Packaging</div><div class="os-step-sub">Carefully wrapped for you</div></div>
-          </div>
-          <div class="os-step" id="step-delivering">
-            <div class="os-dot-wrap"><div class="os-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div></div>
-            <div class="os-content"><div class="os-step-name">Out for Delivery</div><div class="os-step-sub">On its way to you</div></div>
-          </div>
-          <div class="os-step" id="step-delivered">
-            <div class="os-dot-wrap"><div class="os-dot">❤️</div></div>
-            <div class="os-content"><div class="os-step-name">Delivered</div><div class="os-step-sub">Enjoy your piece!</div></div>
-          </div>
+          <div class="os-step" id="step-placed"><div class="os-dot-wrap"><div class="os-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="os-content"><div class="os-step-name">Order Placed</div><div class="os-step-sub">We received your order</div></div></div>
+          <div class="os-step" id="step-crocheting"><div class="os-dot-wrap"><div class="os-dot">🧶</div></div><div class="os-content"><div class="os-step-name">Being Crocheted</div><div class="os-step-sub">Crafted with love, stitch by stitch</div></div></div>
+          <div class="os-step" id="step-packaging"><div class="os-dot-wrap"><div class="os-dot">📦</div></div><div class="os-content"><div class="os-step-name">Packaging</div><div class="os-step-sub">Carefully wrapped for you</div></div></div>
+          <div class="os-step" id="step-delivering"><div class="os-dot-wrap"><div class="os-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div></div><div class="os-content"><div class="os-step-name">Out for Delivery</div><div class="os-step-sub">On its way to you</div></div></div>
+          <div class="os-step" id="step-delivered"><div class="os-dot-wrap"><div class="os-dot">❤️</div></div><div class="os-content"><div class="os-step-name">Delivered</div><div class="os-step-sub">Enjoy your piece!</div></div></div>
         </div>
-        <p class="os-note">Real-time updates also sent directly on WhatsApp.</p>
+        <p class="os-note">Real-time updates also sent on WhatsApp.</p>
         <button class="btn-ghost" style="margin-top:20px;width:100%;justify-content:center" onclick="doLogout()">Sign Out</button>
       </div>
     </div>
@@ -633,7 +844,7 @@
     <div class="contact-header">
       <p class="eyebrow">Reach Out</p>
       <h2 class="section-title">Contact</h2>
-      <p class="section-sub">Questions, custom ideas, or just a hello.</p>
+      <p class="section-sub">Questions, custom ideas, or just a hello — we'd love to hear from you.</p>
     </div>
     <div class="contact-grid">
       <div class="contact-card reveal">
@@ -666,24 +877,29 @@
       <div class="footer-brand">
         <div class="footer-mark"><span>X</span>CROCHETS</div>
         <p class="footer-tagline">Handmade with Love</p>
-        <p class="footer-desc">Est. 2025 · Mangalore.<br>Refined crochet for those who appreciate slow, intentional craft.</p>
+        <p class="footer-desc">Est. 2025 · Mangalore.<br>Refined crochet for those who appreciate slow, intentional craft. Every piece made with care.</p>
         <div class="footer-rating"><span class="fr-stars">★★★★★</span><span class="fr-num">4.8 / 5</span></div>
         <div class="footer-socials">
-          <a href="https://wa.me/919606922836" target="_blank" class="fs-link">WA</a>
-          <a href="https://instagram.com/xcrochets_25" target="_blank" class="fs-link">IG</a>
+          <a href="https://wa.me/919606922836" target="_blank" class="fs-link">WhatsApp</a>
+          <a href="https://instagram.com/xcrochets_25" target="_blank" class="fs-link">Instagram</a>
         </div>
       </div>
       <div class="footer-nav">
         <p class="fn-title">Navigate</p>
-        <a href="#">Home</a><a href="#shop">Shop</a><a href="#custom-order">Bespoke Order</a>
-        <a href="#learn">Atelier Classes</a><a href="#reviews">Reviews</a>
-        <a href="#about">Our Maison</a><a href="#track">Track Order</a>
+        <a href="#">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#custom-order">Bespoke Order</a>
+        <a href="#learn">Atelier Classes</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#about">Our Maison</a>
+        <a href="#track">Track Order</a>
       </div>
       <div class="footer-connect">
         <p class="fn-title">Connect</p>
-        <a href="https://wa.me/919606922836" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/919606922836" target="_blank">WhatsApp Us</a>
         <a href="https://instagram.com/xcrochets_25" target="_blank">@xcrochets_25</a>
-        <a href="#contact">Contact Us</a>
+        <a href="#contact">Contact Page</a>
+        <a href="#custom-order">Custom Orders</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -717,106 +933,48 @@
 
   <!-- WA FLOAT -->
   <a href="https://wa.me/919606922836?text=Hi%20I%20want%20to%20order%20from%20Xcrochets" target="_blank" class="wa-float" aria-label="WhatsApp">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
   </a>
 
   <!-- TOAST -->
   <div id="toastContainer"></div>
-
-  <!--
-    ╔══════════════════════════════════════════════════╗
-    ║  ADMIN PANEL — injected by JS only after auth   ║
-    ║  No HTML exists here in page source             ║
-    ╚══════════════════════════════════════════════════╝
-  -->
   <div id="adminMount"></div>
 
   <script>
-  /* ══════════════════════════════════════════════════════
-     SECURITY LAYER
-     ─────────────────────────────────────────────────────
-     • No plaintext credentials anywhere in JS source
-     • Admin panel HTML is NOT in the DOM at page load —
-       it is built and injected only after auth passes
-     • Credential check uses SHA-256 hashes only
-     • Secret URL gate: ?xc=atelier2025 must be present
-       to even attempt admin login (silent otherwise)
-     • DevTools console is warned against tampering
-  ══════════════════════════════════════════════════════ */
-
-  /* ── SHA-256 in pure JS (no libraries) ── */
+  /* ── SHA-256 ── */
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
-
-  /* ── Hashes of the real credentials (no plaintext stored) ── */
-  /* These are SHA-256 hashes — useless without knowing the inputs */
   const _h = {
     e: '07e066f1726b4e9cfb1627903d2a88036c8a174bbb860a488a800d2d599aebc8',
     p: '70ef20f7a045ea727b3ccb853f0dd9052ba0d2dc53012ff9b906e43e192e5ee1',
     c: '8afbdf511e910cfa2ebfcc99ea26d4dcbaf275f4011cad18c0112f168f94eef0'
   };
-
-  /* ── Secret URL gate ── */
-  /* Admin login only works if URL contains ?xc=atelier2025 */
-  /* e.g. yoursite.com/index.html?xc=atelier2025           */
-  /* Without this, entering the admin email/pass does nothing */
   const _gate = (function() {
-    try {
-      const p = new URLSearchParams(window.location.search);
-      return p.get('xc') === 'atelier2025';
-    } catch(e) { return false; }
+    try { const p = new URLSearchParams(window.location.search); return p.get('xc') === 'atelier2025'; } catch(e) { return false; }
   })();
-
-  /* ── DevTools tamper warning ── */
   (function devtoolsWarning() {
-    const w = '%c⛔ Xcrochets — Admin Protected\n%cDo not attempt to access the admin panel.\nThis site monitors for tampering attempts.';
-    console.log(w, 'color:#a87c3a;font-size:18px;font-weight:bold', 'color:#555;font-size:13px');
-    // Detect if DevTools is open (size change method)
-    let t = false;
-    setInterval(function(){
-      const w0 = window.outerWidth - window.innerWidth;
-      const h0 = window.outerHeight - window.innerHeight;
-      if ((w0 > 160 || h0 > 160) && !t) { t = true; }
-    }, 1000);
+    console.log('%c⛔ Xcrochets — Admin Protected\n%cDo not attempt to access the admin panel.','color:#6C8FA8;font-size:18px;font-weight:bold','color:#555;font-size:13px');
   })();
-
-  /* ── Disable right-click and F12 ── */
   document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
   document.addEventListener('keydown', function(e) {
-    // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U (view source), Ctrl+Shift+C
-    if (
-      e.key === 'F12' ||
-      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-      (e.ctrlKey && e.key === 'u')
-    ) {
-      e.preventDefault();
-      return false;
-    }
+    if (e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u')) { e.preventDefault(); return false; }
   });
 
-  /* ══════════ CONSTANTS ══════════ */
   const SHOP_WA = '919606922836';
   const STATUS_MAP = { placed:0, crocheting:1, packaging:2, delivering:3, delivered:4 };
-  const STATUS_LABELS = {
-    placed:'Order Placed', crocheting:'Being Crocheted',
-    packaging:'Packaging', delivering:'Out for Delivery', delivered:'Delivered'
-  };
+  const STATUS_LABELS = { placed:'Order Placed', crocheting:'Being Crocheted', packaging:'Packaging', delivering:'Out for Delivery', delivered:'Delivered' };
   const STEP_IDS = ['step-placed','step-crocheting','step-packaging','step-delivering','step-delivered'];
 
-  /* ══════════ STORAGE ══════════ */
   const getUsers = () => JSON.parse(localStorage.getItem('xc_users') || '{}');
   const saveUsers = u => localStorage.setItem('xc_users', JSON.stringify(u));
 
-  /* ══════════ CART ══════════ */
+  /* ── CART ── */
   let cart = [];
-  function addToCart(name) {
-    cart.push(name); updateCart(); openCart();
-    showToast(name + ' added to your order');
-  }
+  function addToCart(name) { cart.push(name); updateCart(); openCart(); showToast(name + ' added to your order'); }
   function removeFromCart(i) { cart.splice(i, 1); updateCart(); }
   function updateCart() {
     document.getElementById('cartCount').textContent = cart.length;
@@ -838,18 +996,10 @@
     const msg = `🧶 New Order — Xcrochets\n\n${nameStr}Items:\n${cart.map((x,n)=>`${n+1}. ${x}`).join('\n')}\n\nPlease share the prices. Thank you!`;
     window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(msg)}`, '_blank');
   }
-  function toggleCart() {
-    document.getElementById('cart').classList.toggle('active');
-    document.getElementById('cartOverlay').classList.toggle('active');
-    document.body.classList.toggle('no-scroll');
-  }
-  function openCart() {
-    document.getElementById('cart').classList.add('active');
-    document.getElementById('cartOverlay').classList.add('active');
-    document.body.classList.add('no-scroll');
-  }
+  function toggleCart() { document.getElementById('cart').classList.toggle('active'); document.getElementById('cartOverlay').classList.toggle('active'); document.body.classList.toggle('no-scroll'); }
+  function openCart() { document.getElementById('cart').classList.add('active'); document.getElementById('cartOverlay').classList.add('active'); document.body.classList.add('no-scroll'); }
 
-  /* ══════════ TOAST ══════════ */
+  /* ── TOAST ── */
   function showToast(msg) {
     const c = document.getElementById('toastContainer');
     const t = document.createElement('div');
@@ -858,7 +1008,15 @@
     setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 2800);
   }
 
-  /* ══════════ CUSTOM ORDER ══════════ */
+  /* ── FAQ ── */
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  /* ── CUSTOM ORDER ── */
   function submitCustomOrder(e) {
     e.preventDefault();
     const name    = document.getElementById('cf-name').value;
@@ -867,357 +1025,166 @@
     const size    = document.getElementById('cf-size').value;
     const qty     = document.getElementById('cf-qty').value;
     const del     = document.getElementById('cf-delivery').value;
+    const occ     = document.getElementById('cf-occasion').value;
     const desc    = document.getElementById('cf-desc').value;
     const ref     = document.getElementById('cf-ref').value;
     const cOther  = document.getElementById('cf-color-other').value;
     const checked = [...document.querySelectorAll('.swatch-cb:checked')].map(c => c.value);
     const colors  = [...checked, cOther].filter(Boolean).join(', ') || 'Not specified';
-    const ownerMsg = `🧶 *Bespoke Order — Xcrochets*\n\n👤 *Customer:* ${name}\n📱 *Phone:* ${phone}\n🎁 *Product:* ${product}\n📏 *Size:* ${size || 'Not specified'}\n🔢 *Qty:* ${qty}\n🎨 *Colors:* ${colors}\n🚚 *Delivery:* ${del}\n\n✨ *Vision:*\n${desc}${ref ? '\n\n🔗 Reference: ' + ref : ''}\n\n_(via website bespoke form)_`;
-    window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(ownerMsg)}`, '_blank');
+    const msg = `🧶 *Bespoke Order — Xcrochets*\n\n👤 *Customer:* ${name}\n📱 *Phone:* ${phone}\n🎁 *Product:* ${product}\n📏 *Size:* ${size||'Not specified'}\n🔢 *Qty:* ${qty}\n🎨 *Colors:* ${colors}\n🚚 *Delivery:* ${del}${occ ? '\n🎊 *Occasion:* '+occ : ''}\n\n✨ *Vision:*\n${desc}${ref ? '\n\n🔗 Reference: '+ref : ''}\n\n_(via website bespoke form)_`;
+    window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
-  /* ══════════ NAV ══════════ */
-  window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
-  });
-  function toggleNav() {
-    document.getElementById('mobileNav').classList.toggle('open');
-    document.getElementById('hamburger').classList.toggle('open');
-  }
+  /* ── NAV ── */
+  window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60); });
+  function toggleNav() { document.getElementById('mobileNav').classList.toggle('open'); document.getElementById('hamburger').classList.toggle('open'); }
   document.addEventListener('click', e => {
     const mn = document.getElementById('mobileNav'), hb = document.getElementById('hamburger');
-    if (mn.classList.contains('open') && !mn.contains(e.target) && !hb.contains(e.target)) {
-      mn.classList.remove('open'); hb.classList.remove('open');
-    }
+    if (mn.classList.contains('open') && !mn.contains(e.target) && !hb.contains(e.target)) { mn.classList.remove('open'); hb.classList.remove('open'); }
   });
 
-  /* ══════════ AUTH ══════════ */
+  /* ── AUTH ── */
   let currentUserEmail = localStorage.getItem('xc_current') || null;
   let isAdmin = false;
-
-  function getCurrentUser() {
-    if (!currentUserEmail) return null;
-    return getUsers()[currentUserEmail] || null;
-  }
-
+  function getCurrentUser() { if (!currentUserEmail) return null; return getUsers()[currentUserEmail] || null; }
   function switchTab(tab) {
-    ['login', 'signup'].forEach(t => {
-      document.getElementById('tab-' + t).classList.toggle('active', t === tab);
-      document.getElementById('panel-' + t).classList.toggle('hidden', t !== tab);
-    });
+    ['login','signup'].forEach(t => { document.getElementById('tab-'+t).classList.toggle('active',t===tab); document.getElementById('panel-'+t).classList.toggle('hidden',t!==tab); });
   }
-
   function doSignup() {
     const name  = document.getElementById('su-name').value.trim();
     const email = document.getElementById('su-email').value.trim();
     const phone = document.getElementById('su-phone').value.trim();
     const pass  = document.getElementById('su-pass').value;
-    if (!name || !email || !pass) { showToast('Please fill all fields.'); return; }
+    if (!name||!email||!pass) { showToast('Please fill all fields.'); return; }
     const users = getUsers();
     if (users[email]) { showToast('Account exists. Please log in.'); return; }
-    users[email] = { name, email, phone, pass, status: 'placed', orderDate: new Date().toLocaleDateString() };
+    users[email] = { name, email, phone, pass, status:'placed', orderDate:new Date().toLocaleDateString() };
     saveUsers(users);
     currentUserEmail = email;
     localStorage.setItem('xc_current', email);
     showOrderStatus();
-    showToast('Welcome, ' + name + '!');
+    showToast('Welcome, '+name+'!');
     const msg = `🆕 *New Customer Signup — Xcrochets*\n\n👤 *Name:* ${name}\n📱 *Phone:* ${phone}\n📧 *Email:* ${email}\n📅 *Joined:* ${new Date().toLocaleString()}`;
     window.open(`https://wa.me/${SHOP_WA}?text=${encodeURIComponent(msg)}`, '_blank');
   }
-
-  /* ── Secure admin login with hash verification ── */
   function doLogin() {
     const email = document.getElementById('login-email').value.trim();
     const pass  = document.getElementById('login-pass').value;
-
-    if (!email || !pass) { showToast('Please enter your email and password.'); return; }
-
-    /* Always try admin check first (gate must be active), then fall to regular user */
-    sha256(email).then(eHash => {
-      sha256(pass).then(pHash => {
-        sha256(email + '::' + pass).then(cHash => {
-
-          const isAdminCreds = (eHash === _h.e && pHash === _h.p && cHash === _h.c);
-
-          if (isAdminCreds && _gate) {
-            /* ✅ Admin — gate active */
-            isAdmin = true;
-            currentUserEmail = null;
-            localStorage.removeItem('xc_current');
-            showToast('Welcome, Admin!');
-            injectAndOpenAdmin();
-
-          } else if (isAdminCreds && !_gate) {
-            /* Admin creds correct but no gate — show gate hint */
-            showToast('Access denied. Use the special link to log in as admin.');
-
-          } else {
-            /* Try regular user */
-            const users = getUsers();
-            const user  = users[email];
-            if (user && user.pass === pass) {
-              _loginAsUser(user, email);
-            } else {
-              showToast('Incorrect email or password.');
-            }
-          }
-
-        });
-      });
-    });
+    if (!email||!pass) { showToast('Please enter your email and password.'); return; }
+    sha256(email).then(eHash => { sha256(pass).then(pHash => { sha256(email+'::'+pass).then(cHash => {
+      const isAdminCreds = (eHash===_h.e && pHash===_h.p && cHash===_h.c);
+      if (isAdminCreds && _gate) { isAdmin=true; currentUserEmail=null; localStorage.removeItem('xc_current'); showToast('Welcome, Admin!'); injectAndOpenAdmin(); }
+      else if (isAdminCreds && !_gate) { showToast('Access denied. Use the special link to log in as admin.'); }
+      else { const users=getUsers(); const user=users[email]; if (user&&user.pass===pass) { _loginAsUser(user,email); } else { showToast('Incorrect email or password.'); } }
+    }); }); });
   }
-
-  function _loginAsUser(user, email) {
-    isAdmin = false;
-    currentUserEmail = email;
-    localStorage.setItem('xc_current', email);
-    showOrderStatus();
-    showToast('Welcome back, ' + user.name + '!');
-  }
-
+  function _loginAsUser(user, email) { isAdmin=false; currentUserEmail=email; localStorage.setItem('xc_current',email); showOrderStatus(); showToast('Welcome back, '+user.name+'!'); }
   function doLogout() {
-    currentUserEmail = null; isAdmin = false;
-    localStorage.removeItem('xc_current');
-    /* Remove injected admin panel from DOM on logout */
-    const mount = document.getElementById('adminMount');
-    if (mount) mount.innerHTML = '';
-    document.getElementById('adminNavLink').style.display = 'none';
+    currentUserEmail=null; isAdmin=false; localStorage.removeItem('xc_current');
+    const mount=document.getElementById('adminMount'); if(mount) mount.innerHTML='';
+    document.getElementById('adminNavLink').style.display='none';
     document.getElementById('orderStatusPanel').classList.add('hidden');
     switchTab('login');
   }
-
   function showOrderStatus() {
-    const user = getCurrentUser();
-    if (!user) return;
+    const user=getCurrentUser(); if (!user) return;
     document.getElementById('panel-login').classList.add('hidden');
     document.getElementById('panel-signup').classList.add('hidden');
     document.getElementById('orderStatusPanel').classList.remove('hidden');
-    document.getElementById('os-username').textContent = user.name;
-    renderTracker(user.status || 'placed');
+    document.getElementById('os-username').textContent=user.name;
+    renderTracker(user.status||'placed');
   }
-
   function renderTracker(status) {
-    const cur = STATUS_MAP[status] ?? 0;
-    STEP_IDS.forEach((id, i) => {
-      const el = document.getElementById(id);
-      el.classList.toggle('active', i <= cur);
-      el.classList.toggle('current', i === cur);
-    });
+    const cur=STATUS_MAP[status]??0;
+    STEP_IDS.forEach((id,i) => { const el=document.getElementById(id); el.classList.toggle('active',i<=cur); el.classList.toggle('current',i===cur); });
   }
+  function showSignup() { document.getElementById('track').scrollIntoView({behavior:'smooth'}); switchTab('signup'); }
 
-  function showSignup() {
-    document.getElementById('track').scrollIntoView({ behavior: 'smooth' });
-    switchTab('signup');
-  }
-
-  /* ══════════════════════════════════════════════════════
-     ADMIN PANEL — Built and injected ONLY after auth
-     ─────────────────────────────────────────────────────
-     This HTML does NOT exist anywhere in the page source.
-     It is constructed in memory by JS after login passes.
-  ══════════════════════════════════════════════════════ */
-
+  /* ── ADMIN ── */
   function injectAdminStyles() {
     document.getElementById('adminStyles').textContent = `
-      .admin-overlay{position:fixed;inset:0;z-index:2000;background:rgba(15,20,16,.7);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px}
-      .admin-overlay.hidden{display:none}
-      .admin-panel{background:#f5ede0;border-radius:12px;width:100%;max-width:700px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(15,20,16,.28);border:1px solid rgba(212,201,184,.5)}
-      .admin-header{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;background:#0f1410;border-bottom:1px solid rgba(201,160,87,.2)}
-      .admin-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;font-style:italic;color:#f5ede0}
-      .admin-logo span{color:#c9a057;font-style:normal;font-weight:600}
-      .admin-close{background:rgba(245,237,224,.1);border:none;color:#f5ede0;cursor:pointer;width:32px;height:32px;border-radius:50%;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .3s}
-      .admin-close:hover{background:rgba(245,237,224,.2)}
-      .admin-body{flex:1;overflow-y:auto;padding:28px}
       .admin-top-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
-      .ast{background:#0f1410;border-radius:8px;padding:18px;text-align:center}
-      .ast-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#c9a057;line-height:1}
-      .ast-label{font-family:'Jost',sans-serif;font-size:.54rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,237,224,.35);margin-top:5px}
-      .admin-section-title{font-family:'Jost',sans-serif;font-size:.58rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#5a4f44;margin-bottom:14px;border-bottom:1px solid #e2d6c6;padding-bottom:8px}
+      .ast{background:#2C2018;border-radius:8px;padding:18px;text-align:center}
+      .ast-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#B8D4E8;line-height:1}
+      .ast-label{font-family:'Jost',sans-serif;font-size:.54rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:rgba(253,245,230,.35);margin-top:5px}
+      .admin-section-title{font-family:'Jost',sans-serif;font-size:.58rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#7A6858;margin-bottom:14px;border-bottom:1px solid #EDE0CC;padding-bottom:8px}
       .admin-orders-list{display:flex;flex-direction:column;gap:10px}
       .admin-empty{font-family:'EB Garamond',serif;font-style:italic;font-size:.92rem;color:#8c8078;padding:20px 0;text-align:center}
-      .admin-order-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.6);border:1px solid rgba(212,201,184,.5);border-radius:6px;padding:14px 18px}
+      .admin-order-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.6);border:1px solid rgba(184,212,232,.4);border-radius:6px;padding:14px 18px}
       .aor-info{flex:1}
-      .aor-name{font-family:'Jost',sans-serif;font-size:.84rem;font-weight:500;color:#1e1a16}
+      .aor-name{font-family:'Jost',sans-serif;font-size:.84rem;font-weight:500;color:#2C2018}
       .aor-email,.aor-phone{font-family:'Jost',sans-serif;font-size:.72rem;font-weight:300;color:#8c8078;margin-top:1px}
       .aor-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
       .aor-status{font-family:'Jost',sans-serif;font-size:.56rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;border-radius:100px}
-      .status-placed{background:rgba(168,124,58,.1);color:#a87c3a;border:1px solid rgba(168,124,58,.2)}
-      .status-crocheting{background:rgba(78,100,80,.1);color:#4e6450;border:1px solid rgba(78,100,80,.2)}
-      .status-packaging{background:rgba(28,48,96,.1);color:#1c3060;border:1px solid rgba(28,48,96,.2)}
-      .status-delivering{background:rgba(184,120,128,.1);color:#b87880;border:1px solid rgba(184,120,128,.2)}
+      .status-placed{background:rgba(194,149,106,.1);color:#9E7145;border:1px solid rgba(194,149,106,.2)}
+      .status-crocheting{background:rgba(122,145,112,.1);color:#5B7052;border:1px solid rgba(122,145,112,.2)}
+      .status-packaging{background:rgba(108,143,168,.1);color:#4A6E88;border:1px solid rgba(108,143,168,.2)}
+      .status-delivering{background:rgba(184,212,232,.2);color:#4A6E88;border:1px solid rgba(184,212,232,.4)}
       .status-delivered{background:rgba(37,211,102,.1);color:#1a9140;border:1px solid rgba(37,211,102,.25)}
       .aor-wa-btn{display:flex;align-items:center;gap:5px;font-family:'Jost',sans-serif;font-size:.55rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:100px;background:#25D366;color:white;border:none;cursor:pointer;transition:background .2s}
       .aor-wa-btn:hover{background:#1da950}
       .admin-update-form,.admin-wa-row{display:flex;flex-direction:column;gap:0}
     `;
   }
-
   function buildAdminHTML() {
-    return `
-    <div id="adminOverlay" class="admin-overlay">
+    return `<div id="adminOverlay" class="admin-overlay">
       <div class="admin-panel">
-        <div class="admin-header">
-          <div class="admin-logo"><span>X</span> Admin</div>
-          <button class="admin-close" onclick="closeAdmin()">✕</button>
-        </div>
+        <div class="admin-header"><div class="admin-logo"><span>X</span> Admin</div><button class="admin-close" onclick="closeAdmin()">✕</button></div>
         <div class="admin-body">
-          <div class="admin-top-stats">
-            <div class="ast"><div class="ast-num" id="aStat1">0</div><div class="ast-label">Total Orders</div></div>
-            <div class="ast"><div class="ast-num" id="aStat2">0</div><div class="ast-label">Active</div></div>
-            <div class="ast"><div class="ast-num" id="aStat3">0</div><div class="ast-label">Delivered</div></div>
-          </div>
+          <div class="admin-top-stats"><div class="ast"><div class="ast-num" id="aStat1">0</div><div class="ast-label">Total Orders</div></div><div class="ast"><div class="ast-num" id="aStat2">0</div><div class="ast-label">Active</div></div><div class="ast"><div class="ast-num" id="aStat3">0</div><div class="ast-label">Delivered</div></div></div>
           <div class="admin-section-title">Customer Orders</div>
-          <div id="adminOrdersList" class="admin-orders-list">
-            <div class="admin-empty">No orders yet.</div>
-          </div>
+          <div id="adminOrdersList" class="admin-orders-list"><div class="admin-empty">No orders yet.</div></div>
           <div class="admin-section-title" style="margin-top:28px">Update Order Status</div>
           <div class="admin-update-form">
-            <select class="cf-input" id="adminSelectUser">
-              <option value="">Select a customer...</option>
-            </select>
-            <select class="cf-input" id="adminSelectStatus" style="margin-top:10px">
-              <option value="placed">Order Placed</option>
-              <option value="crocheting">Being Crocheted</option>
-              <option value="packaging">Packaging</option>
-              <option value="delivering">Out for Delivery</option>
-              <option value="delivered">Delivered</option>
-            </select>
+            <select class="cf-input" id="adminSelectUser"><option value="">Select a customer...</option></select>
+            <select class="cf-input" id="adminSelectStatus" style="margin-top:10px"><option value="placed">Order Placed</option><option value="crocheting">Being Crocheted</option><option value="packaging">Packaging</option><option value="delivering">Out for Delivery</option><option value="delivered">Delivered</option></select>
             <button class="btn-primary" style="margin-top:12px;width:100%;justify-content:center" onclick="adminUpdateStatus()">Update Status &amp; Notify Customer</button>
           </div>
           <div class="admin-section-title" style="margin-top:28px">Quick WhatsApp</div>
           <div class="admin-wa-row">
             <input class="cf-input" type="tel" id="adminWaNum" placeholder="+91 XXXXXXXXXX" />
             <input class="cf-input" type="text" id="adminWaMsg" placeholder="Custom message..." style="margin-top:10px" />
-            <button class="btn-primary" style="margin-top:10px;width:100%;justify-content:center;background:#25D366" onclick="adminSendWA()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-              Send on WhatsApp
-            </button>
+            <button class="btn-primary" style="margin-top:10px;width:100%;justify-content:center;background:#25D366" onclick="adminSendWA()">Send on WhatsApp</button>
           </div>
         </div>
       </div>
     </div>`;
   }
-
-  function injectAndOpenAdmin() {
-    /* Inject styles */
-    injectAdminStyles();
-    /* Inject panel HTML into the mount point */
-    document.getElementById('adminMount').innerHTML = buildAdminHTML();
-    /* Show admin nav link */
-    document.getElementById('adminNavLink').style.display = 'inline';
-    /* Render data */
-    renderAdminPanel();
-  }
-
-  function openAdmin() {
-    const overlay = document.getElementById('adminOverlay');
-    if (!overlay) { injectAndOpenAdmin(); return; }
-    overlay.classList.remove('hidden');
-    document.body.classList.add('no-scroll');
-    renderAdminPanel();
-  }
-
-  function closeAdmin() {
-    const overlay = document.getElementById('adminOverlay');
-    if (overlay) overlay.classList.add('hidden');
-    document.body.classList.remove('no-scroll');
-  }
-
+  function injectAndOpenAdmin() { injectAdminStyles(); document.getElementById('adminMount').innerHTML=buildAdminHTML(); document.getElementById('adminNavLink').style.display='inline'; renderAdminPanel(); }
+  function openAdmin() { const overlay=document.getElementById('adminOverlay'); if (!overlay) { injectAndOpenAdmin(); return; } overlay.classList.remove('hidden'); document.body.classList.add('no-scroll'); renderAdminPanel(); }
+  function closeAdmin() { const overlay=document.getElementById('adminOverlay'); if(overlay) overlay.classList.add('hidden'); document.body.classList.remove('no-scroll'); }
   function renderAdminPanel() {
-    const users = getUsers();
-    const emails = Object.keys(users);
-    const delivered = emails.filter(e => users[e].status === 'delivered').length;
-    const s1 = document.getElementById('aStat1');
-    const s2 = document.getElementById('aStat2');
-    const s3 = document.getElementById('aStat3');
-    if (s1) s1.textContent = emails.length;
-    if (s2) s2.textContent = emails.length - delivered;
-    if (s3) s3.textContent = delivered;
-
-    const list = document.getElementById('adminOrdersList');
-    const sel  = document.getElementById('adminSelectUser');
-    if (!list || !sel) return;
-    sel.innerHTML = '<option value="">Select a customer...</option>';
-
-    if (!emails.length) {
-      list.innerHTML = '<div class="admin-empty">No orders yet. Customers will appear here when they sign up.</div>';
-      return;
-    }
-    list.innerHTML = '';
+    const users=getUsers(); const emails=Object.keys(users); const delivered=emails.filter(e=>users[e].status==='delivered').length;
+    const s1=document.getElementById('aStat1'); const s2=document.getElementById('aStat2'); const s3=document.getElementById('aStat3');
+    if(s1) s1.textContent=emails.length; if(s2) s2.textContent=emails.length-delivered; if(s3) s3.textContent=delivered;
+    const list=document.getElementById('adminOrdersList'); const sel=document.getElementById('adminSelectUser'); if(!list||!sel) return;
+    sel.innerHTML='<option value="">Select a customer...</option>';
+    if(!emails.length) { list.innerHTML='<div class="admin-empty">No orders yet.</div>'; return; }
+    list.innerHTML='';
     emails.forEach(email => {
-      const u = users[email];
-      const statusLabel = STATUS_LABELS[u.status] || 'Order Placed';
-      const statusClass = u.status || 'placed';
-      const row = document.createElement('div');
-      row.className = 'admin-order-row';
-      row.innerHTML = `
-        <div class="aor-info">
-          <div class="aor-name">${u.name}</div>
-          <div class="aor-email">${u.email}</div>
-          <div class="aor-phone">${u.phone || '—'}</div>
-        </div>
-        <div class="aor-right">
-          <div class="aor-status status-${statusClass}">${statusLabel}</div>
-          <button class="aor-wa-btn" onclick="adminQuickMsg('${u.phone}','${u.name}','${u.status}')">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.52 3.66 1.428 5.18L2.1 21.9l4.837-1.27A9.932 9.932 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-            Message
-          </button>
-        </div>`;
+      const u=users[email]; const statusLabel=STATUS_LABELS[u.status]||'Order Placed'; const statusClass=u.status||'placed';
+      const row=document.createElement('div'); row.className='admin-order-row';
+      row.innerHTML=`<div class="aor-info"><div class="aor-name">${u.name}</div><div class="aor-email">${u.email}</div><div class="aor-phone">${u.phone||'—'}</div></div><div class="aor-right"><div class="aor-status status-${statusClass}">${statusLabel}</div><button class="aor-wa-btn" onclick="adminQuickMsg('${u.phone}','${u.name}','${u.status}')">Message</button></div>`;
       list.appendChild(row);
-      const opt = document.createElement('option');
-      opt.value = email;
-      opt.textContent = `${u.name} (${email})`;
-      sel.appendChild(opt);
+      const opt=document.createElement('option'); opt.value=email; opt.textContent=`${u.name} (${email})`; sel.appendChild(opt);
     });
   }
-
   function adminUpdateStatus() {
-    const email  = document.getElementById('adminSelectUser').value;
-    const status = document.getElementById('adminSelectStatus').value;
-    if (!email) { showToast('Please select a customer.'); return; }
-    const users = getUsers();
-    if (!users[email]) { showToast('User not found.'); return; }
-    users[email].status = status;
-    saveUsers(users);
-    renderAdminPanel();
-    const u = users[email];
-    const statusLabel = STATUS_LABELS[status];
-    const msg = `🧶 *Xcrochets Order Update*\n\nHi ${u.name}! 👋\n\nYour order status has been updated:\n\n✨ *${statusLabel}*\n\n${getStatusEmoji(status)} ${getStatusMessage(status)}\n\nThank you for choosing Xcrochets! 🌿`;
-    if (u.phone) {
-      const phone = u.phone.replace(/\D/g, '');
-      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
+    const email=document.getElementById('adminSelectUser').value; const status=document.getElementById('adminSelectStatus').value;
+    if(!email) { showToast('Please select a customer.'); return; }
+    const users=getUsers(); if(!users[email]) { showToast('User not found.'); return; }
+    users[email].status=status; saveUsers(users); renderAdminPanel();
+    const u=users[email]; const statusLabel=STATUS_LABELS[status];
+    const msg=`🧶 *Xcrochets Order Update*\n\nHi ${u.name}! 👋\n\nYour order status has been updated:\n\n✨ *${statusLabel}*\n\n${getStatusEmoji(status)} ${getStatusMessage(status)}\n\nThank you for choosing Xcrochets! 🌿`;
+    if(u.phone) { const phone=u.phone.replace(/\D/g,''); window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank'); }
     showToast(`Status updated to "${statusLabel}"`);
   }
+  function getStatusEmoji(s) { return {placed:'📋',crocheting:'🧶',packaging:'📦',delivering:'🚚',delivered:'❤️'}[s]||'✨'; }
+  function getStatusMessage(s) { return {placed:'We have received your order and will begin crafting it soon!',crocheting:'Our artisan is currently crafting your piece with love, stitch by stitch.',packaging:'Your order is all done and being carefully packaged for you!',delivering:'Your handcrafted piece is on its way to you!',delivered:'Your order has been delivered! We hope you love it. 🌸'}[s]||''; }
+  function adminQuickMsg(phone,name,status) { if(!phone) { showToast('No phone number for this customer.'); return; } const p=phone.replace(/\D/g,''); const msg=`Hi ${name}! 👋 This is Xcrochets. How are you? Is there anything we can help you with?`; window.open(`https://wa.me/${p}?text=${encodeURIComponent(msg)}`,'_blank'); }
+  function adminSendWA() { const phone=document.getElementById('adminWaNum').value.replace(/\D/g,''); const msg=document.getElementById('adminWaMsg').value; if(!phone||!msg) { showToast('Please enter phone and message.'); return; } window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank'); }
 
-  function getStatusEmoji(s) {
-    return { placed:'📋', crocheting:'🧶', packaging:'📦', delivering:'🚚', delivered:'❤️' }[s] || '✨';
-  }
-  function getStatusMessage(s) {
-    return {
-      placed: 'We have received your order and will begin crafting it soon!',
-      crocheting: 'Our artisan is currently crafting your piece with love, stitch by stitch.',
-      packaging: 'Your order is all done and being carefully packaged for you!',
-      delivering: 'Your handcrafted piece is on its way to you!',
-      delivered: 'Your order has been delivered! We hope you love it. 🌸'
-    }[s] || '';
-  }
-
-  function adminQuickMsg(phone, name, status) {
-    if (!phone) { showToast('No phone number for this customer.'); return; }
-    const p = phone.replace(/\D/g, '');
-    const msg = `Hi ${name}! 👋 This is Xcrochets. How are you? Is there anything we can help you with?`;
-    window.open(`https://wa.me/${p}?text=${encodeURIComponent(msg)}`, '_blank');
-  }
-
-  function adminSendWA() {
-    const phone = document.getElementById('adminWaNum').value.replace(/\D/g, '');
-    const msg   = document.getElementById('adminWaMsg').value;
-    if (!phone || !msg) { showToast('Please enter phone and message.'); return; }
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-  }
-
-  /* ══════════ REVEAL ══════════ */
+  /* ── REVEAL ── */
   const ro = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1229,6 +1196,8 @@
   }, { threshold: .07 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
+  /* Auto-login on load */
+  if (currentUserEmail) { showOrderStatus(); }
   </script>
 </body>
 </html>
